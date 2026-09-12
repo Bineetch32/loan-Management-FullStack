@@ -1,18 +1,36 @@
-# Home Loan Management – Backend
+# Home Loan Management — Backend
 
 Spring Boot REST API for the Home Loan Management application.
 
-## Tech Stack
-- Java 17
-- Spring Boot 2.7.4
-- Spring Data JPA
+## Responsibilities
+
+- Home loan application CRUD operations
+- Customer, address, guarantor, bank-account and document data handling
+- Loan enquiry management
+- Email notification support
+- CIBIL-related processing
+
+## Technology
+
+- Java
+- Spring Boot
+- Spring Data JPA / Hibernate
 - MySQL
-- Spring Mail
 - Maven
+- JavaMail
 
-## Run locally
-1. Configure the required database and mail settings locally.
-2. Run `./mvnw spring-boot:run` or start the application from your IDE.
-3. The API runs on port `8081` by default.
+## Configuration
 
-> Never commit database passwords, email credentials, API keys, or other secrets.
+Create `src/main/resources/application.properties` locally from `application-example.properties` and provide your own database/email credentials.
+
+**Do not commit credentials or other secrets to the repository.**
+
+## Run
+
+From the `backend` directory:
+
+```bash
+mvn spring-boot:run
+```
+
+Or run `HomeLoanApplication` from your IDE.
