@@ -1,0 +1,30 @@
+<table border="2">
+    <thead>
+    <tr>
+        <th>Customer Id</th>
+        <th>UidCopy</th>
+        <th>PanCopy</th>
+        <th>BankPassBookCopy</th>
+        <th>Photo</th>
+        <th>Signature</th>
+        <th>CancelledCheck</th>
+        <th>SalarySlip</th>
+        
+    </tr>
+    </thead>
+    <tbody *ngIf="retrievedDoc">
+        <tr *ngFor="let c of retrievedDoc">
+            <td>{{c.id}}</td>
+            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.uidCopy" height="150"></td>
+            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.panCopy" height="150"></td>
+            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.bankPassBookCopy" height="150"></td>
+            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.photo" height="150"></td>
+            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.signature" height="150"></td>
+            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.cancelledCheck" height="150"></td>
+            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.salarySlip" height="150"></td>
+           
+            
+        </tr>
+    </tbody>
+    </table>
+    

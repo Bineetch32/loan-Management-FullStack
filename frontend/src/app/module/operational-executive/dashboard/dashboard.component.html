@@ -1,0 +1,58 @@
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+        <!-- Sidebar Heading -->
+        <div class="sidebar-heading">OPERATIONAL Dashboard</div>
+        <!-- List of Links -->
+        <div class="list-group list-group-flush">
+            <!-- Router Link for CIBIL Status -->
+            <a routerLink="cibilstatus" class="list-group-item list-group-item-action bg-light">CIBIL STATUS</a>
+            <!-- Other Sidebar Links -->
+            <a routerLink="ne" class="list-group-item list-group-item-action bg-light">New-Enquiry</a>
+            <a routerLink="el" class="list-group-item list-group-item-action bg-light">Enquiry-list</a>
+            <a routerLink="ed" class="list-group-item list-group-item-action bg-light">Enquiry-Detail</a>
+            
+
+            <a routerLink="email" class="list-group-item list-group-item-action bg-light">Email</a>
+        </div>
+    </div>
+    <!-- /#sidebar-wrapper -->
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <!-- Menu Toggle Button -->
+            <button class="btn btn-primary" id="menu-toggle"> Menu</button>
+            <!-- Navbar Toggler Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navbar Content -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Navbar Items -->
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <!-- Dropdown for Logout -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="login" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            LOG OUT
+                        </a>
+                        <!-- Dropdown Menu -->
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Main Content Area -->
+        <div class="container-fluid">
+            <!-- Router Outlet for Dynamic Component Rendering -->
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+  </div>
+  <!-- /#wrapper -->

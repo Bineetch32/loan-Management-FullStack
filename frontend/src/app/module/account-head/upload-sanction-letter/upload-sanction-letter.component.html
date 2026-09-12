@@ -1,0 +1,32 @@
+
+
+<h1>Email</h1>
+<form  [formGroup]="emailForm" >
+    <div class="container">
+<table class="table table-sm table-bordered m-t-4 table-striped">
+
+  <!-- <tr><td>searchById:<input type="number" formControlName="id"></td><br><br></tr> -->
+  <tr>
+  <td>toEmail:<input type="text" formControlName="toEmail"></td><br><br></tr>
+  
+  <!-- <tr><td>subject:<input type="text" formControlName="subject"></td><br><br></tr>
+ 
+  <tr><td>textBody:<input type="text" formControlName="testBody"></td><br><br></tr> -->
+
+  
+     <!-- <tr><td>file:<input type="file" class="custom-file-input" id="customFile" (change)="onSelectedFile1($event)" /> -->
+     
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile" (change)="onSelectedFile1($event)" />
+        <img [src]="imageSrc1" height="50">
+        <label class="custom-file-label" for="customFile">Attachment</label>
+      </div>
+      <br /><br />
+  <tr>
+  <!-- <td><button class="bg-primary" type="submit" (click)="submitCall()">mail</button></td> -->
+  <!-- <td><button class="bg-primary" type="submit" (click)="sendd()">send</button></td> -->
+  <td><button class="bg-primary" type="submit" (click)="sendd()">send</button></td>
+</tr>
+</table>
+</div>
+</form>

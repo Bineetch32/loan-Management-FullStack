@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Page Title</title>
+</head>
+<body>
+  <!-- Header Section -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+      <!-- Logo -->
+      <h1 class="logo me-auto"><a href="#">Lucifer Finance</a></h1>
+
+      <!-- Navigation Menu -->
+      <nav id="navbar" class="navbar">
+        <!-- Navigation Links -->
+        <ul>
+          <li><a class="nav-link scrollto" href="/about">About</a></li>
+          <li><a class="nav-link scrollto" href="services">Services</a></li>
+          <li><a class="nav-link scrollto" href="/team">Team</a></li>
+          <!-- Dropdown Menu -->
+          <li class="dropdown">
+            <a href="#"><span>Menu</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="#">My Profile</a></li>
+              <li><a href="document">Document</a></li>
+              <!-- Nested Dropdown Menu -->
+              <li class="dropdown">
+                <a href="#"><span>Information</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="#">Homeloan Info</a></li>
+                  <li><a href="#">Scheme Info</a></li>
+                  <li><a href="#">Albums</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Help</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a routerLink="/login" class="nav-link scrollto">Login</a></li>
+        
+        </ul>
+        <!-- Mobile Navigation Toggle Icon -->
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+     
+    </div>
+
+  </header>
+
+  <!-- Main Content Section -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+          <!-- Headline -->
+          <h1 class="dancing-text">Bas Marzi Hamari Hogi..!</h1>
+          <!-- Subheadline -->
+          <h2><div class="icon"><i class="fa fa-heart" aria-hidden="true">Powered by Lucifer MorningStar..!</i></div></h2>
+          <!-- Call-to-Action Buttons -->
+          <div class="d-flex justify-content-center justify-content-lg-start">
+            <a href="#about" class="btn-get-started scrollto">Get Started</a>
+            <a href="https://www.youtube.com/watch?v=PSq7sDBeKxA" class="glightbox btn-watch-video">
+              <i class="bi bi-play-circle"></i><span>Watch Video</span>
+            </a>
+          </div>
+        </div>
+        <!-- Hero Image -->
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="assets\img\agriculture_loan.jpg" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </section>
+
+  <!-- Footer Section -->
+  <footer id="footer">
+    <!-- Newsletter Subscription -->
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4>Join Our Youtube Channel</h4>
+            <p>Please visit our Youtube Blog. You will get concert-related updates there!</p>
+            <form action="" method="post">
+              <input type="email" name="email">
+              <input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Top: Contact Information, Useful Links, Our Services, Our Social Networks -->
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <!-- Contact Information -->
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>EasyLoan</h3>
+            <p>Pune<br> Punjab<br> India <br><br>
+              <strong>Phone:</strong> +91 ** ** **<br>
+              <strong>Email:</strong> <a href="#" class="_cf_email_">[email&#160;protected]</a><br>
+            </p>
+          </div>
+          <!-- Useful Links -->
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+          <!-- Our Services -->
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><a href="#">Home Loan</a></li>
+              <li><a href="#">Scheme</a></li>
+              <li><a href="#">Calculators</a></li>
+              <li><a href="#">Marketing</a></li>
+              <li><a href="#">Information</a></li>
+            </ul>
+          </div>
+          <!-- Our Social Networks -->
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>Easy welcomes you to explore the world of premier loan in India. Our commitment to nation-building is complete & comprehensive. Home Loans come to you on the solid foundation of trust and transparency built in the tradition of Easyloan.</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer Bottom: Privacy Policy, Terms of Use -->
+    <div class="container d-md-flex py-4">
+      <div class="me-md-auto text-center text-md-start">
+        <div class="credits">
+          <!-- Privacy Policy -->
+          <a href="privacy.html">Privacy Policy</a>
+          <!-- Terms of Use -->
+          <a href="terms.html">Terms of Use</a>
+        </div>
+      </div>
+      <div class="social-links text-center text-md-right pt-3 pt-md-0">
+        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

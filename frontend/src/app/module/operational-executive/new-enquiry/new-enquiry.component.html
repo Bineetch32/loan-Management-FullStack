@@ -1,0 +1,46 @@
+<form [formGroup]="loginForm" (ngSubmit)="submitCall()">
+   
+    <div class="form-group row">
+      <label for="customername2" class="col-sm-3 col-form-label">CUSTOMER Name:</label>
+      <div class="col-md-6 mb-3">
+        <input type="text" class="form-control" id="customername2" formControlName="customerName" placeholder="Enter customer Name">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="customername2" class="col-sm-3 col-form-label">CUSTOMER MobileNo:</label>
+      <div class="col-md-6 mb-3">
+        <input type="text" class="form-control" id="customername2" formControlName="customerMobileno" placeholder="Enter customer MobileNo">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="customermobileno4" class="col-sm-3 col-form-label">CUSTOMER EmailId:</label>
+      <div class="col-md-6 mb-3">
+        <input type="text" class="form-control" id="customermobileno4" formControlName="customerEmailId" placeholder="Enter customer EmailId">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="customeradharno5" class="col-sm-3 col-form-label">CUSTOMER  panNo:</label>
+      <div class="col-md-6 mb-3">
+        <input type="text" class="form-control" id="customeradharno5" formControlName="customerPanNo" placeholder="Enter customer pancardNo">
+      </div>
+      </div>
+      
+      <!-- <div class="form-group row">
+        <label for="customeradharno5" class="col-sm-3 col-form-label">CUSTOMER CIBIL SCORE:</label>
+        <div class="col-md-6 mb-3">
+          <input type="text" class="form-control" id="cibilscore" formControlName="cibil" placeholder="Enter customer CIBIL score">
+        </div>
+    </div><br><br>
+
+    <div class="form-group row">
+      <label for="customeradharno5" class="col-sm-3 col-form-label">Customer Eligibilty:</label>
+      <div class="col-md-6 mb-3">
+        <input type="text" class="form-control" id="cibilscore" formControlName="eligiblity" placeholder="Enter customer CIBIL score">
+      </div>
+  </div><br><br> -->
+    <div>
+    <input type="submit" class="btn btn-success" style="margin:auto;display:block;font-weight :bold;" class="alert alert-success" role="alert" value="SUBMIT">
+    
+    </div>
+</form>
+    

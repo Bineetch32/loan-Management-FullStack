@@ -1,0 +1,33 @@
+<h2> Application List</h2>
+<div class="container">
+<table class="table table-sm table-bordered m-t-2 table-striped">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>customerName</th>
+        <th>customerMobileno</th>
+        <th>customerEmailId</th> 
+        <th>customerPanNo</th>
+        <!-- <th>cibil</th> -->
+       <th>Document Verification Status</th>
+      
+    </tr>
+    </thead>
+    <tbody *ngIf="retrievedDoc">
+        <tr *ngFor="let c of retrievedDoc">
+            <ng-container *ngIf="c.verificationn == 'Varified'">
+    
+             <td>{{c.id}}</td>
+             <td>{{c.customerName}}</td>
+             <td>{{c.customerMobileno}}</td>
+             <td>{{c.customerEmailId}}</td>
+             <td>{{c.customerPanNo}}</td>
+             <!-- <td>{{c.cibil}}</td> -->
+             <td>{{c.verificationn}}</td>
+            </ng-container>
+            
+        </tr> 
+    </tbody>
+    </table><br>
+    <br>
+</div>

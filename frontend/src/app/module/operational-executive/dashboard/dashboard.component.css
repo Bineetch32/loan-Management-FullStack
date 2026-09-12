@@ -1,0 +1,48 @@
+body {
+    background: rgb(5, 68, 104);
+    overflow-x: hidden;
+  }
+  
+  
+  #sidebar-wrapper {
+    background: rgb(5, 68, 104);
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+  }
+  #sidebar-wrapper .sidebar-heading {
+    background: rgb(5, 68, 104);
+    padding: 1.25rem 1.25rem;
+    font-size: 1.2rem;
+  }
+  #sidebar-wrapper .list-group {
+    background: rgb(5, 68, 104);
+    width: 15rem;
+  }
+  #page-content-wrapper {
+    min-width: 100vw;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+    
+    margin-left: 0;
+  }
+  @media (min-width: 768px) {
+    #sidebar-wrapper {
+      
+      margin-left: 0;
+    }
+    #page-content-wrapper {
+      background: rgb(216, 223, 226);
+      min-width: 0;
+      width: 100%;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+      background: rgb(27, 67, 83);
+      margin-left: -15rem;
+    }
+  
+    
+  }

@@ -1,0 +1,39 @@
+<div class="container">
+    <table border="2">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>customerName</th>
+            <th>customerMobileno</th>
+            <th>customerEmailId</th> 
+            <th>customerPanNo</th>
+           <th> Loan Status</th>
+           <th>Verify</th>
+           <th>Reject</th> 
+             
+            
+           
+          </tr>
+          </thead>
+          <tbody *ngIf="retrievedDoc">
+          <tr *ngFor="let c of retrievedDoc">
+          <ng-container *ngIf="c.loanStatus =='Approved'">
+            <ng-container *ngIf="c.verificationn !=='Varified'">
+        
+                    
+                 <td>{{c.id}}</td>
+                 <td>{{c.customerName}}</td>
+                 <td>{{c.customerMobileno}}</td>
+                 <td>{{c.customerEmailId}}</td>
+                 <td>{{c.customerPanNo}}</td>
+                 <!-- <td>{{c.cibil||enq1.cibil}}</td> -->
+                 <td>{{c.loanStatus}}</td>
+                 <td><button  class="btn btn-info" fomControlName="verificationn" (click)="verificationCall(c)">Verify</button> </td>
+                 <td><button class="btn btn-danger" fomControlName="verificationn" (click)="rejectCall(c)">Reject</button> </td>
+                 </ng-container>
+                 </ng-container>
+                 </tbody>
+                 </table>
+                 </div>
+       
+    
