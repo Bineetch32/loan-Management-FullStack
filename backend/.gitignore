@@ -1,5 +1,5 @@
 # Maven
-target/
+/target/
 
 # IDE
 .classpath
@@ -22,5 +22,6 @@ Thumbs.db
 *.log
 
 # Local configuration / secrets
+application.properties
 application-local.properties
 application-secret.properties
