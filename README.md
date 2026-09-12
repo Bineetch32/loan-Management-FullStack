@@ -1,43 +1,93 @@
-# Home Loan Management System — Angular Frontend
+# Home Loan Management System
 
-Angular 17 frontend for the Home Loan Management System. It connects to the Spring Boot backend on `http://localhost:8081`.
+A full-stack Home Loan Management System built with **Angular 17** and **Spring Boot 2.7.4**, with MySQL persistence and email-notification support.
 
-## Requirements
+## Project Structure
 
-- Node.js 18+
-- npm
-- Spring Boot backend running on port 8081
+```text
+loan-Management-FullStack/
+├── frontend/     # Angular 17 application
+└── backend/      # Spring Boot REST API
+```
 
-## Run locally
+## Technology Stack
+
+### Frontend
+- Angular 17
+- TypeScript
+- RxJS
+- HTML / SCSS
+- Angular Router and Forms
+
+### Backend
+- Java 17
+- Spring Boot 2.7.4
+- Spring Data JPA / Hibernate
+- Maven
+- MySQL
+- JavaMail / SMTP
+
+## Main Features
+
+- Role-based loan-management workflow
+- Customer loan enquiry
+- Customer home-loan application
+- Multipart upload of required loan documents
+- Document verification / unverification
+- Branch-manager approval and rejection
+- CIBIL score simulation for demonstration
+- Sanction-letter workflow
+- Email notifications and attachment support
+- EMI calculator
+
+## Run Locally
+
+### 1. Start the backend
 
 ```bash
+cd backend
+mvn spring-boot:run
+```
+
+The backend runs on:
+
+`http://localhost:8081`
+
+Before starting it, configure your local database and SMTP settings. **Do not commit credentials.** Use `application.properties` locally; it is ignored by Git.
+
+An example configuration is provided at:
+
+`backend/src/main/resources/application-example.properties`
+
+### 2. Start the frontend
+
+```bash
+cd frontend
 npm install
 npm start
 ```
 
-Open `http://localhost:4200/`.
+Open:
 
-## Main modules
+`http://localhost:4200/`
 
-- Login / role-based navigation
-- Loan enquiry
-- Customer loan application
-- Document upload and verification
-- Branch-manager approval/rejection
-- Account-head sanction-letter workflow
-- Email notifications
-- EMI calculator
+The Angular application expects the Spring Boot backend on port `8081`.
 
-## Backend API
+## Source-Control Notes
 
-The frontend currently expects these backend endpoints on port 8081, including customer application, enquiry, verification, approval, rejection, and email APIs.
+The repository intentionally excludes generated/dependency files such as:
 
-## Source-control notes
-
-`node_modules`, Angular cache, build output, IDE files, and test/spec artifacts are intentionally excluded from the production source package.
-
-Do not commit `application.properties` or any database/SMTP credentials. Use a local configuration file instead.
+- `node_modules/`
+- Angular cache
+- Maven `target/`
+- IDE metadata
+- Local `application.properties`
+- Database/SMTP credentials
 
 ## Important
 
-The CIBIL endpoint currently generates a simulated score for demonstration purposes; it is not a real credit-bureau integration.
+The CIBIL functionality is a **simulated/demo implementation** and is not connected to a real credit bureau.
+
+## Security
+
+Never commit passwords, API keys, SMTP app passwords, or database credentials to GitHub. If a credential has ever been exposed in source code, revoke/rotate it immediately.
