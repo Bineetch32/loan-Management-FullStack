@@ -1,68 +1,43 @@
-# Loan Management Full Stack
+# Home Loan Management System — Angular Frontend
 
-A full-stack Home Loan Management application built with **Angular 17, Spring Boot 2.7.4, Spring Data JPA and MySQL**.
+Angular 17 frontend for the Home Loan Management System. It connects to the Spring Boot backend on `http://localhost:8081`.
 
-## Project Structure
+## Requirements
 
-```text
-loan-Management-FullStack/
-├── backend/     # Spring Boot REST API
-└── frontend/    # Angular 17 application
+- Node.js 18+
+- npm
+- Spring Boot backend running on port 8081
+
+## Run locally
+
+```bash
+npm install
+npm start
 ```
 
-## Backend
+Open `http://localhost:4200/`.
 
-- Java 17
-- Spring Boot 2.7.4
-- Spring MVC / REST
-- Spring Data JPA / Hibernate
-- MySQL
-- Maven
-- JavaMail
+## Main modules
 
-Runs on `http://localhost:8081`.
-
-## Frontend
-
-- Angular 17
-- TypeScript
-- Bootstrap
-- RxJS
-- PDF generation support
-
-Runs on `http://localhost:4200` and expects the backend on port 8081.
-
-## Main Features
-
-- Loan enquiry management
+- Login / role-based navigation
+- Loan enquiry
 - Customer loan application
-- Customer, guarantor, address and bank details
-- Multipart upload of loan documents
-- Document verification
+- Document upload and verification
 - Branch-manager approval/rejection
-- Sanction-letter/email workflow
-- CIBIL-score simulation for demonstration
+- Account-head sanction-letter workflow
+- Email notifications
 - EMI calculator
 
-## Running Locally
+## Backend API
 
-1. Create the MySQL database used by the backend.
-2. Copy `backend/src/main/resources/application-example.properties` to `application.properties` and set your local credentials.
-3. Start the Spring Boot backend on port 8081.
-4. In `frontend/`, run `npm install` and `npm start`.
-5. Open `http://localhost:4200`.
+The frontend currently expects these backend endpoints on port 8081, including customer application, enquiry, verification, approval, rejection, and email APIs.
 
-## Security
+## Source-control notes
 
-Real database and SMTP credentials must never be committed to GitHub. Local configuration files are ignored by Git.
+`node_modules`, Angular cache, build output, IDE files, and test/spec artifacts are intentionally excluded from the production source package.
 
-> Note: the CIBIL feature generates a simulated score for demonstration/academic use; it is not a real credit-bureau integration.
+Do not commit `application.properties` or any database/SMTP credentials. Use a local configuration file instead.
 
-## Development Status
+## Important
 
-- [x] Spring Boot backend added and cleaned
-- [x] Sensitive local configuration excluded
-- [x] Angular frontend source cleaned and prepared
-- [x] Loan-document submission flow fixed so the API call happens before page reload
-- [x] Email-with-attachment flow fixed so the page reloads only after a successful API response
-- [ ] Upload complete Angular source/assets to the GitHub `frontend/` directory
+The CIBIL endpoint currently generates a simulated score for demonstration purposes; it is not a real credit-bureau integration.
