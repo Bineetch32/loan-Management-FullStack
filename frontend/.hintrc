@@ -1,0 +1,50 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "typescript-config/strict": "off",
+    "axe/text-alternatives": [
+      "default",
+      {
+        "image-alt": "off"
+      }
+    ],
+    "no-inline-styles": "off",
+    "axe/forms": [
+      "default",
+      {
+        "label": "off",
+        "select-name": "off"
+      }
+    ],
+    "axe/name-role-value": [
+      "default",
+      {
+        "link-name": "off"
+      }
+    ],
+    "axe/structure": [
+      "default",
+      {
+        "list": "off",
+        "listitem": "off"
+      }
+    ],
+    "axe/aria": [
+      "default",
+      {
+        "aria-input-field-name": "off",
+        "aria-required-children": "off"
+      }
+    ],
+    "button-type": "off",
+    "axe/parsing": [
+      "default",
+      {
+        "marquee": "off",
+        "duplicate-id-active": "off"
+      }
+    ]
+  }
+}
