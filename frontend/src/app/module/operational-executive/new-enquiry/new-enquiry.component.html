@@ -30,7 +30,9 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary enquiry-btn">Save Enquiry</button>
+      <button type="submit" class="btn btn-primary enquiry-btn" [disabled]="saving">
+        {{ saving ? 'Saving...' : 'Save Enquiry' }}
+      </button>
     </form>
   </div>
 </div>
