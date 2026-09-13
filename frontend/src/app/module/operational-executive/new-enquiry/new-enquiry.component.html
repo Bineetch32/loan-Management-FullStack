@@ -1,46 +1,36 @@
-<form [formGroup]="loginForm" (ngSubmit)="submitCall()">
-   
-    <div class="form-group row">
-      <label for="customername2" class="col-sm-3 col-form-label">CUSTOMER Name:</label>
-      <div class="col-md-6 mb-3">
-        <input type="text" class="form-control" id="customername2" formControlName="customerName" placeholder="Enter customer Name">
-      </div>
+<div class="enquiry-page">
+  <div class="enquiry-card">
+    <div class="enquiry-header">
+      <h2>NEW ENQUIRY</h2>
+      <p>Enter basic customer details to create a loan enquiry.</p>
     </div>
-    <div class="form-group row">
-      <label for="customername2" class="col-sm-3 col-form-label">CUSTOMER MobileNo:</label>
-      <div class="col-md-6 mb-3">
-        <input type="text" class="form-control" id="customername2" formControlName="customerMobileno" placeholder="Enter customer MobileNo">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="customermobileno4" class="col-sm-3 col-form-label">CUSTOMER EmailId:</label>
-      <div class="col-md-6 mb-3">
-        <input type="text" class="form-control" id="customermobileno4" formControlName="customerEmailId" placeholder="Enter customer EmailId">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="customeradharno5" class="col-sm-3 col-form-label">CUSTOMER  panNo:</label>
-      <div class="col-md-6 mb-3">
-        <input type="text" class="form-control" id="customeradharno5" formControlName="customerPanNo" placeholder="Enter customer pancardNo">
-      </div>
-      </div>
-      
-      <!-- <div class="form-group row">
-        <label for="customeradharno5" class="col-sm-3 col-form-label">CUSTOMER CIBIL SCORE:</label>
-        <div class="col-md-6 mb-3">
-          <input type="text" class="form-control" id="cibilscore" formControlName="cibil" placeholder="Enter customer CIBIL score">
-        </div>
-    </div><br><br>
 
-    <div class="form-group row">
-      <label for="customeradharno5" class="col-sm-3 col-form-label">Customer Eligibilty:</label>
-      <div class="col-md-6 mb-3">
-        <input type="text" class="form-control" id="cibilscore" formControlName="eligiblity" placeholder="Enter customer CIBIL score">
+    <form [formGroup]="loginForm" (ngSubmit)="submitCall()">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Customer Name</label>
+          <input type="text" class="form-control" formControlName="customerName" placeholder="Enter customer name">
+        </div>
+
+        <div class="form-group">
+          <label>Customer Mobile No.</label>
+          <input type="text" class="form-control" formControlName="customerMobileno" placeholder="Enter mobile number">
+        </div>
       </div>
-  </div><br><br> -->
-    <div>
-    <input type="submit" class="btn btn-success" style="margin:auto;display:block;font-weight :bold;" class="alert alert-success" role="alert" value="SUBMIT">
-    
-    </div>
-</form>
-    
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Customer Email</label>
+          <input type="email" class="form-control" formControlName="customerEmailId" placeholder="Enter email address">
+        </div>
+
+        <div class="form-group">
+          <label>Customer PAN No.</label>
+          <input type="text" class="form-control" formControlName="customerPanNo" placeholder="Enter PAN number">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary enquiry-btn">Save Enquiry</button>
+    </form>
+  </div>
+</div>
