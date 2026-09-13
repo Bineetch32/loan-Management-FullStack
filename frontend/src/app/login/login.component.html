@@ -1,76 +1,55 @@
-<div class="container">
-  <div class="row py-5 mt-4 align-items-center">
-      <!-- Image Section (For Demo Purpose) -->
-      <div class="col-md-8 banner-sec">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-             <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              
-              </ol>
-        <div class="carousel-inner" role="listbox">
-<div class="carousel-item active">
-  <img class="d-block img-fluid" src="assets\img\pexels-ken-tomita-389819.jpg" alt="First slide">
-  <div class="carousel-caption d-none d-md-block">	
-</div>
-</div>
-
-        </div>	   
-</div>
-</div>
-
-      <!-- Registration Form Section -->
-      <div class="col-md-7 col-lg-6 ml-auto">
-          <form action="#">
-              <div class="row">
-                  <!-- Username -->
-                  <div class="input-group col-lg-12 mb-4">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text bg-white px-4 border-md border-right-0">
-                              <i class="fa fa-user" aria-hidden="true"></i>
-                          </span>
-                      </div>
-                      <input id="username" type="username" name="username" placeholder="Username" [(ngModel)]="user" class="form-control bg-white border-left-0 border-md">
-                  </div>
-
-                  <!-- Password -->
-                  <div class="input-group col-lg-12 mb-4">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text bg-white px-4 border-md border-right-0">
-                              <i class="fa fa-lock text-muted"></i>
-                          </span>
-                      </div>
-                      <input id="password" type="password" name="password" placeholder="Password" [(ngModel)]="pass" class="form-control bg-white border-left-0 border-md">
-                  </div>
-
-                  <!-- Job Title -->
-                  <div class="input-group col-lg-12 mb-4">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text bg-white px-4 border-md border-right-0">
-                              <i class="fa fa-black-tie text-muted"></i>
-                          </span>
-                      </div>
-                      <select id="job" name="jobtitle" [(ngModel)]="role" class="form-control custom-select bg-white border-left-0 border-md">
-                          <option value="">Choose your job</option>
-                          <option value="Sales Executive">Sales Executive</option>
-                          <option value="Operational Executive">Operational Executive</option>
-                          <option value="Document Verification Officer">Document Verification Officer</option>
-                          <option value="Account Head">Account Head</option>
-                          <option value="Branch Manager">Branch Manager</option>
-                          <option value="ledger">Ledger</option>
-                      </select>
-                  </div>
-
-               <!-- Submit Button -->
-               <div class="form-group col-lg-12 mx-auto mb-0">
-                <button (click)="login()" class="btn btn-primary btn-block py-2">
-                    <span class="font-weight-bold">LOGIN</span>
-                </button>
-            </div>
-
-                  <!-- Error Message -->
-                  <h5 style="color: red">{{msg}}</h5>
-              </div>
-          </form>
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-image">
+      <img src="assets/img/pexels-ken-tomita-389819.jpg" alt="Finance workspace">
+      <div class="image-overlay">
+        <h1>LUCIFER FINANCE</h1>
+        <p>Home Loan Management System</p>
       </div>
+    </div>
+
+    <div class="login-panel">
+      <div class="login-heading">
+        <h2>Welcome Back</h2>
+        <p>Login to continue</p>
+      </div>
+
+      <form action="#">
+        <div class="input-group login-input">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-user"></i></span>
+          </div>
+          <input id="username" type="text" name="username" placeholder="Username" [(ngModel)]="user" class="form-control">
+        </div>
+
+        <div class="input-group login-input">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+          </div>
+          <input id="password" type="password" name="password" placeholder="Password" [(ngModel)]="pass" class="form-control">
+        </div>
+
+        <div class="input-group login-input">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-black-tie"></i></span>
+          </div>
+          <select id="job" name="jobtitle" [(ngModel)]="role" class="form-control custom-select">
+            <option value="">Choose your job</option>
+            <option value="Sales Executive">Sales Executive</option>
+            <option value="Operational Executive">Operational Executive</option>
+            <option value="Document Verification Officer">Document Verification Officer</option>
+            <option value="Account Head">Account Head</option>
+            <option value="Branch Manager">Branch Manager</option>
+            <option value="ledger">Ledger</option>
+          </select>
+        </div>
+
+        <button type="button" (click)="login()" class="login-button">
+          <span>LOGIN</span>
+        </button>
+
+        <h5 class="login-error">{{msg}}</h5>
+      </form>
+    </div>
   </div>
 </div>
