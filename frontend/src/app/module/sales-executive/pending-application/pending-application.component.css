@@ -1,0 +1,38 @@
+.pending-page {
+  padding: 25px;
+}
+
+.pending-page h2 {
+  margin-bottom: 20px;
+}
+
+.pending-page table {
+  width: 100%;
+  background: white;
+}
+
+.pending-page th {
+  background: #0d6efd;
+  color: white;
+  padding: 12px;
+}
+
+.pending-page td {
+  padding: 10px;
+}
+
+.no-data {
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+@media (max-width: 800px) {
+  .pending-page {
+    padding: 15px;
+    overflow-x: auto;
+  }
+
+  .pending-page table {
+    min-width: 700px;
+  }
+}
