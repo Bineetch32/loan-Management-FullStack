@@ -45,7 +45,15 @@
   box-sizing: border-box;
 }
 
+.loan-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 0;
+}
+
 .section-title {
+  grid-column: 1 / -1;
   margin: 0 0 22px;
   padding: 13px 16px;
   color: #123b75;
@@ -56,11 +64,8 @@
   font-weight: 700;
 }
 
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px 22px;
-  margin: 0;
+.loan-form > .form-row {
+  display: contents;
 }
 
 .form-group {
@@ -70,16 +75,13 @@
   padding: 0 !important;
 }
 
-.loan-form > .form-group.col-md-4,
-.loan-form > .form-group.col-md-6,
-.loan-form > .form-group.col-md-12 {
-  width: 100% !important;
+.loan-form > .form-group {
+  width: auto !important;
   max-width: none !important;
 }
 
-.loan-form > .form-row .form-group {
-  width: 100% !important;
-  max-width: none !important;
+.loan-form > [formGroupName] {
+  grid-column: 1 / -1;
 }
 
 .loan-form label,
@@ -124,7 +126,8 @@
 .loan-form [formGroupName="customerPermanentAddress"],
 .loan-form [formGroupName="guarantorDetails"],
 .loan-form [formGroupName="customerBankAccountDetails"] {
-  margin-top: 24px;
+  margin-top: 6px;
+  margin-bottom: 18px;
   padding: 20px;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
@@ -139,21 +142,10 @@
   font-weight: 700;
 }
 
-.loan-form [formGroupName="customerlocalAddress"]::before {
-  content: "Current Address";
-}
-
-.loan-form [formGroupName="customerPermanentAddress"]::before {
-  content: "Permanent Address";
-}
-
-.loan-form [formGroupName="guarantorDetails"]::before {
-  content: "Guarantor Details";
-}
-
-.loan-form [formGroupName="customerBankAccountDetails"]::before {
-  content: "Bank Account Details";
-}
+.loan-form [formGroupName="customerlocalAddress"]::before { content: "Current Address"; }
+.loan-form [formGroupName="customerPermanentAddress"]::before { content: "Permanent Address"; }
+.loan-form [formGroupName="guarantorDetails"]::before { content: "Guarantor Details"; }
+.loan-form [formGroupName="customerBankAccountDetails"]::before { content: "Bank Account Details"; }
 
 .loan-form [formGroupName] .row {
   display: grid;
@@ -162,9 +154,7 @@
   margin: 0;
 }
 
-.loan-form [formGroupName] .row .form-group {
-  width: 100% !important;
-}
+.loan-form [formGroupName] .row .form-group { width: 100% !important; }
 
 .loan-form button,
 .document-form + button,
@@ -178,18 +168,17 @@
 }
 
 .loan-form > button {
-  display: block;
+  grid-column: 1 / -1;
+  justify-self: end;
   min-width: 120px;
-  margin: 8px 0 0 auto;
+  margin: 4px 0 0;
   background: #0d6efd;
   color: #fff;
 }
 
 .loan-form > button:hover,
 .document-form + button:hover,
-.loan-card > div > button:hover {
-  filter: brightness(.94);
-}
+.loan-card > div > button:hover { filter: brightness(.94); }
 
 .document-form {
   display: grid;
@@ -241,11 +230,6 @@
   border-radius: 6px;
 }
 
-.document-form + br,
-.document-form br {
-  display: none;
-}
-
 .document-form + button {
   display: block;
   margin: 0 28px 28px auto;
@@ -253,43 +237,20 @@
   color: #fff;
 }
 
-.loan-card > div:last-child {
-  padding: 0 28px 28px;
-}
-
-.loan-card > div:last-child input[type="checkbox"] {
-  margin-right: 8px;
-}
-
-.loan-card > div:last-child button {
-  margin-top: 14px;
-  background: #0d6efd;
-  color: #fff;
-}
+.loan-card > div:last-child { padding: 0 28px 28px; }
+.loan-card > div:last-child input[type="checkbox"] { margin-right: 8px; }
+.loan-card > div:last-child button { margin-top: 14px; background: #0d6efd; color: #fff; }
 
 @media (max-width: 900px) {
-  .loan-request-page {
-    padding: 16px 12px 28px;
-  }
-
-  .loan-form,
-  .document-form {
-    padding: 20px 16px;
-  }
-
-  .form-row,
-  .document-form,
-  .loan-form [formGroupName] .row {
-    grid-template-columns: 1fr;
-  }
+  .loan-request-page { padding: 16px 12px 28px; }
+  .loan-form, .document-form { padding: 20px 16px; }
+  .loan-form { grid-template-columns: 1fr; }
+  .loan-form > [formGroupName], .section-title, .loan-form > button { grid-column: 1; }
+  .loan-form [formGroupName] .row { grid-template-columns: 1fr; }
+  .document-form { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
-  .loan-card > .card-header h4 {
-    font-size: 18px;
-  }
-
-  .section-title {
-    font-size: 17px;
-  }
+  .loan-card > .card-header h4 { font-size: 18px; }
+  .section-title { font-size: 17px; }
 }
