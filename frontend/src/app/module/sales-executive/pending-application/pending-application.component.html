@@ -1,1 +1,31 @@
-<p>pending-application works!</p>
+<div class="pending-page">
+  <h2>Pending Applications</h2>
+
+  <table class="table table-bordered table-striped" *ngIf="pendingApplications.length > 0">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Customer Name</th>
+        <th>Mobile No</th>
+        <th>Email</th>
+        <th>PAN No</th>
+        <th>Loan Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let c of pendingApplications">
+        <td>{{c.id}}</td>
+        <td>{{c.customerName}}</td>
+        <td>{{c.customerMobileno}}</td>
+        <td>{{c.customerEmailId}}</td>
+        <td>{{c.customerPanNo}}</td>
+        <td>{{c.loanStatus}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="no-data" *ngIf="pendingApplications.length === 0">
+    No pending applications found.
+  </p>
+</div>
