@@ -45,12 +45,12 @@ export class CommonService {
     return this.hc.get<Enquiry>("http://localhost:8081/getEnquiryById"+"/"+id);
   }
 
-  getcibilscore(enq:Enquiry):Observable<Enquiry>{
-    return this.hc.put<Enquiry>("http://localhost:8081/checkcibilscore"+"/"+enq.id,enq);
+  getcibilscore(enq:Enquiry) {
+    return this.hc.put("http://localhost:8081/checkcibilscore"+"/"+enq.id,enq,{ responseType: 'text' });
   }
 
   postDocument(uploadDocument: any) {
-    return this.hc.post<CustomerDetails>(this.setcustdata,uploadDocument);
+    return this.hc.post(this.setcustdata,uploadDocument,{ responseType: 'text' });
   }
 
   getApplicationData() {
