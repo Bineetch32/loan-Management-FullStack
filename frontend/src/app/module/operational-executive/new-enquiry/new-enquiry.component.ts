@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CommonService } from '../../../service/common.service';
 
 @Component({
@@ -7,38 +8,37 @@ import { CommonService } from '../../../service/common.service';
   templateUrl: './new-enquiry.component.html',
   styleUrl: './new-enquiry.component.css'
 })
-export class NewEnquiryComponent implements OnInit{
+export class NewEnquiryComponent implements OnInit {
 
-
-  constructor(private formBuilder: FormBuilder, public commonservice: CommonService) { }
   loginForm: FormGroup;
- 
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private commonservice: CommonService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      id:[],
-      customerName:[],
-      customerMobileno:[],
-      customerEmailId:[],
-      customerPanNo:[],
-      cibil:[],
-      loanStatus:[],
-
-
-    })
+      customerName: [''],
+      customerMobileno: [''],
+      customerEmailId: [''],
+      customerPanNo: ['']
+    });
   }
-
 
   submitCall() {
-    if (this.loginForm.valid) 
-    {
-      alert("Submit method called..")
-      console.log("Submit method");
- this.commonservice.postData(this.loginForm.value).subscribe();
-      window.location.reload();
+    if (this.loginForm.valid) {
+      this.commonservice.postData(this.loginForm.value).subscribe({
+        next: () => {
+          alert('Enquiry Saved Successfully');
+          this.router.navigateByUrl('/operationalexecutive/od/el');
+        },
+        error: (error) => {
+          console.error(error);
+          alert('Unable to save enquiry. Please try again.');
+        }
+      });
     }
-
   }
-
-
 }
