@@ -21,16 +21,10 @@ const routes: Routes = [
       },
       {
         path: 'el',
-        component: EnquiryListComponent,
-        children: [
-          {
-            path: 'ed/:id',
-            component: EnquiryDetailComponent
-          }
-        ]
+        component: EnquiryListComponent
       },
       {
-        path: 'ed',
+        path: 'ed/:id',
         component: EnquiryDetailComponent
       }
     ]
