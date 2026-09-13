@@ -9,23 +9,20 @@
 
       <div class="form-group col-md-4">
         <label for="custmer_name">CUSTOMER NAME</label>
-        <input type="text" class="form-control" id="custmer_name" formControlName="customerName"
-          placeholder="Customer Name" />
+        <input type="text" class="form-control" id="custmer_name" formControlName="customerName" placeholder="Customer Name" />
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="customer_email">Customer Email</label>
-          <input type="customer_email" class="form-control" id="customer_email" formControlName="customerEmailId"
-            placeholder="Customer Email ID" />
+          <input type="customer_email" class="form-control" id="customer_email" formControlName="customerEmailId" placeholder="Customer Email ID" />
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="customer_mob_no">Customer Mobile No</label>
-          <input type="text" class="form-control" id="customer_mob_no" formControlName="customerMobileno"
-            placeholder="Customer Mobile No" />
+          <input type="text" class="form-control" id="customer_mob_no" formControlName="customerMobileno" placeholder="Customer Mobile No" />
         </div>
       </div>
 
@@ -37,48 +34,42 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="customer_gender">Customer Gender</label>
-          <input type="text" class="form-control" id="customer_gender" formControlName="customerGender"
-            placeholder="Gender" />
+          <input type="text" class="form-control" id="customer_gender" formControlName="customerGender" placeholder="Gender" />
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="customer_pan_card">CUSTOMER PAN NO.</label>
-          <input type="text" class="form-control" id="customer_pan_card" formControlName="customerPanNo"
-            placeholder="Customer PAN No." />
+          <input type="text" class="form-control" id="customer_pan_card" formControlName="customerPanNo" placeholder="Customer PAN No." />
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="customer_aadhar_card">CUSTOMER AADHAR NO.</label>
-          <input type="text" class="form-control" id="customer_aadhar_card" formControlName="customerAadharNo"
-            placeholder="Customer Aadhar No." />
+          <input type="text" class="form-control" id="customer_aadhar_card" formControlName="customerAadharNo" placeholder="Customer Aadhar No." />
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="customer_income">CUSTOMER INCOME</label>
-          <input type="text" class="form-control" id="customer_income" formControlName="customerIncome"
-            placeholder="Customer Income" />
+          <input type="text" class="form-control" id="customer_income" formControlName="customerIncome" placeholder="Customer Income" />
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="loan_status">Loan Status</label>
-          <input type="text" class="form-control" id="loan_status" formControlName="loanStatus"
-            placeholder="Loan Status" />
+          <input type="text" class="form-control" id="loan_status" formControlName="loanStatus" placeholder="Loan Status" />
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="customer_varification">Verification</label>
-          <input type="text" class="form-control" id="customer_varification" formControlName="verificationn"
-            placeholder="verification " />
+          <input type="text" class="form-control" id="customer_varification" formControlName="verificationn" placeholder="verification" />
         </div>
       </div>
 
@@ -90,7 +81,7 @@
 
         <div class="row">
           <div class="form-group col-md-4">
-            <label for="state_name">STATE</label><br />
+            <label for="state_name">STATE</label>
             <select class="select" formControlName="state">
               <option selected>Choose...</option>
               <option>Maharashtra</option>
@@ -100,7 +91,7 @@
           </div>
 
           <div class="form-group col-md-4">
-            <label for="district_name">DISTRICT</label><br />
+            <label for="district_name">DISTRICT</label>
             <select class="select" formControlName="district">
               <option selected>Choose...</option>
               <option>PUNE</option>
@@ -110,7 +101,7 @@
           </div>
 
           <div class="form-group col-md-4">
-            <label for="city_name">CITY</label><br />
+            <label for="city_name">CITY</label>
             <select class="select" formControlName="cityName">
               <option selected>Choose...</option>
               <option>PUNE</option>
@@ -128,13 +119,13 @@
 
       <div formGroupName="customerPermanentAddress">
         <div class="form-group col-md-12">
-          <label for="area_name">Area Name</label>
-          <input type="text" class="form-control" id="area_name" formControlName="areaName" placeholder="Area Name" />
+          <label for="permanent_area_name">Area Name</label>
+          <input type="text" class="form-control" id="permanent_area_name" formControlName="areaName" placeholder="Area Name" />
         </div>
 
         <div class="row">
           <div class="form-group col-md-4">
-            <label for="state_name">STATE</label><br />
+            <label for="permanent_state_name">STATE</label>
             <select class="select" formControlName="state">
               <option selected>Choose...</option>
               <option>Maharashtra</option>
@@ -144,7 +135,7 @@
           </div>
 
           <div class="form-group col-md-4">
-            <label for="district_name">DISTRICT</label><br />
+            <label for="permanent_district_name">DISTRICT</label>
             <select class="select" formControlName="district">
               <option selected>Choose...</option>
               <option>PUNE</option>
@@ -154,7 +145,7 @@
           </div>
 
           <div class="form-group col-md-4">
-            <label for="city_name">CITY</label><br />
+            <label for="permanent_city_name">CITY</label>
             <select class="select" formControlName="cityName">
               <option selected>Choose...</option>
               <option>PUNE</option>
@@ -165,35 +156,31 @@
         </div>
 
         <div class="form-group col-md-4">
-          <label for="pin_code">PIN CODE</label>
-          <input type="text" class="form-control" id="inputEmail4" formControlName="pincode" placeholder="Pin Code" />
+          <label for="permanent_pin_code">PIN CODE</label>
+          <input type="text" class="form-control" id="permanent_pin_code" formControlName="pincode" placeholder="Pin Code" />
         </div>
       </div>
 
       <div formGroupName="guarantorDetails">
         <div class="form-group col-md-4">
           <label for="gurantor_name">GURANTOR NAME</label>
-          <input type="text" class="form-control" id="gurantor_name" formControlName="guarantorName"
-            placeholder="Gurantor Name" />
+          <input type="text" class="form-control" id="gurantor_name" formControlName="guarantorName" placeholder="Gurantor Name" />
         </div>
 
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="gurantor_email"> GURANTOR EMAIL</label>
-            <input type="email" class="form-control" id="gurantor_email" formControlName="guarantorEmailId"
-              placeholder="Gurantor Email ID" />
+            <label for="gurantor_email">GURANTOR EMAIL</label>
+            <input type="email" class="form-control" id="gurantor_email" formControlName="guarantorEmailId" placeholder="Gurantor Email ID" />
           </div>
           <div class="form-group col-md-6">
             <label for="gurantor_mobile_no">GURANTOR MOBILE NO</label>
-            <input type="text" class="form-control" id="gurantor_mobile_no" formControlName="guarantorMobileNo"
-              placeholder="Gurantor Mobile No" />
+            <input type="text" class="form-control" id="gurantor_mobile_no" formControlName="guarantorMobileNo" placeholder="Gurantor Mobile No" />
           </div>
         </div>
 
         <div class="form-group col-md-12">
           <label for="gurantor_address">GURANTOR ADDRESS</label>
-          <input type="text" class="form-control" id="gurantor_address" formControlName="guarantorAddress"
-            placeholder="Gurantor Address" />
+          <input type="text" class="form-control" id="gurantor_address" formControlName="guarantorAddress" placeholder="Gurantor Address" />
         </div>
       </div>
 
@@ -204,8 +191,7 @@
         </div>
         <div class="form-group col-md-4">
           <label for="account_no">Account Number</label>
-          <input type="text" class="form-control" id="account_no" formControlName="accountNumber"
-            placeholder="Account Number" />
+          <input type="text" class="form-control" id="account_no" formControlName="accountNumber" placeholder="Account Number" />
         </div>
         <div class="form-group col-md-4">
           <label for="ifsc_code">IFSC CODE</label>
@@ -213,8 +199,7 @@
         </div>
         <div class="form-group col-md-12">
           <label for="branch_address">BRANCH ADDRESS</label>
-          <input type="text" class="form-control" id="branch_address" formControlName="address"
-            placeholder="Branch Address" />
+          <input type="text" class="form-control" id="branch_address" formControlName="address" placeholder="Branch Address" />
         </div>
       </div>
 
@@ -222,49 +207,43 @@
     </form>
 
     <div *ngIf="upload === true">
+      <h3 class="section-title document-title">Upload Documents</h3>
       <form class="document-form" [formGroup]="documentUpload">
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="customFile1" (change)="onSelectedFile1($event)" />
           <img [src]="imageSrc1" height="50">
           <label class="custom-file-label" for="customFile1">PAN Card</label>
         </div>
-        <br /><br />
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="customFile2" (change)="onSelectedFile2($event)" />
           <img [src]="imageSrc2" height="50">
           <label class="custom-file-label" for="customFile2">Aadhar Card</label>
         </div>
-        <br /><br />
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="customFile3" (change)="onSelectedFile3($event)" />
           <img [src]="imageSrc3" height="50">
           <label class="custom-file-label" for="customFile3">Bank Passbook</label>
         </div>
-        <br /><br />
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="customFile4" (change)="onSelectedFile4($event)" />
           <img [src]="imageSrc4" height="50">
-          <label class="custom-file-label" for="customFile4">PhotoCopy</label>
+          <label class="custom-file-label" for="customFile4">Photo</label>
         </div>
-        <br /><br />
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="customFile5" (change)="onSelectedFile5($event)" />
           <img [src]="imageSrc5" height="50">
           <label class="custom-file-label" for="customFile5">Signature</label>
         </div>
-        <br /><br />
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="customFile6" (change)="onSelectedFile6($event)" />
           <img [src]="imageSrc6" height="50">
           <label class="custom-file-label" for="customFile6">Cancelled Check</label>
         </div>
-        <br /><br />
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="customFile7" (change)="onSelectedFile7($event)" />
           <img [src]="imageSrc7" height="50">
           <label class="custom-file-label" for="customFile7">Salary Slip</label>
         </div>
-        <br /><br />
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="customFile8" (change)="onSelectedFile8($event)" />
           <img [src]="imageSrc8" height="50">
@@ -272,10 +251,10 @@
         </div>
       </form>
 
-      <button type="submit" class="btn btn-primary" (click)="uploadDoc()">Upload</button>
+      <button type="submit" class="btn btn-primary document-upload-button" (click)="uploadDoc()">Upload</button>
     </div>
 
-    <div *ngIf="confirm === true">
+    <div *ngIf="confirm === true" class="confirm-box">
       <div>
         <input type="checkbox" value="true" />Agree to terms and conditions<br />
         <button type="submit" class="btn btn-info" (click)="submit()">Submit</button>
