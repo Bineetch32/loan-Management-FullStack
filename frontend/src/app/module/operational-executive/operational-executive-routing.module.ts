@@ -6,15 +6,18 @@ import { NewEnquiryComponent } from './new-enquiry/new-enquiry.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-
   {
-    path:'', redirectTo:'od',pathMatch:'full'
-     },
+    path: '',
+    redirectTo: 'od/ne',
+    pathMatch: 'full'
+  },
   {
-    path:'od',component:DashboardComponent,
-    children:[
+    path: 'od',
+    component: DashboardComponent,
+    children: [
       {
-        path:'ne',component:NewEnquiryComponent
+        path: 'ne',
+        component: NewEnquiryComponent
       },
       {
         path: 'el',
@@ -23,18 +26,15 @@ const routes: Routes = [
           {
             path: 'ed/:id',
             component: EnquiryDetailComponent
-          },
+          }
         ]
       },
       {
         path: 'ed',
         component: EnquiryDetailComponent
-      },
-      // { path: 'email/:id', component: EmailComponent }
-
+      }
     ]
   }
-
 ];
 
 @NgModule({
