@@ -26,7 +26,7 @@
         <td>{{enq1.customerPanNo}}</td>
         <td>{{enq1.cibil || '-'}}</td>
         <td>{{enq1.eligiblity || '-'}}</td>
-        <td><a class="btn btn-primary" [routerLink]="['ed', enq1.id]">Show Details</a></td>
+        <td><a class="btn btn-primary" [routerLink]="['../ed', enq1.id]">Show Details</a></td>
         <td>
           <button class="btn btn-success" (click)="checkcibilscore(enq1)" [disabled]="checkingCibilId === enq1.id">
             {{ checkingCibilId === enq1.id ? 'Checking...' : 'Check CIBIL' }}
