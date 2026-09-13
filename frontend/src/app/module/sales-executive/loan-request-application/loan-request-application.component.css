@@ -1,68 +1,295 @@
-/* Apply general styling to form elements */
-form {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.loan-request-page {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 24px 40px;
+  box-sizing: border-box;
+}
+
+.loan-card {
+  width: 100%;
+  margin: 0 !important;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.loan-card > .card-header {
+  padding: 18px 24px;
+  background: linear-gradient(135deg, #0d6efd, #1557b0) !important;
+  border: 0;
+}
+
+.loan-card > .card-header h4 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.loan-form,
+.document-form {
+  width: 100%;
+  max-width: none !important;
+  margin: 0;
+  padding: 26px 28px;
+  box-sizing: border-box;
+}
+
+.section-title {
+  margin: 0 0 22px;
+  padding: 13px 16px;
+  color: #123b75;
+  background: linear-gradient(90deg, #edf5ff, #f8fbff);
+  border-left: 4px solid #0d6efd;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 22px;
+  margin: 0;
+}
+
+.form-group {
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 0 18px;
+  padding: 0 !important;
+}
+
+.loan-form > .form-group.col-md-4,
+.loan-form > .form-group.col-md-6,
+.loan-form > .form-group.col-md-12 {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.loan-form > .form-row .form-group {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.loan-form label,
+.document-form label {
+  display: block;
+  margin: 0 0 7px;
+  color: #1e293b;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.15px;
+}
+
+.loan-form input,
+.loan-form select,
+.loan-form textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 13px;
+  margin: 0;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #0f172a;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.loan-form input:focus,
+.loan-form select:focus,
+.loan-form textarea:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, .12);
+}
+
+.loan-form select {
+  cursor: pointer;
+}
+
+.loan-form [formGroupName="customerlocalAddress"],
+.loan-form [formGroupName="customerPermanentAddress"],
+.loan-form [formGroupName="guarantorDetails"],
+.loan-form [formGroupName="customerBankAccountDetails"] {
+  margin-top: 24px;
+  padding: 20px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.loan-form [formGroupName]::before {
+  display: block;
+  margin-bottom: 16px;
+  color: #334155;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.loan-form [formGroupName="customerlocalAddress"]::before {
+  content: "Current Address";
+}
+
+.loan-form [formGroupName="customerPermanentAddress"]::before {
+  content: "Permanent Address";
+}
+
+.loan-form [formGroupName="guarantorDetails"]::before {
+  content: "Guarantor Details";
+}
+
+.loan-form [formGroupName="customerBankAccountDetails"]::before {
+  content: "Bank Account Details";
+}
+
+.loan-form [formGroupName] .row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0;
+}
+
+.loan-form [formGroupName] .row .form-group {
+  width: 100% !important;
+}
+
+.loan-form button,
+.document-form + button,
+.loan-card > div > button {
+  min-height: 44px;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.loan-form > button {
+  display: block;
+  min-width: 120px;
+  margin: 8px 0 0 auto;
+  background: #0d6efd;
+  color: #fff;
+}
+
+.loan-form > button:hover,
+.document-form + button:hover,
+.loan-card > div > button:hover {
+  filter: brightness(.94);
+}
+
+.document-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.document-form .custom-file {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 76px;
+  padding: 14px;
+  background: #f8fafc;
+  border: 1px dashed #94a3b8;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.document-form .custom-file-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.document-form .custom-file-label {
+  position: static;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.document-form img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  margin-right: 12px;
+  border-radius: 6px;
+}
+
+.document-form + br,
+.document-form br {
+  display: none;
+}
+
+.document-form + button {
+  display: block;
+  margin: 0 28px 28px auto;
+  background: #0d6efd;
+  color: #fff;
+}
+
+.loan-card > div:last-child {
+  padding: 0 28px 28px;
+}
+
+.loan-card > div:last-child input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.loan-card > div:last-child button {
+  margin-top: 14px;
+  background: #0d6efd;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .loan-request-page {
+    padding: 16px 12px 28px;
   }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="number"],
-  textarea,
-  select {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+
+  .loan-form,
+  .document-form {
+    padding: 20px 16px;
   }
-  
-  /* Apply styling to submit buttons */
-  button[type="button"],
-  button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+
+  .form-row,
+  .document-form,
+  .loan-form [formGroupName] .row {
+    grid-template-columns: 1fr;
   }
-  
-  button[type="button"]:hover,
-  button[type="submit"]:hover {
-    background-color: #45a049;
+}
+
+@media (max-width: 600px) {
+  .loan-card > .card-header h4 {
+    font-size: 18px;
   }
-  
-  /* Apply styling to file input */
-  .custom-file {
-    position: relative;
-    display: inline-block;
-    width: 100%;
+
+  .section-title {
+    font-size: 17px;
   }
-  
-  .custom-file-input {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: calc(2.25rem + 2px);
-    margin: 0;
-    opacity: 0;
-  }
-  
-  .custom-file-label {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1;
-    height: calc(2.25rem + 2px);
-    padding: .375rem .75rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-  }
-  
+}
