@@ -54,6 +54,11 @@
   font-weight: 700;
 }
 
+.document-title {
+  margin: 0;
+  border-radius: 0;
+}
+
 .loan-form > .form-row {
   display: contents;
 }
@@ -105,8 +110,6 @@
   cursor: pointer;
 }
 
-/* Address sections: area full width, then State / District / City,
-   with a smaller PIN Code field underneath. */
 .loan-form > [formGroupName="customerlocalAddress"],
 .loan-form > [formGroupName="customerPermanentAddress"] {
   grid-column: 1 / -1;
@@ -129,13 +132,8 @@
   font-weight: 700;
 }
 
-.loan-form > [formGroupName="customerlocalAddress"]::before {
-  content: "Current Address";
-}
-
-.loan-form > [formGroupName="customerPermanentAddress"]::before {
-  content: "Permanent Address";
-}
+.loan-form > [formGroupName="customerlocalAddress"]::before { content: "Current Address"; }
+.loan-form > [formGroupName="customerPermanentAddress"]::before { content: "Permanent Address"; }
 
 .loan-form > [formGroupName="customerlocalAddress"] > .form-group.col-md-12,
 .loan-form > [formGroupName="customerPermanentAddress"] > .form-group.col-md-12 {
@@ -151,7 +149,6 @@
   margin: 0;
 }
 
-/* Guarantor section */
 .loan-form > [formGroupName="guarantorDetails"] {
   grid-column: 1 / -1;
   display: grid;
@@ -181,7 +178,6 @@
   display: contents;
 }
 
-/* Bank section */
 .loan-form > [formGroupName="customerBankAccountDetails"] {
   grid-column: 1 / -1;
   display: grid;
@@ -224,16 +220,16 @@
 }
 
 .loan-form > button:hover,
-.document-form + button:hover,
-.loan-card > div:last-child button:hover {
+.document-upload-button:hover,
+.confirm-box button:hover {
   filter: brightness(.94);
 }
 
 .document-form {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  padding: 28px 32px;
+  gap: 18px 24px;
+  padding: 24px 32px 10px;
   box-sizing: border-box;
 }
 
@@ -241,12 +237,18 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 76px;
-  padding: 13px;
+  min-height: 82px;
+  padding: 13px 16px;
   background: #f8fafc;
-  border: 1px dashed #94a3b8;
+  border: 1px solid #d7dee8;
   border-radius: 10px;
   box-sizing: border-box;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.document-form .custom-file:hover {
+  border-color: #0d6efd;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, .06);
 }
 
 .document-form .custom-file-input {
@@ -274,17 +276,18 @@
 }
 
 .document-form img {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   object-fit: cover;
-  margin-right: 12px;
-  border-radius: 6px;
+  margin-right: 14px;
+  border-radius: 7px;
 }
 
-.document-form + button {
+.document-upload-button {
   display: block;
+  min-width: 120px;
   min-height: 44px;
-  margin: 0 32px 30px auto;
+  margin: 8px 32px 30px auto;
   padding: 10px 24px;
   border: 0;
   border-radius: 8px;
@@ -294,15 +297,15 @@
   cursor: pointer;
 }
 
-.loan-card > div:last-child {
-  padding: 0 32px 30px;
+.confirm-box {
+  padding: 10px 32px 30px;
 }
 
-.loan-card > div:last-child input[type="checkbox"] {
+.confirm-box input[type="checkbox"] {
   margin-right: 8px;
 }
 
-.loan-card > div:last-child button {
+.confirm-box button {
   min-height: 44px;
   margin-top: 14px;
   padding: 10px 24px;
@@ -315,19 +318,9 @@
 }
 
 @media (max-width: 900px) {
-  .loan-request-page {
-    padding: 18px 12px 30px;
-  }
-
-  .loan-form,
-  .document-form {
-    padding: 22px 17px;
-  }
-
-  .loan-form {
-    grid-template-columns: 1fr;
-  }
-
+  .loan-request-page { padding: 18px 12px 30px; }
+  .loan-form, .document-form { padding: 22px 17px; }
+  .loan-form { grid-template-columns: 1fr; }
   .loan-form > [formGroupName="customerlocalAddress"],
   .loan-form > [formGroupName="customerPermanentAddress"],
   .loan-form > [formGroupName="guarantorDetails"],
@@ -335,40 +328,16 @@
     grid-column: 1;
     grid-template-columns: 1fr;
   }
-
-  .loan-form > [formGroupName] > .row {
-    grid-template-columns: 1fr;
-  }
-
+  .loan-form > [formGroupName] > .row { grid-template-columns: 1fr; }
   .loan-form > [formGroupName] > .form-group,
-  .loan-form > [formGroupName] > .form-group.col-md-12 {
-    grid-column: 1;
-  }
-
-  .section-title,
-  .loan-form > button {
-    grid-column: 1;
-  }
-
-  .document-form {
-    grid-template-columns: 1fr;
-  }
+  .loan-form > [formGroupName] > .form-group.col-md-12 { grid-column: 1; }
+  .section-title, .loan-form > button { grid-column: 1; }
+  .document-form { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
-  .loan-card > .card-header {
-    padding: 17px 18px;
-  }
-
-  .loan-card > .card-header h4 {
-    font-size: 18px;
-  }
-
-  .section-title {
-    font-size: 16px;
-  }
-
-  .loan-form > [formGroupName] {
-    padding: 18px 15px 5px;
-  }
+  .loan-card > .card-header { padding: 17px 18px; }
+  .loan-card > .card-header h4 { font-size: 18px; }
+  .section-title { font-size: 16px; }
+  .loan-form > [formGroupName] { padding: 18px 15px 5px; }
 }
