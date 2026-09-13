@@ -11,6 +11,7 @@ import { CommonService } from '../../../service/common.service';
 export class NewEnquiryComponent implements OnInit {
 
   loginForm: FormGroup;
+  saving: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,7 +29,9 @@ export class NewEnquiryComponent implements OnInit {
   }
 
   submitCall() {
-    if (this.loginForm.valid) {
+    if (this.loginForm.valid && !this.saving) {
+      this.saving = true;
+
       this.commonservice.postData(this.loginForm.value).subscribe({
         next: () => {
           alert('Enquiry Saved Successfully');
@@ -36,6 +39,7 @@ export class NewEnquiryComponent implements OnInit {
         },
         error: (error) => {
           console.error(error);
+          this.saving = false;
           alert('Unable to save enquiry. Please try again.');
         }
       });
