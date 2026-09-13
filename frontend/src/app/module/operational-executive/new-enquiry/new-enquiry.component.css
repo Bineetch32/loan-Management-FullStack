@@ -1,0 +1,64 @@
+.enquiry-page {
+  padding: 30px;
+}
+
+.enquiry-card {
+  max-width: 850px;
+  margin: 20px auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.10);
+  overflow: hidden;
+}
+
+.enquiry-header {
+  background: #0d6efd;
+  color: white;
+  padding: 22px 25px;
+}
+
+.enquiry-header h2 {
+  margin: 0 0 6px;
+  font-size: 24px;
+}
+
+.enquiry-header p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.enquiry-card form {
+  padding: 25px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 5px;
+}
+
+.form-group {
+  flex: 1;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 600;
+}
+
+.enquiry-btn {
+  min-width: 160px;
+  margin-top: 5px;
+}
+
+@media (max-width: 700px) {
+  .enquiry-page {
+    padding: 15px;
+  }
+
+  .form-row {
+    display: block;
+  }
+}
