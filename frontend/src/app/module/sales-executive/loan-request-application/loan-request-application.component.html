@@ -1,14 +1,11 @@
-<div class="container py-5">
-  <div class="card" style="width: 600px; margin: auto;">
+<div class="loan-request-page">
+  <div class="loan-card">
     <div class="card-header bg-primary text-white">
       <h4 class="text-uppercase text-center">Registration</h4>
     </div>
 
-
-
-    <form [formGroup]="basicdetails" *ngIf="basic ==true">
-      <h3>Basic Details</h3>
-
+    <form class="loan-form" [formGroup]="basicdetails" *ngIf="basic ==true">
+      <h3 class="section-title">Basic Details</h3>
 
       <div class="form-group col-md-4">
         <label for="custmer_name">CUSTOMER NAME</label>
@@ -18,7 +15,7 @@
 
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="">Customer Email</label>
+          <label for="customer_email">Customer Email</label>
           <input type="customer_email" class="form-control" id="customer_email" formControlName="customerEmailId"
             placeholder="Customer Email ID" />
         </div>
@@ -32,25 +29,16 @@
         </div>
       </div>
 
-
       <div class="form-group col-md-6">
         <label for="customer_dob">Custmer Dob</label>
         <input type="date" class="form-control" id="customer_dob" formControlName="customerDOB" required />
-
       </div>
+
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="customer_gender">Customer Gender</label>
           <input type="text" class="form-control" id="customer_gender" formControlName="customerGender"
             placeholder="Gender" />
-          <!-- <select class="form-control mr-1" id="customer_gender" formControlName="customerGender" required>
-        <option value="" disabled selected>select</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-        
-        
-      </select> -->
         </div>
       </div>
 
@@ -78,17 +66,6 @@
         </div>
       </div>
 
-      <!-- <div class="form-row">
-  <div class="form-group col-md-6">
-      <label for="inputPassword4">CIBIL SCORE</label>
-      <input
-        type="text"
-        class="form-control"
-        id="inputPassword4"
-        formControlName="cibil"
-        placeholder="CIBIL Score"
-      /></div></div> -->
-
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="loan_status">Loan Status</label>
@@ -105,13 +82,11 @@
         </div>
       </div>
 
-
       <div formGroupName="customerlocalAddress">
         <div class="form-group col-md-12">
           <label for="area_name">Area Name</label>
           <input type="text" class="form-control" id="area_name" formControlName="areaName" placeholder="Area Name" />
         </div>
-
 
         <div class="row">
           <div class="form-group col-md-4">
@@ -124,7 +99,6 @@
             </select>
           </div>
 
-
           <div class="form-group col-md-4">
             <label for="district_name">DISTRICT</label><br />
             <select class="select" formControlName="district">
@@ -134,9 +108,6 @@
               <option>NANDED</option>
             </select>
           </div>
-
-
-
 
           <div class="form-group col-md-4">
             <label for="city_name">CITY</label><br />
@@ -148,7 +119,6 @@
             </select>
           </div>
         </div>
-
 
         <div class="form-group col-md-4">
           <label for="pin_code">PIN CODE</label>
@@ -161,6 +131,7 @@
           <label for="area_name">Area Name</label>
           <input type="text" class="form-control" id="area_name" formControlName="areaName" placeholder="Area Name" />
         </div>
+
         <div class="row">
           <div class="form-group col-md-4">
             <label for="state_name">STATE</label><br />
@@ -172,7 +143,6 @@
             </select>
           </div>
 
-
           <div class="form-group col-md-4">
             <label for="district_name">DISTRICT</label><br />
             <select class="select" formControlName="district">
@@ -182,7 +152,6 @@
               <option>NANDED</option>
             </select>
           </div>
-
 
           <div class="form-group col-md-4">
             <label for="city_name">CITY</label><br />
@@ -195,20 +164,11 @@
           </div>
         </div>
 
-
         <div class="form-group col-md-4">
           <label for="pin_code">PIN CODE</label>
           <input type="text" class="form-control" id="inputEmail4" formControlName="pincode" placeholder="Pin Code" />
         </div>
       </div>
-
-
-
-
-
-
-
-
 
       <div formGroupName="guarantorDetails">
         <div class="form-group col-md-4">
@@ -216,6 +176,7 @@
           <input type="text" class="form-control" id="gurantor_name" formControlName="guarantorName"
             placeholder="Gurantor Name" />
         </div>
+
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="gurantor_email"> GURANTOR EMAIL</label>
@@ -228,16 +189,13 @@
               placeholder="Gurantor Mobile No" />
           </div>
         </div>
+
         <div class="form-group col-md-12">
           <label for="gurantor_address">GURANTOR ADDRESS</label>
           <input type="text" class="form-control" id="gurantor_address" formControlName="guarantorAddress"
             placeholder="Gurantor Address" />
         </div>
       </div>
-
-
-
-
 
       <div formGroupName="customerBankAccountDetails">
         <div class="form-group col-md-4">
@@ -259,73 +217,69 @@
             placeholder="Branch Address" />
         </div>
       </div>
+
       <button type="button" class="btn btn-primary" (click)="basics()">NEXT</button>
     </form>
 
     <div *ngIf="upload === true">
-      <form [formGroup]="documentUpload">
+      <form class="document-form" [formGroup]="documentUpload">
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile" (change)="onSelectedFile1($event)" />
+          <input type="file" class="custom-file-input" id="customFile1" (change)="onSelectedFile1($event)" />
           <img [src]="imageSrc1" height="50">
-          <label class="custom-file-label" for="customFile">PAN Card</label>
+          <label class="custom-file-label" for="customFile1">PAN Card</label>
         </div>
         <br /><br />
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile" (change)="onSelectedFile2($event)" />
+          <input type="file" class="custom-file-input" id="customFile2" (change)="onSelectedFile2($event)" />
           <img [src]="imageSrc2" height="50">
-          <label class="custom-file-label" for="customFile">Aadhar Card</label>
+          <label class="custom-file-label" for="customFile2">Aadhar Card</label>
         </div>
         <br /><br />
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile" (change)="onSelectedFile3($event)" />
+          <input type="file" class="custom-file-input" id="customFile3" (change)="onSelectedFile3($event)" />
           <img [src]="imageSrc3" height="50">
-          <label class="custom-file-label" for="customFile">Bank Passbook</label>
+          <label class="custom-file-label" for="customFile3">Bank Passbook</label>
         </div>
         <br /><br />
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile" (change)="onSelectedFile4($event)" />
+          <input type="file" class="custom-file-input" id="customFile4" (change)="onSelectedFile4($event)" />
           <img [src]="imageSrc4" height="50">
-          <label class="custom-file-label" for="customFile">PhotoCopy</label>
+          <label class="custom-file-label" for="customFile4">PhotoCopy</label>
         </div>
         <br /><br />
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile" (change)="onSelectedFile5($event)" />
+          <input type="file" class="custom-file-input" id="customFile5" (change)="onSelectedFile5($event)" />
           <img [src]="imageSrc5" height="50">
-          <label class="custom-file-label" for="customFile">Signature</label>
+          <label class="custom-file-label" for="customFile5">Signature</label>
         </div>
         <br /><br />
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile" (change)="onSelectedFile6($event)" />
+          <input type="file" class="custom-file-input" id="customFile6" (change)="onSelectedFile6($event)" />
           <img [src]="imageSrc6" height="50">
-          <label class="custom-file-label" for="customFile">Cancelled Check</label>
+          <label class="custom-file-label" for="customFile6">Cancelled Check</label>
         </div>
         <br /><br />
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile" (change)="onSelectedFile7($event)" />
+          <input type="file" class="custom-file-input" id="customFile7" (change)="onSelectedFile7($event)" />
           <img [src]="imageSrc7" height="50">
-          <label class="custom-file-label" for="customFile">Salary Slip</label>
+          <label class="custom-file-label" for="customFile7">Salary Slip</label>
         </div>
         <br /><br />
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile" (change)="onSelectedFile8($event)" />
+          <input type="file" class="custom-file-input" id="customFile8" (change)="onSelectedFile8($event)" />
           <img [src]="imageSrc8" height="50">
-          <label class="custom-file-label" for="customFile">Sanction Letter</label>
+          <label class="custom-file-label" for="customFile8">Sanction Letter</label>
         </div>
       </form>
 
-      <button type="submit" class="btn btn-primary" (click)="uploadDoc()">
-        Upload
-      </button>
+      <button type="submit" class="btn btn-primary" (click)="uploadDoc()">Upload</button>
     </div>
-
-
-
 
     <div *ngIf="confirm === true">
       <div>
         <input type="checkbox" value="true" />Agree to terms and conditions<br />
-
-        <!-- <button class="btn btn-primary" (click)="submit()">Submit Data</button> -->
         <button type="submit" class="btn btn-info" (click)="submit()">Submit</button>
       </div>
     </div>
+  </div>
+</div>
