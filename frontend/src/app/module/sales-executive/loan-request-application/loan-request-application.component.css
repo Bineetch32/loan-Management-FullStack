@@ -219,9 +219,7 @@
   box-shadow: 0 5px 14px rgba(13, 110, 253, .18);
 }
 
-.loan-form > button:hover,
-.document-upload-button:hover,
-.confirm-box button:hover {
+.loan-form > button:hover {
   filter: brightness(.94);
 }
 
@@ -283,38 +281,59 @@
   border-radius: 7px;
 }
 
-.document-upload-button {
-  display: block;
-  min-width: 120px;
-  min-height: 44px;
-  margin: 8px 32px 30px auto;
-  padding: 10px 24px;
-  border: 0;
-  border-radius: 8px;
-  background: #0d6efd;
-  color: #fff;
-  font-weight: 700;
+.terms-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin: 18px 32px 32px;
+  padding: 20px 24px;
+  border-top: 1px solid #e2e8f0;
+  background: #fff;
+  border-radius: 0 0 12px 12px;
+}
+
+.terms-label {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 9px;
+  margin: 0 !important;
+  color: #334155 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  white-space: nowrap;
   cursor: pointer;
 }
 
-.confirm-box {
-  padding: 10px 32px 30px;
+.terms-label input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  cursor: pointer;
 }
 
-.confirm-box input[type="checkbox"] {
-  margin-right: 8px;
-}
-
-.confirm-box button {
-  min-height: 44px;
-  margin-top: 14px;
+.submit-btn {
+  min-width: 180px;
+  min-height: 46px;
+  margin: 0;
   padding: 10px 24px;
   border: 0;
   border-radius: 8px;
-  background: #0d6efd;
+  background: #0d6efd !important;
   color: #fff;
   font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 5px 14px rgba(13, 110, 253, .18);
+}
+
+.submit-btn:hover:not(:disabled) {
+  filter: brightness(.94);
+}
+
+.submit-btn:disabled {
+  opacity: .65;
+  cursor: not-allowed;
 }
 
 @media (max-width: 900px) {
@@ -333,6 +352,7 @@
   .loan-form > [formGroupName] > .form-group.col-md-12 { grid-column: 1; }
   .section-title, .loan-form > button { grid-column: 1; }
   .document-form { grid-template-columns: 1fr; }
+  .terms-box { flex-direction: column; gap: 14px; margin: 14px 17px 24px; padding: 18px; }
 }
 
 @media (max-width: 600px) {
@@ -340,4 +360,5 @@
   .loan-card > .card-header h4 { font-size: 18px; }
   .section-title { font-size: 16px; }
   .loan-form > [formGroupName] { padding: 18px 15px 5px; }
+  .terms-label { white-space: normal; text-align: center; }
 }
