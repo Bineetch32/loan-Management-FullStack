@@ -7,29 +7,23 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-enquiry-detail',
   templateUrl: './enquiry-detail.component.html',
-  styleUrls: ['./enquiry-detail.component.css'] // Change styleUrl to styleUrls
+  styleUrls: ['./enquiry-detail.component.css']
 })
-export class EnquiryDetailComponent implements OnInit{
+export class EnquiryDetailComponent implements OnInit {
 
+  enquirydetail: Enquiry;
 
-  enquirydetail:Enquiry;
-  
-
-  constructor(private routes:ActivatedRoute, private common:CommonService, private location:Location) { }
+  constructor(private routes: ActivatedRoute, private common: CommonService, private location: Location) { }
 
   ngOnInit(): void {
-console.table(this.enquirydetail);
-alert("Customer Details Retriving.....")
-    this.routes.paramMap.subscribe(param1=>{
-      this.common.getEnquiryDetailsById(parseInt(param1.get('id'))).subscribe(data=>{
-        this.enquirydetail=data;
-      })
-    })
+    this.routes.paramMap.subscribe(param => {
+      this.common.getEnquiryDetailsById(parseInt(param.get('id'))).subscribe(data => {
+        this.enquirydetail = data;
+      });
+    });
+  }
 
-}
-
-getback()
-{
-  this.location.back();
-}
+  getback() {
+    this.location.back();
+  }
 }
