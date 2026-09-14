@@ -7,43 +7,51 @@ import { CommonService } from '../../../service/common.service';
   templateUrl: './applicant.component.html',
   styleUrl: './applicant.component.css'
 })
-export class ApplicantComponent implements OnInit{
+export class ApplicantComponent implements OnInit {
 
-  constructor(private commonservice:CommonService) { }
-  retrievedDoc:CustomerDetails[];
-  selectedFile:File;
-  
-  
+  retrievedDoc: CustomerDetails[] = [];
+
+  constructor(private commonservice: CommonService) { }
 
   ngOnInit(): void {
+    this.loadApplicants();
+  }
 
-    this.commonservice.getApplicationData().subscribe(data=>{
-      this.retrievedDoc=data;
-     
+  loadApplicants() {
+    this.commonservice.getApplicationData().subscribe(data => {
+      this.retrievedDoc = data;
     });
-   
-   
-}
+  }
 
+  approvedCall(c: CustomerDetails) {
+    if (!confirm('Approve this loan application?')) {
+      return;
+    }
 
+    this.commonservice.putApproval(c).subscribe({
+      next: () => {
+        alert('Loan Approved Successfully.');
+        this.loadApplicants();
+      },
+      error: () => {
+        alert('Loan approval failed.');
+      }
+    });
+  }
 
+  rejectedCall(c: CustomerDetails) {
+    if (!confirm('Reject this loan application?')) {
+      return;
+    }
 
-approvedCall(c:CustomerDetails)
-{
-  alert("Loan Status:"+c.loanStatus)
-  alert("Application Approved.....");
-  c.loanStatus="Approved";
-  alert("loan status:"+c.loanStatus);
-  this.commonservice.putApproval(c).subscribe();
-
-}
-rejectedCall(c:CustomerDetails)
-{
-  alert("Application Rejected.....");
-  c.loanStatus="Rejected";
-  alert("loan status:"+c.loanStatus);
-  this.commonservice.rejectApproval(c).subscribe();
-  
-
-}
+    this.commonservice.rejectApproval(c).subscribe({
+      next: () => {
+        alert('Loan Rejected.');
+        this.loadApplicants();
+      },
+      error: () => {
+        alert('Loan rejection failed.');
+      }
+    });
+  }
 }
