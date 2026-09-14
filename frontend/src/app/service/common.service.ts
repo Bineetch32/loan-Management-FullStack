@@ -61,6 +61,10 @@ export class CommonService {
     return this.hc.get<CustomerDetails>(this.urlgetbyid+"/"+id);
   }
 
+  saveSanctionLetter(id:number, formData:FormData) {
+    return this.hc.put("http://localhost:8081/saveSanctionLetter/"+id, formData, { responseType: 'text' });
+  }
+
   verifyDocument(c:CustomerDetails) {
     return this.hc.put<CustomerDetails>("http://localhost:8081/VarifyCust"+"/"+c.id,c);
   }
