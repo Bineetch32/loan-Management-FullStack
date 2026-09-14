@@ -17,8 +17,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let c of retrievedDoc">
-          <ng-container *ngIf="c.loanStatus !== 'Rejected' && c.verificationn !== 'Varified'">
+        <ng-container *ngFor="let c of retrievedDoc">
+          <tr *ngIf="c.loanStatus !== 'Rejected' && c.verificationn !== 'Varified'">
             <td>{{c.id}}</td>
             <td>{{c.customerName}}</td>
             <td>{{c.customerMobileno}}</td>
@@ -27,12 +27,12 @@
             <td><span class="status pending">{{c.loanStatus}}</span></td>
             <td><span class="status pending">{{c.verificationn}}</span></td>
             <td class="actions">
-              <button class="btn btn-primary btn-sm" (click)="viewDocuments(c)">View Documents</button>
+              <button class="btn btn-primary btn-sm" (click)="viewDocuments(c)">View Full Details</button>
               <button class="btn btn-success btn-sm" (click)="verificationCall(c)">Verify</button>
               <button class="btn btn-danger btn-sm" (click)="rejectCall(c)">Reject</button>
             </td>
-          </ng-container>
-        </tr>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>
@@ -41,13 +41,32 @@
 </div>
 
 <div class="verification-page" *ngIf="selectedCustomer">
-  <h2>Applicant Documents</h2>
+  <h2>Applicant Full Details</h2>
 
   <div class="applicant-info">
     <div><b>Application ID</b><span>{{selectedCustomer.id}}</span></div>
     <div><b>Customer Name</b><span>{{selectedCustomer.customerName}}</span></div>
     <div><b>Mobile No</b><span>{{selectedCustomer.customerMobileno}}</span></div>
+    <div><b>Email</b><span>{{selectedCustomer.customerEmailId}}</span></div>
     <div><b>PAN No</b><span>{{selectedCustomer.customerPanNo}}</span></div>
+    <div><b>Aadhaar No</b><span>{{selectedCustomer.customerAadharNo}}</span></div>
+    <div><b>Date of Birth</b><span>{{selectedCustomer.customerDOB}}</span></div>
+    <div><b>Gender</b><span>{{selectedCustomer.customerGender}}</span></div>
+    <div><b>Monthly Income</b><span>{{selectedCustomer.customerIncome}}</span></div>
+    <div><b>Loan Status</b><span>{{selectedCustomer.loanStatus}}</span></div>
+    <div><b>Verification Status</b><span>{{selectedCustomer.verificationn}}</span></div>
+  </div>
+
+  <h3>Address Details</h3>
+  <div class="details-box">
+    <div><b>Current Address</b><span>{{selectedCustomer.customerlocalAddress | json}}</span></div>
+    <div><b>Permanent Address</b><span>{{selectedCustomer.customerPermanentAddress | json}}</span></div>
+  </div>
+
+  <h3>Bank Details</h3>
+  <div class="details-box">
+    <div><b>Bank Account Details</b><span>{{selectedCustomer.customerBankAccountDetails | json}}</span></div>
+    <div><b>Guarantor Details</b><span>{{selectedCustomer.guarantorDetails | json}}</span></div>
   </div>
 
   <h3>Uploaded Documents</h3>
