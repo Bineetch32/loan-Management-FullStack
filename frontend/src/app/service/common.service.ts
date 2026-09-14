@@ -74,11 +74,11 @@ export class CommonService {
   }
 
   putApproval(c: CustomerDetails) {
-    return this.hc.put<CustomerDetails>("http://localhost:8081/AcceptCustomer/"+c.id,c);
+    return this.hc.put("http://localhost:8081/AcceptCustomer/"+c.id,c,{ responseType: 'text' });
   }
 
   rejectApproval(c: CustomerDetails) {
-    return this.hc.put<CustomerDetails>("http://localhost:8081/RejectCustomer"+"/"+c.id,c);
+    return this.hc.put("http://localhost:8081/RejectCustomer"+"/"+c.id,c,{ responseType: 'text' });
   }
 
   getbyid(id:number): Observable<CustomerDetails> {
