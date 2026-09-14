@@ -23,29 +23,19 @@ const routes: Routes = [
     path:'accounthead',
     loadChildren: () => import('./module/account-head/account-head.module').then(m => m.AccountHeadModule)
   },
-
   {
-    path:'leadegr',
-    loadChildren: () => import('./module/leadger-officer/leadger-officer.module').then(m =>m.LeadgerOfficerModule)
-  
-
+    path:'ledger',
+    loadChildren: () => import('./module/leadger-officer/leadger-officer.module').then(m => m.LeadgerOfficerModule)
   },
   {
     path:'branchmanager',
-    loadChildren: () => import('./module/branch-manager/branch-manager.module').then(m =>m.BranchManagerModule)
+    loadChildren: () => import('./module/branch-manager/branch-manager.module').then(m => m.BranchManagerModule)
   },
-
-  { path: "**", redirectTo: "/home", pathMatch: 'full' }, // Redirect to HomeComponent for unmatched routes
+  { path: "**", redirectTo: "/home", pathMatch: 'full' },
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-
-
-
 export class AppRoutingModule { }
-
