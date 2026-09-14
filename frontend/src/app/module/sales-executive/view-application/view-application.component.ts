@@ -16,7 +16,7 @@ export class ViewApplicationComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.commonservice.getApplicationDetailsById(id).subscribe(data => {
+    this.commonservice.getCustomerDetailsById(id).subscribe(data => {
       this.customer = data;
     });
   }
