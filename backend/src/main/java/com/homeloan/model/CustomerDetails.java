@@ -1,6 +1,5 @@
 package com.homeloan.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,10 +28,10 @@ public class CustomerDetails {
     private double customerIncome;
     private String loanStatus;
     private String verificationn;
-    @OneToOne(cascade = CascadeType.ALL) public Enquiry enq;
-    @OneToOne(cascade = CascadeType.ALL) private CustomerAllDocument customerAllDocument;
-    @OneToOne(cascade = CascadeType.ALL) private CustomerLocalAddress customerlocalAddress;
-    @OneToOne(cascade = CascadeType.ALL) private CustomerPermanentAddress customerPermanentAddress;
-    @OneToOne(cascade = CascadeType.ALL) private GuarantorDetails guarantorDetails;
-    @OneToOne(cascade = CascadeType.ALL) private CustomerBankAccountDetails customerBankAccountDetails;
+    @OneToOne public Enquiry enq;
+    @OneToOne(cascade = javax.persistence.CascadeType.ALL) private CustomerAllDocument customerAllDocument;
+    @OneToOne(cascade = javax.persistence.CascadeType.ALL) private CustomerLocalAddress customerlocalAddress;
+    @OneToOne(cascade = javax.persistence.CascadeType.ALL) private CustomerPermanentAddress customerPermanentAddress;
+    @OneToOne(cascade = javax.persistence.CascadeType.ALL) private GuarantorDetails guarantorDetails;
+    @OneToOne(cascade = javax.persistence.CascadeType.ALL) private CustomerBankAccountDetails customerBankAccountDetails;
 }
