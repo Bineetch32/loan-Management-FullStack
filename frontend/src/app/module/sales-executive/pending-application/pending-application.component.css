@@ -3,36 +3,66 @@
 }
 
 .pending-page h2 {
-  margin-bottom: 20px;
+  margin: 0 0 6px;
+}
+
+.page-note {
+  margin: 0 0 20px;
+  color: #666;
+}
+
+.table-wrapper {
+  overflow-x: auto;
 }
 
 .pending-page table {
   width: 100%;
+  min-width: 850px;
   background: white;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .pending-page th {
   background: #0d6efd;
   color: white;
   padding: 12px;
+  white-space: nowrap;
 }
 
 .pending-page td {
-  padding: 10px;
+  padding: 11px;
+  vertical-align: middle;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: #fff3cd;
+  color: #856404;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status.approved {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.status.rejected {
+  background: #f8d7da;
+  color: #842029;
 }
 
 .no-data {
   padding: 20px;
   background: #f5f5f5;
+  border-radius: 8px;
 }
 
 @media (max-width: 800px) {
   .pending-page {
     padding: 15px;
-    overflow-x: auto;
-  }
-
-  .pending-page table {
-    min-width: 700px;
   }
 }
