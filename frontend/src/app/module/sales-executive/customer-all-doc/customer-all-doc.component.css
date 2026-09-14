@@ -1,0 +1,8 @@
+.documents-page { padding: 24px; }
+.documents-page h2 { margin-bottom: 18px; }
+.table-wrapper { overflow-x: auto; }
+.document-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin: 20px 0; }
+.document-card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; background: #fff; text-align: center; }
+.document-card h4 { margin: 0 0 10px; font-size: 16px; }
+.document-card img { max-width: 100%; max-height: 350px; object-fit: contain; }
+@media (max-width: 700px) { .document-grid { grid-template-columns: 1fr; } }
