@@ -27,7 +27,7 @@
             <td>{{c.customerMobileno}}</td>
             <td>{{c.customerEmailId}}</td>
             <td>{{c.customerPanNo | uppercase}}</td>
-            <td><strong>{{c.cibil}}</strong></td>
+            <td><strong>{{c.enq?.cibil}}</strong></td>
             <td><a class="btn btn-primary" [routerLink]="['ad',c.id]">View Details</a></td>
             <td><button type="button" class="btn btn-success" (click)="approvedCall(c)">Approve</button></td>
             <td><button type="button" class="btn btn-danger" (click)="rejectedCall(c)">Reject</button></td>
@@ -60,7 +60,7 @@
             <td>#{{c.id}}</td>
             <td>{{c.customerName}}</td>
             <td>{{c.customerPanNo | uppercase}}</td>
-            <td><strong>{{c.cibil}}</strong></td>
+            <td><strong>{{c.enq?.cibil}}</strong></td>
             <td><a class="btn btn-primary" [routerLink]="['ad',c.id]">View Details</a></td>
             <td><button type="button" class="btn btn-success" (click)="approvedCall(c)">Approve Again</button></td>
           </ng-container>
