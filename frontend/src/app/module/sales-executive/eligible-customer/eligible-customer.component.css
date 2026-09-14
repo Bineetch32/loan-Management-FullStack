@@ -23,7 +23,7 @@
 
 table {
   width: 100%;
-  min-width: 850px;
+  min-width: 1000px;
   border-collapse: collapse;
   background: #fff;
 }
@@ -57,6 +57,10 @@ tbody tr:hover {
   background: #e7f7ed;
   color: #198754;
   font-weight: 600;
+}
+
+.proceed-btn {
+  min-width: 90px;
 }
 
 .empty-message {
