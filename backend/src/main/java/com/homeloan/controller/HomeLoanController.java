@@ -150,6 +150,24 @@ public class HomeLoanController {
 		return hls.searchEmployeee(id);
 	}
 
+	@PutMapping(value = "/saveSanctionLetter/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<String> saveSanctionLetter(
+			@PathVariable Integer id,
+			@RequestPart("sanctionLetter") MultipartFile sanctionLetter) throws IOException {
+
+		if (sanctionLetter == null || sanctionLetter.isEmpty()) {
+			return ResponseEntity.badRequest().body("Sanction letter file is required.");
+		}
+
+		CustomerDetails customer = hls.saveSanctionLetter(id, sanctionLetter.getBytes());
+
+		if (customer == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found.");
+		}
+
+		return ResponseEntity.ok("Sanction letter saved successfully.");
+	}
+
 	@PutMapping("/AcceptCustomer/{id}")
 	public String approveStatus(@PathVariable("id") Integer id, CustomerDetails loanStatus) {
 		CustomerDetails st = hls.findCust(id);
