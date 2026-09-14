@@ -7,44 +7,26 @@ import { CommonService } from '../../../service/common.service';
   templateUrl: './approval-status.component.html',
   styleUrl: './approval-status.component.css'
 })
-export class ApprovalStatusComponent implements OnInit{
+export class ApprovalStatusComponent implements OnInit {
 
+  retrievedDoc: CustomerDetails[] = [];
 
-  constructor(private commonservice:CommonService) { }
-  retrievedDoc:CustomerDetails[];
- 
-  
-  
+  constructor(private commonservice: CommonService) { }
 
   ngOnInit(): void {
-      this.commonservice.getApplicationData().subscribe(data=>{
-        this.retrievedDoc=data;
-        console.table(this.retrievedDoc);
-      })
-
-      this.commonservice.getApplicationData().subscribe((data:CustomerDetails[])=>{
-        this.retrievedDoc=data;
-      })
-     
-  }
-  
-
-  approvedCall(c:CustomerDetails)
-  {
-    alert("Application Approved.....");
-    c.loanStatus="Approved";
-    this.commonservice.putApproval(c).subscribe();
-  
-  }
-  rejectedCall(c:CustomerDetails)
-  {
-    alert("Application Rejected.....");
-    c.loanStatus="Rejected";
-    this.commonservice.rejectApproval(c).subscribe();
+    this.loadApplications();
   }
 
-  mailsend(id:number){
-    this.commonservice.sendMailForCustomer(id).subscribe();
-    console.log("mail sent")
+  loadApplications() {
+    this.commonservice.getApplicationData().subscribe(data => {
+      this.retrievedDoc = data;
+    });
+  }
+
+  mailsend(id: number) {
+    this.commonservice.sendMailForCustomer(id).subscribe({
+      next: () => alert('Mail sent successfully.'),
+      error: () => alert('Mail could not be sent.')
+    });
   }
 }
