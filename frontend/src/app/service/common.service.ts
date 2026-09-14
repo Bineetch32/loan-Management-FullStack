@@ -82,11 +82,11 @@ export class CommonService {
   }
 
   sendMailForEnquiry(id:number){
-    return this.hc.get("http://localhost:8081/sendmailforenquiry"+"/"+id);
+    return this.hc.get("http://localhost:8081/sendmailforenquiry"+"/"+id, { responseType: 'text' });
   }
 
   sendMailForCustomer(id:number){
-    return this.hc.get("http://localhost:8081/sendmailforcustomer"+"/"+id);
+    return this.hc.get("http://localhost:8081/sendmailforcustomer"+"/"+id, { responseType: 'text' });
   }
 
   sendmailwithattachment(uploadDocument:any) {
