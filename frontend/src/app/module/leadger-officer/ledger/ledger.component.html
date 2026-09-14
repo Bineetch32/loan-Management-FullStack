@@ -1,0 +1,41 @@
+<div class="ledger-page">
+  <h1>Loan Ledger</h1>
+  <p class="subtitle">Sanctioned loans received from Account Head.</p>
+
+  <div *ngIf="customers.length === 0" class="empty">
+    No sanctioned loans available.
+  </div>
+
+  <div class="loan-card" *ngFor="let c of customers">
+    <div class="loan-header">
+      <div>
+        <h2>{{ c.customerName }}</h2>
+        <span>Loan Account: {{ c.loanAccountNumber || ('HL-' + c.id) }}</span>
+      </div>
+      <span class="status">Sanctioned</span>
+    </div>
+
+    <div class="summary">
+      <div><label>Application ID</label><strong>#{{ c.id }}</strong></div>
+      <div><label>Mobile</label><strong>{{ c.customerMobileno }}</strong></div>
+      <div><label>PAN</label><strong>{{ c.customerPanNo }}</strong></div>
+      <div><label>CIBIL</label><strong>{{ c.enq?.cibil || c.cibil || '-' }}</strong></div>
+      <div><label>Sanctioned Amount</label><strong>₹{{ c.sanctionedLoanAmount || 0 }}</strong></div>
+      <div><label>Interest Rate</label><strong>{{ c.interestRate || 0 }}%</strong></div>
+      <div><label>Tenure</label><strong>{{ c.tenureYears || 0 }} Years</strong></div>
+      <div><label>Monthly EMI</label><strong>₹{{ getEmi(c) | number:'1.2-2' }}</strong></div>
+    </div>
+
+    <details>
+      <summary>View Loan Details</summary>
+      <div class="details-grid">
+        <p><b>Customer:</b> {{ c.customerName }}</p>
+        <p><b>Email:</b> {{ c.customerEmailId }}</p>
+        <p><b>Income:</b> ₹{{ c.customerIncome }}</p>
+        <p><b>Sanction Date:</b> {{ c.sanctionDate || '-' }}</p>
+        <p><b>Verification:</b> {{ c.verificationn }}</p>
+        <p><b>Loan Status:</b> {{ c.loanStatus }}</p>
+      </div>
+    </details>
+  </div>
+</div>
