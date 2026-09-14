@@ -8,27 +8,15 @@ import { CustomerAllDocComponent } from './customer-all-doc/customer-all-doc.com
 import { EligibleCustomerComponent } from './eligible-customer/eligible-customer.component';
 
 const routes: Routes = [
-  {
-    path: '', redirectTo: 'sd', pathMatch: 'full'
-  },
+  { path: '', redirectTo: 'sd', pathMatch: 'full' },
   {
     path: 'sd', component: SalesDashboardComponent,
     children: [
-      {
-        path: 'lra', component: LoanRequestApplicationComponent
-      },
-      {
-        path: 'ec', component: EligibleCustomerComponent
-      },
-      {
-        path: 'pa', component: PendingApplicationComponent
-      },
-      {
-        path: 'va', component: ViewApplicationComponent
-      },
-      {
-        path: 'cad', component: CustomerAllDocComponent
-      }
+      { path: 'lra', component: LoanRequestApplicationComponent },
+      { path: 'ec', component: EligibleCustomerComponent },
+      { path: 'pa', component: PendingApplicationComponent },
+      { path: 'va/:id', component: ViewApplicationComponent },
+      { path: 'cad', component: CustomerAllDocComponent }
     ]
   }
 ];
