@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerDetails } from '../../../model/customer-details';
 import { Enquiry } from '../../../model/enquiry';
 import { CommonService } from '../../../service/common.service';
@@ -46,8 +46,8 @@ export class LoanRequestApplicationComponent implements OnInit {
       customerEmailId: [''],
       customerPanNo: [''],
       customerAadharNo: [''],
-      customerGender: [''],
-      customerIncome: [''],
+      customerGender: ['', Validators.required],
+      customerIncome: ['', [Validators.required, Validators.min(30000)]],
       loanStatus: [''],
       verificationn: [''],
       customerlocalAddress: this.fb.group({ pincode: [''], areaName: [''], cityName: [''], district: [''], state: [''] }),
@@ -71,6 +71,12 @@ export class LoanRequestApplicationComponent implements OnInit {
     }
   }
 
+  onPanInput(event: any) {
+    const pan = event.target.value.toUpperCase();
+    event.target.value = pan;
+    this.basicdetails.get('customerPanNo')?.setValue(pan, { emitEvent: false });
+  }
+
   onSelectedFile1(event: any) { this.selectedPanCopy = event.target.files[0]; }
   onSelectedFile2(event: any) { this.selectedUidCopy = event.target.files[0]; }
   onSelectedFile3(event: any) { this.selectedBankPassbookCopy = event.target.files[0]; }
@@ -80,6 +86,19 @@ export class LoanRequestApplicationComponent implements OnInit {
   onSelectedFile7(event: any) { this.selectedSalarySlip = event.target.files[0]; }
 
   basics() {
+    const gender = this.basicdetails.get('customerGender')?.value;
+    const income = Number(this.basicdetails.get('customerIncome')?.value);
+
+    if (!gender) {
+      alert('Please select customer gender.');
+      return;
+    }
+
+    if (!income || income < 30000) {
+      alert('Customer income should be at least ₹30,000.');
+      return;
+    }
+
     this.upload = true;
     this.basic = false;
     this.basicdetailsave = this.basicdetails.controls;
