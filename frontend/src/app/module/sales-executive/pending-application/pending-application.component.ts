@@ -15,7 +15,7 @@ export class PendingApplicationComponent implements OnInit {
 
   ngOnInit(): void {
     this.commonservice.getApplicationData().subscribe(data => {
-      this.pendingApplications = data.filter(c => c.loanStatus === 'Pending');
+      this.pendingApplications = data;
     });
   }
 }
