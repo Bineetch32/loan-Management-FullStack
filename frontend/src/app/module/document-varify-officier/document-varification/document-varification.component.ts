@@ -42,7 +42,7 @@ export class DocumentVarificationComponent implements OnInit {
     this.selectedDocument = null;
   }
 
-  viewDocument(documentName: string, documentData: string) {
+  viewDocument(documentName: string, documentData: any) {
     this.selectedDocument = {
       name: documentName,
       data: documentData
