@@ -1,30 +1,19 @@
-<table border="2">
-    <thead>
-    <tr>
-        <th>Customer Id</th>
-        <th>UidCopy</th>
-        <th>PanCopy</th>
-        <th>BankPassBookCopy</th>
-        <th>Photo</th>
-        <th>Signature</th>
-        <th>CancelledCheck</th>
-        <th>SalarySlip</th>
-        
-    </tr>
-    </thead>
-    <tbody *ngIf="retrievedDoc">
-        <tr *ngFor="let c of retrievedDoc">
-            <td>{{c.id}}</td>
-            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.uidCopy" height="150"></td>
-            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.panCopy" height="150"></td>
-            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.bankPassBookCopy" height="150"></td>
-            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.photo" height="150"></td>
-            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.signature" height="150"></td>
-            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.cancelledCheck" height="150"></td>
-            <td><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.salarySlip" height="150"></td>
-           
-            
-        </tr>
-    </tbody>
-    </table>
-    
+<div class="container">
+  <h2>Customer Documents</h2>
+  <p>Documents uploaded with the loan application.</p>
+
+  <div *ngFor="let c of retrievedDoc" class="document-card">
+    <h3>Application #{{c.id}} - {{c.customerName}}</h3>
+    <p><b>PAN:</b> {{c.customerPanNo | uppercase}} &nbsp; <b>CIBIL:</b> {{c.cibil}} &nbsp; <b>Status:</b> {{c.loanStatus}}</p>
+
+    <div class="document-grid" *ngIf="c.customerAllDocument">
+      <div class="document-item"><h4>Aadhaar</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.uidCopy" alt="Aadhaar"></div>
+      <div class="document-item"><h4>PAN Card</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.panCopy" alt="PAN"></div>
+      <div class="document-item"><h4>Bank Passbook</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.bankPassBookCopy" alt="Bank Passbook"></div>
+      <div class="document-item"><h4>Photo</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.photo" alt="Photo"></div>
+      <div class="document-item"><h4>Signature</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.signature" alt="Signature"></div>
+      <div class="document-item"><h4>Cancelled Cheque</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.cancelledCheck" alt="Cancelled Cheque"></div>
+      <div class="document-item"><h4>Salary Slip</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.salarySlip" alt="Salary Slip"></div>
+    </div>
+  </div>
+</div>
