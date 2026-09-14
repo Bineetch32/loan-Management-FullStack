@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'va', pathMatch: 'full' },
       { path: 'va', component: VarifiedApplicantComponent },
       { path: 'sa', component: SanctionApplicantComponent },
-      { path: 'sl', component: SanctionLetterComponent },
+      { path: 'sl', redirectTo: 'va', pathMatch: 'full' },
       { path: 'sl/:id', component: SanctionLetterComponent },
       { path: 'usl', component: UploadSanctionLetterComponent }
     ]
