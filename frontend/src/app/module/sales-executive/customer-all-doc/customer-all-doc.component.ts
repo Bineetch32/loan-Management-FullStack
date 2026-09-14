@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { CustomerDetails } from '../../../model/customer-details';
 import { CommonService } from '../../../service/common.service';
 
@@ -7,19 +8,23 @@ import { CommonService } from '../../../service/common.service';
   templateUrl: './customer-all-doc.component.html',
   styleUrl: './customer-all-doc.component.css'
 })
-export class CustomerAllDocComponent implements OnInit{
+export class CustomerAllDocComponent implements OnInit {
+  retrievedDoc: CustomerDetails[] = [];
+  selectedCustomer: CustomerDetails;
 
+  constructor(private commonservice: CommonService, private location: Location) { }
 
-  constructor(private commonservice:CommonService) { }
-  retrievedDoc:CustomerDetails[];
-  selectedFile:File;
-  
   ngOnInit(): void {
-      this.commonservice.getApplicationData().subscribe(data=>{
-        this.retrievedDoc=data;
-        console.log(this.retrievedDoc);
-      })
-     
+    this.commonservice.getApplicationData().subscribe(data => {
+      this.retrievedDoc = data;
+    });
   }
 
+  viewDocuments(customer: CustomerDetails): void {
+    this.selectedCustomer = customer;
+  }
+
+  back(): void {
+    this.selectedCustomer = undefined;
+  }
 }
