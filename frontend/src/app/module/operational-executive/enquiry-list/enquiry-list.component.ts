@@ -10,8 +10,8 @@ import { CommonService } from '../../../service/common.service';
 export class EnquiryListComponent implements OnInit {
 
   enqlist: Enquiry[] = [];
-  mailStatus: string;
   checkingCibilId: number = null;
+  sendingMailId: number = null;
 
   constructor(private common: CommonService) { }
 
@@ -31,12 +31,21 @@ export class EnquiryListComponent implements OnInit {
   }
 
   mailsend(id: number) {
+    if (this.sendingMailId === id) {
+      return;
+    }
+
+    this.sendingMailId = id;
+
     this.common.sendMailForEnquiry(id).subscribe({
       next: () => {
-        console.log("Mail sent successfully for ID:", id);
+        this.sendingMailId = null;
+        alert('Mail sent successfully.');
       },
       error: (error) => {
-        console.error("Error sending mail for ID:", id, "Error:", error);
+        this.sendingMailId = null;
+        console.error('Error sending mail for ID:', id, 'Error:', error);
+        alert('Unable to send mail. Please try again.');
       }
     });
   }
