@@ -43,6 +43,11 @@ public class HomeLoanController {
 		ObjectMapper om = new ObjectMapper();
 		CustomerDetails c = om.readValue(document1, CustomerDetails.class);
 
+		if (c.getCustomerIncome() < 30000) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body("Customer income should be at least ₹30,000.");
+		}
+
 		Integer enquiryId = c.getEnq() != null ? c.getEnq().getId() : null;
 		if (hls.isDuplicateCustomer(c.getCustomerMobileno(), c.getCustomerPanNo(), enquiryId)) {
 			return ResponseEntity.status(HttpStatus.CONFLICT)
