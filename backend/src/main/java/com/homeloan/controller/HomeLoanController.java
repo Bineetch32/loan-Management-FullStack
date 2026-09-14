@@ -69,9 +69,7 @@ public class HomeLoanController {
 		cad.setSignature(doc5.getBytes());
 		cad.setCancelledCheck(doc6.getBytes());
 		cad.setSalarySlip(doc7.getBytes());
-		if (doc8 != null) {
-			cad.setSanctionLetter(doc8.getBytes());
-		}
+		if (doc8 != null) cad.setSanctionLetter(doc8.getBytes());
 
 		CustomerBankAccountDetails cbd = new CustomerBankAccountDetails();
 		cbd.setAccountNumber(c.getCustomerBankAccountDetails().getAccountNumber());
@@ -159,13 +157,41 @@ public class HomeLoanController {
 			return ResponseEntity.badRequest().body("Sanction letter file is required.");
 		}
 
-		CustomerDetails customer = hls.saveSanctionLetter(id, sanctionLetter.getBytes());
+		CustomerDetails customer = hls.findCust(id);
 
 		if (customer == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found.");
 		}
 
-		return ResponseEntity.ok("Sanction letter saved successfully.");
+		if (!"Varified".equals(customer.getVerificationn())) {
+			return ResponseEntity.badRequest().body("Only verified applicants can get a sanction letter.");
+		}
+
+		CustomerDetails savedCustomer = hls.saveSanctionLetter(id, sanctionLetter.getBytes());
+
+		if (savedCustomer == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found.");
+		}
+
+		customer.setLoanStatus("Sanctioned");
+		hls.saveCustomer(customer);
+
+		try {
+			EmailSender es = new EmailSender();
+			es.setFromEmail(fromEmail);
+			es.setToEmail(customer.getCustomerEmailId());
+			es.setSubject("Home Loan Sanction Letter");
+			es.setTestBody("Dear " + customer.getCustomerName()
+					+ ", your home loan sanction letter has been generated successfully."
+					+ " Please find the sanction letter attached with this email."
+					+ "\n\nThank you,\nDeloite Finance");
+			ess.sendattachement(es, sanctionLetter);
+			return ResponseEntity.ok("Sanction letter saved and email sent successfully.");
+		} catch (Exception emailError) {
+			System.out.println("Sanction letter saved, but email could not be sent.");
+			emailError.printStackTrace();
+			return ResponseEntity.ok("Sanction letter saved, but email could not be sent.");
+		}
 	}
 
 	@PutMapping("/AcceptCustomer/{id}")
