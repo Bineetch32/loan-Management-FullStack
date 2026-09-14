@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../service/common.service';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
-import pdfMake from "pdfmake/build/pdfmake";  
-import pdfFonts from "pdfmake/build/vfs_fonts";  
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
-
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-
-
 class Invoice {
-  customerName: string;
-  address: string;
+  applicationId: number;
+  customerName: string = '';
+  address: string = '';
   contactNo: number;
-  email: string;
+  email: string = '';
   interest: number;
-  sanAmount: number;
   loanAmount: number;
-  additionalDetails: string;
+  additionalDetails: string = '';
 }
 
 @Component({
@@ -28,34 +26,52 @@ class Invoice {
   styleUrls: ['./sanction-letter.component.css']
 })
 export class SanctionLetterComponent implements OnInit {
-  
-  constructor(public service: CommonService, private location: Location) { }
-  
-  app: any;
+
   invoice = new Invoice();
-  
+  customer: any;
+
+  constructor(
+    public service: CommonService,
+    private location: Location,
+    private route: ActivatedRoute
+  ) { }
+
   ngOnInit(): void {
-    // Initialize any required logic here
-  }
-  
-  getback() {
-    this.location.back();
-  }
-  
-  submit() {
-  
-    if (this.app) {
-      this.invoice.customerName = `${this.app.firstName} ${this.app.lastName}`;
-      this.invoice.email = this.app.email;
-      this.invoice.address = `${this.app.currentAddress.areaName}, ${this.app.currentAddress.cityName}, ${this.app.currentAddress.district}, ${this.app.currentAddress.pincode}`;
-      this.invoice.contactNo = this.app.mobileNumber;
-      // Assign other properties if needed
-    } else {
-      console.error('Application data is not available.');
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (id) {
+      this.service.getCustomerDetailsById(Number(id)).subscribe({
+        next: (data) => {
+          this.customer = data;
+          this.invoice.applicationId = data.id;
+          this.invoice.customerName = data.customerName;
+          this.invoice.email = data.customerEmailId;
+          this.invoice.contactNo = data.customerMobileno;
+          this.invoice.address = this.getAddress(data);
+        },
+        error: (error) => {
+          console.error('Unable to load customer details', error);
+          alert('Unable to load customer details.');
+        }
+      });
     }
   }
 
-  generatePDF(action = 'open') {
+  private getAddress(data: any): string {
+    const address = data.customerlocalAddress;
+
+    if (!address) {
+      return '';
+    }
+
+    return `${address.areaName || ''}, ${address.cityName || ''}, ${address.district || ''}, ${address.state || ''}, ${address.pincode || ''}`;
+  }
+
+  getback() {
+    this.location.back();
+  }
+
+  generatePDF(action = 'download') {
     const docDefinition: TDocumentDefinitions = {
       content: [
         {
@@ -63,8 +79,7 @@ export class SanctionLetterComponent implements OnInit {
           fontSize: 20,
           bold: true,
           alignment: 'center',
-          decoration: 'underline',
-          color: 'red'
+          decoration: 'underline'
         },
         {
           text: 'Customer Details',
@@ -72,21 +87,16 @@ export class SanctionLetterComponent implements OnInit {
         },
         {
           columns: [
-            [{
-              text: this.invoice.customerName,
-              bold: true
-            },
-            { text: this.invoice.address },
-            { text: this.invoice.email },
-            { text: this.invoice.contactNo }
+            [
+              { text: this.invoice.customerName, bold: true },
+              { text: this.invoice.address },
+              { text: this.invoice.email },
+              { text: `Mobile: ${this.invoice.contactNo}` },
+              { text: `Application ID: ${this.invoice.applicationId}` }
             ],
             [
               {
-                text: `Date: ${new Date().toLocaleString()}`,
-                alignment: 'right'
-              },
-              {
-                text: `Loan No : ${((Math.random() * 10000).toFixed(0))}`,
+                text: `Date: ${new Date().toLocaleDateString()}`,
                 alignment: 'right'
               }
             ]
@@ -97,29 +107,27 @@ export class SanctionLetterComponent implements OnInit {
           style: 'sectionHeader'
         },
         {
-          text: `Dear '${this.invoice.customerName}' We thank you for choosing DelloiteHomeLoanSystems. We are pleased to inform you that we have in principle approved loan amount ${this.invoice.loanAmount} at interest rate is ${this.invoice.interest}% to you as per Terms & Conditions mentioned below. Thank You !
-          Thanks & Regards,
-          DelloiteHomeLoanSystems`,
-          margin: [0, 20, 0, 0]
+          text: `Dear ${this.invoice.customerName}, we are pleased to inform you that your home loan application has been reviewed. The proposed loan amount is ₹${this.invoice.loanAmount} at an interest rate of ${this.invoice.interest}% subject to the applicable terms and conditions.`,
+          margin: [0, 10, 0, 10]
         },
         {
-          columns: [
-            [{ text: 'Signature', alignment: 'right', italics: true }]
-          ],
-          margin: [0, 20, 0, 0]
+          text: this.invoice.additionalDetails || 'No additional details.',
+          margin: [0, 10, 0, 10]
         },
         {
           text: 'Terms and Conditions',
-          style: 'sectionHeader',
-          margin: [0, 20, 0, 0]
+          style: 'sectionHeader'
         },
         {
           ul: [
-            'Collecting finance DelloiteHomeLoanSystems',
-            'Interest would be payable monthly on the last date of each month',
-            'Legal vetting and search to be done',
-          ],
-          margin: [0, 10, 0, 0]
+            'Interest will be payable as per the agreed loan schedule.',
+            'Legal verification and other applicable checks may be required.',
+            'Final approval is subject to Branch Manager approval.'
+          ]
+        },
+        {
+          text: 'Thanks & Regards,\nAccount Head\nHome Loan Department',
+          margin: [0, 30, 0, 0]
         }
       ],
       styles: {
@@ -127,12 +135,13 @@ export class SanctionLetterComponent implements OnInit {
           bold: true,
           decoration: 'underline',
           fontSize: 14,
-          margin: [0, 15, 0, 15]
+          margin: [0, 15, 0, 10]
         }
       }
     };
-    if (action === 'download') {
-      pdfMake.createPdf(docDefinition).download();
-    }
 
-  }}
+    if (action === 'download') {
+      pdfMake.createPdf(docDefinition).download(`Sanction-Letter-${this.invoice.applicationId}.pdf`);
+    }
+  }
+}
