@@ -4,8 +4,10 @@
 
     <nav class="menu-list">
       <a routerLink="/accounthead/ah" class="menu-item">Dashboard</a>
-      <a routerLink="va" class="menu-item">Verified Applicants</a>
-      <a routerLink="sa" class="menu-item">Sanction Applicants</a>
+      <a routerLink="/accounthead/ah/va" class="menu-item">Verified Applicants</a>
+      <a routerLink="/accounthead/ah/sa" class="menu-item">Sanction Applicants</a>
+      <a routerLink="/accounthead/ah/sl" class="menu-item">Sanction Letter</a>
+      <a routerLink="/accounthead/ah/usl" class="menu-item">Upload Sanction Letter</a>
     </nav>
   </aside>
 
@@ -16,45 +18,21 @@
 
     <div class="dashboard-content">
       <div class="welcome-card">
-        <h3>Loan Application Review</h3>
-        <p>
-          Review document-verified customers and prepare their sanction letter
-          before sending the case to the Branch Manager for final approval.
-        </p>
-      </div>
-
-      <div class="process-card">
-        <h3>Current Process</h3>
-        <div class="process-flow">
-          <div class="process-step">
-            <strong>DVO</strong>
-            <span>Documents Verified</span>
-          </div>
-          <div class="arrow">→</div>
-          <div class="process-step active">
-            <strong>Account Head</strong>
-            <span>Review & Sanction Letter</span>
-          </div>
-          <div class="arrow">→</div>
-          <div class="process-step">
-            <strong>Branch Manager</strong>
-            <span>Final Approve / Reject</span>
-          </div>
-          <div class="arrow">→</div>
-          <div class="process-step">
-            <strong>Ledger</strong>
-            <span>Approved Loan</span>
-          </div>
-        </div>
+        <h3>Account Head</h3>
+        <p>Review verified applicants and prepare the sanction letter.</p>
       </div>
 
       <div class="action-card">
         <h3>Account Head Work</h3>
         <div class="action-buttons">
-          <a routerLink="va" class="action-button primary">View Verified Applicants</a>
-          <a routerLink="sa" class="action-button secondary">View Sanction Applicants</a>
+          <a routerLink="/accounthead/ah/va" class="action-button primary">Verified Applicants</a>
+          <a routerLink="/accounthead/ah/sa" class="action-button secondary">Sanction Applicants</a>
         </div>
       </div>
+    </div>
+
+    <div class="router-content">
+      <router-outlet></router-outlet>
     </div>
   </main>
 </div>
