@@ -12,6 +12,7 @@ export class EnquiryListComponent implements OnInit {
   enqlist: Enquiry[] = [];
   checkingCibilId: number = null;
   sendingMailId: number = null;
+  sentMailIds: number[] = [];
 
   constructor(private common: CommonService) { }
 
@@ -40,6 +41,11 @@ export class EnquiryListComponent implements OnInit {
     this.common.sendMailForEnquiry(id).subscribe({
       next: () => {
         this.sendingMailId = null;
+
+        if (!this.sentMailIds.includes(id)) {
+          this.sentMailIds.push(id);
+        }
+
         alert('Mail sent successfully.');
       },
       error: (error) => {
