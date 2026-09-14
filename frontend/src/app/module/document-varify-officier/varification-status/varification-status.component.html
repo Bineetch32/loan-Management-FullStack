@@ -1,4 +1,4 @@
-<div class="status-page" *ngIf="!selectedCustomer">
+<div class="status-page">
   <div class="page-header">
     <div>
       <h2>Verified Customers</h2>
@@ -6,128 +6,96 @@
     </div>
   </div>
 
-  <div class="table-card">
-    <div class="table-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Application ID</th>
-            <th>Customer Name</th>
-            <th>Mobile No</th>
-            <th>Email</th>
-            <th>PAN No</th>
-            <th>Verification Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let c of retrievedDoc">
-            <tr *ngIf="c.verificationn == 'Varified'">
-              <td><strong>#{{c.id}}</strong></td>
-              <td>{{c.customerName}}</td>
-              <td>{{c.customerMobileno}}</td>
-              <td>{{c.customerEmailId}}</td>
-              <td>{{c.customerPanNo | uppercase}}</td>
-              <td><span class="status verified">Verified</span></td>
-              <td><button class="btn btn-primary" (click)="viewCustomer(c)">View Details</button></td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div class="status-page detail-page" *ngIf="selectedCustomer">
-  <div class="detail-header">
-    <div>
-      <div class="small-title">APPLICATION #{{selectedCustomer.id}}</div>
-      <h2>{{selectedCustomer.customerName}}</h2>
-      <p>Verified applicant details and uploaded documents.</p>
-    </div>
-    <button class="btn btn-secondary" (click)="back()">Back to Verified Customers</button>
-  </div>
-
-  <div class="tab-bar">
-    <button [class.active]="activeTab === 'details'" (click)="showDetails()">Customer Details</button>
-    <button [class.active]="activeTab === 'documents'" (click)="showDocuments()">Documents</button>
-  </div>
-
-  <div *ngIf="activeTab === 'details'">
-    <section class="info-section">
-      <h3>Personal & Loan Details</h3>
-      <div class="info-grid">
-        <div class="info-item"><label>Application ID</label><span>#{{selectedCustomer.id}}</span></div>
-        <div class="info-item"><label>Customer Name</label><span>{{selectedCustomer.customerName}}</span></div>
-        <div class="info-item"><label>Mobile Number</label><span>{{selectedCustomer.customerMobileno}}</span></div>
-        <div class="info-item"><label>Email</label><span>{{selectedCustomer.customerEmailId}}</span></div>
-        <div class="info-item"><label>PAN Number</label><span>{{selectedCustomer.customerPanNo | uppercase}}</span></div>
-        <div class="info-item"><label>Aadhaar Number</label><span>{{selectedCustomer.customerAadharNo}}</span></div>
-        <div class="info-item"><label>Date of Birth</label><span>{{selectedCustomer.customerDOB}}</span></div>
-        <div class="info-item"><label>Gender</label><span>{{selectedCustomer.customerGender}}</span></div>
-        <div class="info-item"><label>Monthly Income</label><span>₹ {{selectedCustomer.customerIncome}}</span></div>
-        <div class="info-item"><label>Loan Status</label><span>{{selectedCustomer.loanStatus}}</span></div>
-        <div class="info-item"><label>Verification Status</label><span class="status verified">Verified</span></div>
+  <div class="customer-list" *ngFor="let c of retrievedDoc">
+    <div class="customer-card" *ngIf="c.verificationn == 'Varified'">
+      <div class="customer-summary">
+        <div><label>Application ID</label><strong>#{{c.id}}</strong></div>
+        <div><label>Customer Name</label><strong>{{c.customerName}}</strong></div>
+        <div><label>Mobile No</label><span>{{c.customerMobileno}}</span></div>
+        <div><label>PAN No</label><span>{{c.customerPanNo | uppercase}}</span></div>
+        <div><span class="status verified">Verified</span></div>
       </div>
-    </section>
 
-    <section class="info-section">
-      <h3>Address Details</h3>
-      <div class="two-column">
-        <div class="detail-card">
-          <h4>Current Address</h4>
-          <p><b>Area:</b> {{selectedCustomer.customerlocalAddress?.areaName}}</p>
-          <p><b>City:</b> {{selectedCustomer.customerlocalAddress?.cityName}}</p>
-          <p><b>District:</b> {{selectedCustomer.customerlocalAddress?.district}}</p>
-          <p><b>State:</b> {{selectedCustomer.customerlocalAddress?.state}}</p>
-          <p><b>Pincode:</b> {{selectedCustomer.customerlocalAddress?.pincode}}</p>
-        </div>
-        <div class="detail-card">
-          <h4>Permanent Address</h4>
-          <p><b>Area:</b> {{selectedCustomer.customerPermanentAddress?.areaName}}</p>
-          <p><b>City:</b> {{selectedCustomer.customerPermanentAddress?.cityName}}</p>
-          <p><b>District:</b> {{selectedCustomer.customerPermanentAddress?.district}}</p>
-          <p><b>State:</b> {{selectedCustomer.customerPermanentAddress?.state}}</p>
-          <p><b>Pincode:</b> {{selectedCustomer.customerPermanentAddress?.pincode}}</p>
-        </div>
-      </div>
-    </section>
+      <details>
+        <summary>View Full Details & Documents</summary>
 
-    <section class="info-section">
-      <h3>Bank & Guarantor Details</h3>
-      <div class="two-column">
-        <div class="detail-card">
-          <h4>Bank Account</h4>
-          <p><b>Bank Name:</b> {{selectedCustomer.customerBankAccountDetails?.bankName}}</p>
-          <p><b>Account Number:</b> {{selectedCustomer.customerBankAccountDetails?.accountNumber}}</p>
-          <p><b>IFSC Code:</b> {{selectedCustomer.customerBankAccountDetails?.ifscCode}}</p>
-          <p><b>Address:</b> {{selectedCustomer.customerBankAccountDetails?.address}}</p>
-        </div>
-        <div class="detail-card">
-          <h4>Guarantor</h4>
-          <p><b>Name:</b> {{selectedCustomer.guarantorDetails?.guarantorName}}</p>
-          <p><b>Mobile:</b> {{selectedCustomer.guarantorDetails?.guarantorMobileNo}}</p>
-          <p><b>Email:</b> {{selectedCustomer.guarantorDetails?.guarantorEmailId}}</p>
-          <p><b>Address:</b> {{selectedCustomer.guarantorDetails?.guarantorAddress}}</p>
-        </div>
-      </div>
-    </section>
+        <section class="info-section">
+          <h3>Personal & Loan Details</h3>
+          <div class="info-grid">
+            <div class="info-item"><label>Application ID</label><span>#{{c.id}}</span></div>
+            <div class="info-item"><label>Customer Name</label><span>{{c.customerName}}</span></div>
+            <div class="info-item"><label>Mobile Number</label><span>{{c.customerMobileno}}</span></div>
+            <div class="info-item"><label>Email</label><span>{{c.customerEmailId}}</span></div>
+            <div class="info-item"><label>PAN Number</label><span>{{c.customerPanNo | uppercase}}</span></div>
+            <div class="info-item"><label>Aadhaar Number</label><span>{{c.customerAadharNo}}</span></div>
+            <div class="info-item"><label>Date of Birth</label><span>{{c.customerDOB}}</span></div>
+            <div class="info-item"><label>Gender</label><span>{{c.customerGender}}</span></div>
+            <div class="info-item"><label>Monthly Income</label><span>₹ {{c.customerIncome}}</span></div>
+            <div class="info-item"><label>Loan Status</label><span>{{c.loanStatus}}</span></div>
+            <div class="info-item"><label>Verification Status</label><span class="status verified">Verified</span></div>
+          </div>
+        </section>
+
+        <section class="info-section">
+          <h3>Address Details</h3>
+          <div class="two-column">
+            <div class="detail-card">
+              <h4>Current Address</h4>
+              <p><b>Area:</b> {{c.customerlocalAddress?.areaName}}</p>
+              <p><b>City:</b> {{c.customerlocalAddress?.cityName}}</p>
+              <p><b>District:</b> {{c.customerlocalAddress?.district}}</p>
+              <p><b>State:</b> {{c.customerlocalAddress?.state}}</p>
+              <p><b>Pincode:</b> {{c.customerlocalAddress?.pincode}}</p>
+            </div>
+            <div class="detail-card">
+              <h4>Permanent Address</h4>
+              <p><b>Area:</b> {{c.customerPermanentAddress?.areaName}}</p>
+              <p><b>City:</b> {{c.customerPermanentAddress?.cityName}}</p>
+              <p><b>District:</b> {{c.customerPermanentAddress?.district}}</p>
+              <p><b>State:</b> {{c.customerPermanentAddress?.state}}</p>
+              <p><b>Pincode:</b> {{c.customerPermanentAddress?.pincode}}</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="info-section">
+          <h3>Bank & Guarantor Details</h3>
+          <div class="two-column">
+            <div class="detail-card">
+              <h4>Bank Account</h4>
+              <p><b>Bank Name:</b> {{c.customerBankAccountDetails?.bankName}}</p>
+              <p><b>Account Number:</b> {{c.customerBankAccountDetails?.accountNumber}}</p>
+              <p><b>IFSC Code:</b> {{c.customerBankAccountDetails?.ifscCode}}</p>
+              <p><b>Address:</b> {{c.customerBankAccountDetails?.address}}</p>
+            </div>
+            <div class="detail-card">
+              <h4>Guarantor</h4>
+              <p><b>Name:</b> {{c.guarantorDetails?.guarantorName}}</p>
+              <p><b>Mobile:</b> {{c.guarantorDetails?.guarantorMobileNo}}</p>
+              <p><b>Email:</b> {{c.guarantorDetails?.guarantorEmailId}}</p>
+              <p><b>Address:</b> {{c.guarantorDetails?.guarantorAddress}}</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="documents-section">
+          <h3>Uploaded Documents</h3>
+          <div class="document-grid">
+            <div class="document-card"><h4>PAN Card</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.panCopy" alt="PAN Card"></div>
+            <div class="document-card"><h4>Aadhaar Card</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.uidCopy" alt="Aadhaar Card"></div>
+            <div class="document-card"><h4>Bank Passbook</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.bankPassBookCopy" alt="Bank Passbook"></div>
+            <div class="document-card"><h4>Photo</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.photo" alt="Photo"></div>
+            <div class="document-card"><h4>Signature</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.signature" alt="Signature"></div>
+            <div class="document-card"><h4>Cancelled Cheque</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.cancelledCheck" alt="Cancelled Cheque"></div>
+            <div class="document-card"><h4>Salary Slip</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.salarySlip" alt="Salary Slip"></div>
+          </div>
+        </section>
+      </details>
+    </div>
   </div>
 
-  <div *ngIf="activeTab === 'documents'" class="documents-section">
-    <div class="document-list" *ngIf="!selectedDocument">
-      <div class="document-row"><div><span class="doc-icon">01</span><div><h4>PAN Card</h4><p>Identity document</p></div></div><button class="btn btn-primary" (click)="viewDocument('PAN Card', selectedCustomer.customerAllDocument?.panCopy)">View Document</button></div>
-      <div class="document-row"><div><span class="doc-icon">02</span><div><h4>Aadhaar Card</h4><p>Identity document</p></div></div><button class="btn btn-primary" (click)="viewDocument('Aadhaar Card', selectedCustomer.customerAllDocument?.uidCopy)">View Document</button></div>
-      <div class="document-row"><div><span class="doc-icon">03</span><div><h4>Bank Passbook</h4><p>Banking document</p></div></div><button class="btn btn-primary" (click)="viewDocument('Bank Passbook', selectedCustomer.customerAllDocument?.bankPassBookCopy)">View Document</button></div>
-      <div class="document-row"><div><span class="doc-icon">04</span><div><h4>Photo</h4><p>Applicant photograph</p></div></div><button class="btn btn-primary" (click)="viewDocument('Photo', selectedCustomer.customerAllDocument?.photo)">View Document</button></div>
-      <div class="document-row"><div><span class="doc-icon">05</span><div><h4>Signature</h4><p>Applicant signature</p></div></div><button class="btn btn-primary" (click)="viewDocument('Signature', selectedCustomer.customerAllDocument?.signature)">View Document</button></div>
-      <div class="document-row"><div><span class="doc-icon">06</span><div><h4>Cancelled Cheque</h4><p>Banking document</p></div></div><button class="btn btn-primary" (click)="viewDocument('Cancelled Cheque', selectedCustomer.customerAllDocument?.cancelledCheck)">View Document</button></div>
-      <div class="document-row"><div><span class="doc-icon">07</span><div><h4>Salary Slip</h4><p>Income proof</p></div></div><button class="btn btn-primary" (click)="viewDocument('Salary Slip', selectedCustomer.customerAllDocument?.salarySlip)">View Document</button></div>
-    </div>
-
-    <div class="document-viewer" *ngIf="selectedDocument">
-      <div class="viewer-header"><h3>{{selectedDocument.name}}</h3><button class="btn btn-secondary" (click)="closeDocument()">Back to Documents</button></div>
-      <div class="viewer-image"><img [src]="'data:image/jpeg;base64,' + selectedDocument.data" [alt]="selectedDocument.name"></div>
-    </div>
+  <div class="empty-state" *ngIf="retrievedDoc && retrievedDoc.length === 0">
+    <h3>No verified customers</h3>
+    <p>No customer has been verified yet.</p>
   </div>
 </div>
