@@ -1,0 +1,13 @@
+.mail-status {
+  text-align: center;
+  vertical-align: middle;
+  font-weight: 600;
+}
+
+.mail-sent {
+  color: #198754;
+}
+
+.mail-not-sent {
+  color: #777;
+}
