@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,9 @@ public class HomeLoanController {
 
 	@Autowired HomeLoanService hls;
 	@Autowired EmailSenderService ess;
+
+	@Value("${spring.mail.username}")
+	String fromEmail;
 
 	@PostMapping(value = "/setCustomerAllDetail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<String> saveCustomer(@RequestPart(value = "panCopy") MultipartFile doc1,
@@ -115,18 +119,17 @@ public class HomeLoanController {
 
 		hls.saveCustomer(customer);
 
-		// Send confirmation after the application is successfully saved.
 		try {
 			EmailSender es = new EmailSender();
-			es.setFromEmail(hls.getMailUsername());
+			es.setFromEmail(fromEmail);
 			es.setToEmail(customer.getCustomerEmailId());
-			es.setSubject("Loan Application Submitted Successfully");
+			es.setSubject("Home Loan Application Submitted Successfully");
 			es.setTestBody("Dear " + customer.getCustomerName()
 					+ ", your home loan application form has been submitted successfully."
 					+ " Your application status is Pending."
 					+ " Our team will verify your documents and contact you for the next steps."
-						+ "\n\nThank you,\nDeloite Finance");
-			ess.sendEmail(es);
+					+ "\n\nThank you,\nDeloite Finance");
+			es.sendEmail(es);
 		} catch (Exception emailError) {
 			System.out.println("Application saved, but confirmation email could not be sent.");
 			emailError.printStackTrace();
