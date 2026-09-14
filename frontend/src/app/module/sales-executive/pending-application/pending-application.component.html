@@ -12,6 +12,7 @@
           <th>Email</th>
           <th>PAN No</th>
           <th>Loan Status</th>
+          <th>Document Verification</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -25,6 +26,11 @@
           <td>
             <span class="status" [class.approved]="c.loanStatus === 'Approved'" [class.rejected]="c.loanStatus === 'Rejected'">
               {{c.loanStatus}}
+            </span>
+          </td>
+          <td>
+            <span class="status" [class.approved]="c.verificationn === 'Varified'" [class.rejected]="c.verificationn === 'UnVarified'">
+              {{c.verificationn || 'Pending'}}
             </span>
           </td>
           <td>
