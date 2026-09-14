@@ -1,92 +1,95 @@
-<!-- Navbar commented out for clarity -->
-<!-- <nav class="navbar navbar-expand-sm navbar-dark bg-secondary d-flex justify-content-between"> -->
-    <br>
-    <br>
-    <br>
-    <br>
-    <h3 style="color:rgb(137, 29, 29);">&nbsp; &nbsp;Sanction Letter</h3>
-    <!-- <form (ngSubmit)="submit()">
-        <input type="number" name="number" [(ngModel)]="id" id="">
-        <button type="submit" >Fill</button>
-    </form> -->
-    <!-- </nav> -->
-    <form #invoiceForm="ngForm">
-        <div class="container-fluid pt-2 mb-5">
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="card border-secondary">
-                        <div class="card-body">
-                            <h4 class="card-title">Customer Details</h4>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" class="form-control" name="name" id="customerName"
-                                            [ngClass]="{'is-invalid': invoiceForm.submitted && CustName.invalid}"
-                                            [(ngModel)]="invoice.customerName" #CustName="ngModel" required>
-                                    </div>
-    
-    
-                                    <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <textarea class="form-control" name="address" id="address" rows="3"
-                                            [ngClass]="{'is-invalid': invoiceForm.submitted && Address.invalid}"
-                                            [(ngModel)]="invoice.address" #Address="ngModel" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="email">Email ID</label>
-                                        <input type="email" class="form-control" name="email" id="customerEmailId"
-                                            [(ngModel)]="invoice.email" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="contactNo">Contact No.</label>
-                                        <input type="number" class="form-control" name="contactNo" id="contactNo"
-                                            [ngClass]="{'is-invalid': invoiceForm.submitted && ContactNo.invalid}"
-                                            [(ngModel)]="invoice.contactNo" #ContactNo="ngModel" required>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card border-secondary mt-2">
-                        <div class="card-body">
-                            <h4 class="card-title d-flex justify-content-between">Loan Details</h4>
-                            <input type="number" class="form-control" name="loanIntrest" [(ngModel)]="invoice.interest" />Intrest Rate<br>
-                            <input type="number" class="form-control" name="LoanAmount" [(ngModel)]="invoice.loanAmount" />Loan Amount<br>
-                        </div>
-                    </div>
-                    <div class="card border-secondary mt-2">
-                        <div class="card-body">
-                            <h4 class="card-title">Additional Details</h4>
-                            <div class="form-group">
-                                <textarea class="form-control" name="additionalDetails" rows="3"
-                                    [(ngModel)]="invoice.additionalDetails"></textarea>
-                            </div>
-                        </div>
-                    </div>
-    
-                </div>
-                <div class="col-md-2">
-    
-                    <button type="button" class="btn btn-primary"
-                        (click)="invoiceForm.valid ? generatePDF('download') : ''">Download </button>
-    
-                    <!-- <button type="button" class="btn btn-primary "
-                      (click)="generatePDF('download')">Download </button> -->
-                    <br><br>
-                    <button type="button" class="btn btn-primary"
-                        (click)="getback()">Go Back </button>
-                    <br><br>
-    
-    
-    
-                </div>
-            </div>
+<div class="sanction-page">
+  <div class="page-header">
+    <div>
+      <h2>Generate Sanction Letter</h2>
+      <p>Review the verified applicant details and prepare the sanction letter.</p>
+    </div>
+    <button type="button" class="back-button" (click)="getback()">Back</button>
+  </div>
+
+  <form #invoiceForm="ngForm">
+    <section class="card">
+      <h3>Customer Details</h3>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Application ID</label>
+          <span>#{{invoice.applicationId}}</span>
         </div>
-    </form>
-    <footer class="fixed-bottom">
-    
-    </footer>
-    
+        <div class="info-item">
+          <label>Customer Name</label>
+          <span>{{invoice.customerName}}</span>
+        </div>
+        <div class="info-item">
+          <label>Mobile Number</label>
+          <span>{{invoice.contactNo}}</span>
+        </div>
+        <div class="info-item">
+          <label>Email</label>
+          <span>{{invoice.email}}</span>
+        </div>
+        <div class="info-item full-width">
+          <label>Current Address</label>
+          <span>{{invoice.address}}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Sanction Details</h3>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="loanAmount">Loan Amount</label>
+          <input
+            id="loanAmount"
+            type="number"
+            name="loanAmount"
+            class="form-control"
+            [(ngModel)]="invoice.loanAmount"
+            #loanAmount="ngModel"
+            required
+            min="1">
+        </div>
+
+        <div class="form-group">
+          <label for="interest">Interest Rate (%)</label>
+          <input
+            id="interest"
+            type="number"
+            name="interest"
+            class="form-control"
+            [(ngModel)]="invoice.interest"
+            #interest="ngModel"
+            required
+            min="0">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="additionalDetails">Additional Details</label>
+        <textarea
+          id="additionalDetails"
+          name="additionalDetails"
+          class="form-control"
+          rows="4"
+          [(ngModel)]="invoice.additionalDetails"
+          placeholder="Enter any important sanction terms or notes"></textarea>
+      </div>
+    </section>
+
+    <section class="action-card">
+      <button
+        type="button"
+        class="generate-button"
+        [disabled]="!invoiceForm.valid || !invoice.customerName"
+        (click)="generatePDF('download')">
+        Generate & Download Sanction Letter
+      </button>
+
+      <button type="button" class="back-button" (click)="getback()">
+        Cancel
+      </button>
+    </section>
+  </form>
+</div>
