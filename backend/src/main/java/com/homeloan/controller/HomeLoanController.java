@@ -38,7 +38,7 @@ public class HomeLoanController {
 			@RequestPart(value = "signature") MultipartFile doc5,
 			@RequestPart(value = "cancelledCheck") MultipartFile doc6,
 			@RequestPart(value = "salarySlips") MultipartFile doc7,
-			@RequestPart(value = "sanctionLetter") MultipartFile doc8,
+			@RequestPart(value = "sanctionLetter", required = false) MultipartFile doc8,
 			@RequestPart(value = "document1") String document1) throws IOException {
 		ObjectMapper om = new ObjectMapper();
 		CustomerDetails c = om.readValue(document1, CustomerDetails.class);
@@ -57,7 +57,9 @@ public class HomeLoanController {
 		cad.setSignature(doc5.getBytes());
 		cad.setCancelledCheck(doc6.getBytes());
 		cad.setSalarySlip(doc7.getBytes());
-		cad.setSanctionLetter(doc8.getBytes());
+		if (doc8 != null) {
+			cad.setSanctionLetter(doc8.getBytes());
+		}
 
 		CustomerBankAccountDetails cbd = new CustomerBankAccountDetails();
 		cbd.setAccountNumber(c.getCustomerBankAccountDetails().getAccountNumber());
