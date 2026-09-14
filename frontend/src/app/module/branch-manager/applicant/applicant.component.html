@@ -1,7 +1,7 @@
 <div class="container">
   <div class="page-header">
-    <h2>Pending Loan Approval</h2>
-    <p>Only verified applicants with a sanction letter are shown for final Branch Manager approval.</p>
+    <h2>Loan Approval</h2>
+    <p>DVO verified applicants are shown here for Branch Manager final approval.</p>
   </div>
 
   <div class="table-responsive">
@@ -13,23 +13,56 @@
           <th>Mobile Number</th>
           <th>Email</th>
           <th>PAN Number</th>
+          <th>CIBIL Score</th>
           <th>View Details</th>
           <th>Approve</th>
           <th>Reject</th>
         </tr>
       </thead>
-
       <tbody *ngIf="retrievedDoc">
         <tr *ngFor="let c of retrievedDoc">
-          <ng-container *ngIf="c.verificationn == 'Varified' && c.customerAllDocument?.sanctionLetter?.length > 0 && c.loanStatus != 'Approved' && c.loanStatus != 'Rejected'">
+          <ng-container *ngIf="c.verificationn == 'Varified' && c.loanStatus != 'Approved' && c.loanStatus != 'Rejected'">
             <td>#{{c.id}}</td>
             <td>{{c.customerName}}</td>
             <td>{{c.customerMobileno}}</td>
             <td>{{c.customerEmailId}}</td>
             <td>{{c.customerPanNo | uppercase}}</td>
+            <td><strong>{{c.cibil}}</strong></td>
             <td><a class="btn btn-primary" [routerLink]="['ad',c.id]">View Details</a></td>
             <td><button type="button" class="btn btn-success" (click)="approvedCall(c)">Approve</button></td>
             <td><button type="button" class="btn btn-danger" (click)="rejectedCall(c)">Reject</button></td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-header rejected-header">
+    <h2>Rejected Applications</h2>
+    <p>Previously rejected applications can be approved again after review.</p>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Application ID</th>
+          <th>Customer Name</th>
+          <th>PAN Number</th>
+          <th>CIBIL Score</th>
+          <th>View Details</th>
+          <th>Approve Again</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="retrievedDoc">
+        <tr *ngFor="let c of retrievedDoc">
+          <ng-container *ngIf="c.verificationn == 'Varified' && c.loanStatus == 'Rejected'">
+            <td>#{{c.id}}</td>
+            <td>{{c.customerName}}</td>
+            <td>{{c.customerPanNo | uppercase}}</td>
+            <td><strong>{{c.cibil}}</strong></td>
+            <td><a class="btn btn-primary" [routerLink]="['ad',c.id]">View Details</a></td>
+            <td><button type="button" class="btn btn-success" (click)="approvedCall(c)">Approve Again</button></td>
           </ng-container>
         </tr>
       </tbody>
