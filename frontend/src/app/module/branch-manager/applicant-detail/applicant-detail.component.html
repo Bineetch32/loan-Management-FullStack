@@ -1,133 +1,46 @@
+<div class="jumbotron" style="text-align:center" *ngIf="customerObject">
+  <h2>Customer Details</h2>
 
+  <table class="table table-sm table-bordered table-striped">
+    <tr><td>Application ID</td><td>{{customerObject.id}}</td></tr>
+    <tr><td>Customer Name</td><td>{{customerObject.customerName}}</td></tr>
+    <tr><td>Mobile Number</td><td>{{customerObject.customerMobileno}}</td></tr>
+    <tr><td>Date of Birth</td><td>{{customerObject.customerDOB}}</td></tr>
+    <tr><td>Email</td><td>{{customerObject.customerEmailId}}</td></tr>
+    <tr><td>PAN Number</td><td>{{customerObject.customerPanNo | uppercase}}</td></tr>
+    <tr><td>Aadhaar Number</td><td>{{customerObject.customerAadharNo}}</td></tr>
+    <tr><td>Gender</td><td>{{customerObject.customerGender}}</td></tr>
+    <tr><td>Monthly Income</td><td>₹ {{customerObject.customerIncome}}</td></tr>
+    <tr><td>CIBIL Score</td><td><strong>{{customerObject.cibil}}</strong></td></tr>
+    <tr><td>Loan Status</td><td>{{customerObject.loanStatus}}</td></tr>
+    <tr><td>Verification Status</td><td>{{customerObject.verificationn}}</td></tr>
 
+    <tr><th colspan="2">Current Address</th></tr>
+    <tr><td>Area</td><td>{{customerObject.customerlocalAddress?.areaName}}</td></tr>
+    <tr><td>City</td><td>{{customerObject.customerlocalAddress?.cityName}}</td></tr>
+    <tr><td>District</td><td>{{customerObject.customerlocalAddress?.district}}</td></tr>
+    <tr><td>State</td><td>{{customerObject.customerlocalAddress?.state}}</td></tr>
+    <tr><td>Pincode</td><td>{{customerObject.customerlocalAddress?.pincode}}</td></tr>
 
+    <tr><th colspan="2">Permanent Address</th></tr>
+    <tr><td>Area</td><td>{{customerObject.customerPermanentAddress?.areaName}}</td></tr>
+    <tr><td>City</td><td>{{customerObject.customerPermanentAddress?.cityName}}</td></tr>
+    <tr><td>District</td><td>{{customerObject.customerPermanentAddress?.district}}</td></tr>
+    <tr><td>State</td><td>{{customerObject.customerPermanentAddress?.state}}</td></tr>
+    <tr><td>Pincode</td><td>{{customerObject.customerPermanentAddress?.pincode}}</td></tr>
 
-<div class="jumbotron"style="text-align:center" >
-    <h2>Customer Details</h2>
-    <table class="table table-sm table-bordered m-t-2 table-striped">
-    <tr>
-    <td> Customer Id:</td>
-    <td> <input type="text"value={{customerObject.id}}></td>
-    </tr>
-    <tr>
-    <td> Customer Name:</td>
-    <td> <input type="text" value={{customerObject.customerName}}></td>
-    </tr>
-    <tr>
-    <td> Customer Mobile No.:</td>
-    <td> <input type="text" value={{customerObject.customerMobileno}}></td>
-    </tr>
-    <tr>
-    <td> Customer DOB:</td>
-    <td> <input type="text" value={{customerObject.customerDOB}}></td>
-    </tr>
-    <tr>
-    <td> Customer Email Id:</td>
-    <td> <input type="text" value={{customerObject.customerEmailId}}></td>
-    </tr>
-    <tr>
-    <td> Customer Pan No:</td>
-    <td> <input type="text" value={{customerObject.customerPanNo}}></td>
-    </tr>
-    <tr>
-    <td> Customer Aadhar No:</td>
-    <td> <input type="text" value={{customerObject.customerAadharNo}}></td>
-    </tr>
-    <tr>
-    <td> Customer Gender:</td>
-     <td> <input type="text" value={{customerObject.customerGender}}></td>
-     </tr>
-     <tr>
-     <td> Customer Income:</td>
-    <td> <input type="text" value={{customerObject.customerIncome}}></td>
-     </tr>
-     <tr>
-    <td> Customer Cibil:</td>
-    <td> <input type="text" value={{customerObject.cibil}}></td>
-    </tr>
-    <br><th>Customer Local Address</th><br>
-    <tr>
-    <td>pincode:</td>
-    <td> <input type="text" value={{customerObject.customerlocalAddress.pincode}}></td>
-    </tr>
-    <tr>
-     <td>areaName:</td>
-    <td> <input type="text" value={{customerObject.customerlocalAddress.areaName}}></td>
-    </tr>
-    <tr>
-     <td>cityName:</td>
-    <td> <input type="text" value={{customerObject.customerlocalAddress.cityName}}></td>
-    </tr>
-    <tr>
-     <td>district:</td>
-     <td> <input type="text" value={{customerObject.customerlocalAddress.district}}></td>
-    </tr>
-    <tr>
-     <td>state:</td>
-    <td> <input type="text" value={{customerObject.customerlocalAddress.state}}></td>
-    </tr>
-    <br><th>Customer Parmanent Address</th><br>
-    <tr>
-     <td>pincode:</td>
-    <td> <input type="text" value={{customerObject.customerPermanentAddress.pincode}}></td>
-    </tr>
-    <tr>
-     <td>areaName:</td>
-    <td> <input type="text" value={{customerObject.customerPermanentAddress.areaName}}></td>
-    </tr>
-    <tr>
-    <td>cityName:</td>
-    <td> <input type="text" value={{customerObject.customerPermanentAddress.cityName}}></td>
-    </tr>
-    <tr>
-    <td>district:</td>
-    <td> <input type="text" value={{customerObject.customerPermanentAddress.district}}></td>
-    </tr>
-    <tr>
-     <td>state:</td>
-    <td> <input type="text" value={{customerObject.customerPermanentAddress.state}}></td>
-    </tr>
+    <tr><th colspan="2">Bank Details</th></tr>
+    <tr><td>Bank Name</td><td>{{customerObject.customerBankAccountDetails?.bankName}}</td></tr>
+    <tr><td>Account Number</td><td>{{customerObject.customerBankAccountDetails?.accountNumber}}</td></tr>
+    <tr><td>IFSC Code</td><td>{{customerObject.customerBankAccountDetails?.ifscCode}}</td></tr>
+    <tr><td>Bank Address</td><td>{{customerObject.customerBankAccountDetails?.address}}</td></tr>
 
-    <br><th>Customer Bank Details</th>
-
-    <tr>
-    <td>accountNumber:</td>
-    <td> <input type="text" value={{customerObject.customerBankAccountDetails.accountNumber}}></td>
-    </tr>
-    <tr>
-    <td>ifscCode:</td>
-    <td> <input type="text" value={{customerObject.customerBankAccountDetails.ifscCode}}></td>
-    </tr>
-    <tr>
-    <td>bankName:</td>
-    <td> <input type="text" value={{customerObject.customerBankAccountDetails.bankName}}></td>
-    </tr>
-    <tr>
-    <td>address:</td>
-    <td> <input type="text" value={{customerObject.customerBankAccountDetails.address}}></td>
-    </tr>
-
-
-    <br><th>Customer Guarantor Detail<th><br>
-
-    <tr>
-    <td>guarantorMobileNo:</td>
-    <td> <input type="text" value={{customerObject.guarantorDetails.guarantorMobileNo}}></td>
-    </tr>
-    <tr>
-    <td>guarantorName:</td>
-    <td> <input type="text" value={{customerObject.guarantorDetails.guarantorName}}></td>
-    </tr>
-    <tr>
-    <td>guarantorEmailId:</td>
-    <td> <input type="text" value={{customerObject.guarantorDetails.guarantorEmailId}}></td>
-    </tr>
-    <tr>
-    <td>guarantorAddress:</td>
-    <td> <input type="text" value={{customerObject.guarantorDetails.guarantorAddress}}></td>
-    </tr>
-
+    <tr><th colspan="2">Guarantor Details</th></tr>
+    <tr><td>Name</td><td>{{customerObject.guarantorDetails?.guarantorName}}</td></tr>
+    <tr><td>Mobile Number</td><td>{{customerObject.guarantorDetails?.guarantorMobileNo}}</td></tr>
+    <tr><td>Email</td><td>{{customerObject.guarantorDetails?.guarantorEmailId}}</td></tr>
+    <tr><td>Address</td><td>{{customerObject.guarantorDetails?.guarantorAddress}}</td></tr>
   </table>
-<button class="btn btn-info float-right" (click)="getback()">Go Back</button>
+
+  <button class="btn btn-info" (click)="getback()">Back</button>
 </div>
-<router-outlet></router-outlet>
