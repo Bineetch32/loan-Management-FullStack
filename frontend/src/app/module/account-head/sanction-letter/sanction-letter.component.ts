@@ -173,6 +173,9 @@ export class SanctionLetterComponent implements OnInit {
     pdfMake.createPdf(docDefinition).getBlob((blob: Blob) => {
       const formData = new FormData();
       formData.append('sanctionLetter', blob, `Sanction-Letter-${this.invoice.applicationId}.pdf`);
+      formData.append('loanAmount', this.invoice.loanAmount.toString());
+      formData.append('interestRate', this.invoice.interest.toString());
+      formData.append('tenureYears', this.invoice.tenureYears.toString());
 
       this.service.saveSanctionLetter(this.invoice.applicationId, formData).subscribe({
         next: (message) => {
