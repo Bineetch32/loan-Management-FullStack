@@ -10,4 +10,5 @@ public interface HomeLoanService {
     Optional<CustomerDetails> searchEmployeee(Integer cid);
     CustomerDetails findCust(Integer id);
     boolean isDuplicateCustomer(long mobile, String pan, Integer enquiryId);
+    CustomerDetails saveSanctionLetter(Integer id, byte[] sanctionLetter);
 }
