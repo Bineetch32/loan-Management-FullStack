@@ -17,6 +17,7 @@ class Invoice {
   email: string = '';
   interest: number;
   loanAmount: number;
+  tenureYears: number;
   additionalDetails: string = '';
 }
 
@@ -47,8 +48,7 @@ export class SanctionLetterComponent implements OnInit {
           this.invoice.contactNo = data.customerMobileno;
           this.invoice.address = this.getAddress(data);
         },
-        error: (error) => {
-          console.error('Unable to load customer details', error);
+        error: () => {
           alert('Unable to load customer details.');
         }
       });
@@ -69,7 +69,31 @@ export class SanctionLetterComponent implements OnInit {
     this.location.back();
   }
 
-  generatePDF(action = 'download') {
+  getEmi(): number {
+    if (!this.invoice.loanAmount || !this.invoice.interest || !this.invoice.tenureYears) {
+      return 0;
+    }
+
+    const monthlyRate = this.invoice.interest / 12 / 100;
+    const months = this.invoice.tenureYears * 12;
+
+    if (monthlyRate === 0) {
+      return this.invoice.loanAmount / months;
+    }
+
+    return this.invoice.loanAmount * monthlyRate * Math.pow(1 + monthlyRate, months) /
+      (Math.pow(1 + monthlyRate, months) - 1);
+  }
+
+  generatePDF() {
+    if (!this.invoice.customerName || !this.invoice.loanAmount ||
+        !this.invoice.interest || !this.invoice.tenureYears) {
+      alert('Please enter loan amount, interest rate and loan tenure.');
+      return;
+    }
+
+    const emi = this.getEmi();
+
     const docDefinition: TDocumentDefinitions = {
       content: [
         {
@@ -93,23 +117,31 @@ export class SanctionLetterComponent implements OnInit {
               { text: `Application ID: ${this.invoice.applicationId}` }
             ],
             [
-              {
-                text: `Date: ${new Date().toLocaleDateString()}`,
-                alignment: 'right'
-              }
+              { text: `Date: ${new Date().toLocaleDateString()}`, alignment: 'right' }
             ]
           ]
         },
         {
-          text: 'Home Loan Details',
+          text: 'Sanction Details',
           style: 'sectionHeader'
         },
         {
-          text: `Dear ${this.invoice.customerName}, we are pleased to inform you that your home loan application has been reviewed. The proposed loan amount is ₹${this.invoice.loanAmount} at an interest rate of ${this.invoice.interest}% subject to the applicable terms and conditions.`,
-          margin: [0, 10, 0, 10]
+          table: {
+            widths: ['*', '*'],
+            body: [
+              ['Loan Amount', `₹${this.invoice.loanAmount}`],
+              ['Interest Rate', `${this.invoice.interest}% per annum`],
+              ['Loan Tenure', `${this.invoice.tenureYears} years`],
+              ['Estimated Monthly EMI', `₹${emi.toFixed(2)}`]
+            ]
+          }
         },
         {
-          text: this.invoice.additionalDetails || 'No additional details.',
+          text: `Dear ${this.invoice.customerName}, your home loan application has been reviewed and the proposed loan amount is ₹${this.invoice.loanAmount} at an interest rate of ${this.invoice.interest}% per annum for ${this.invoice.tenureYears} years. The estimated monthly EMI is ₹${emi.toFixed(2)}.`,
+          margin: [0, 20, 0, 10]
+        },
+        {
+          text: this.invoice.additionalDetails || 'No additional sanction details.',
           margin: [0, 10, 0, 10]
         },
         {
@@ -119,8 +151,8 @@ export class SanctionLetterComponent implements OnInit {
         {
           ul: [
             'Interest will be payable as per the agreed loan schedule.',
-            'Legal verification and other applicable checks may be required.',
-            'Final approval is subject to Branch Manager approval.'
+            'The sanction is subject to applicable terms, conditions and final Branch Manager approval.',
+            'The customer must comply with all required legal and loan documentation.'
           ]
         },
         {
@@ -143,13 +175,12 @@ export class SanctionLetterComponent implements OnInit {
       formData.append('sanctionLetter', blob, `Sanction-Letter-${this.invoice.applicationId}.pdf`);
 
       this.service.saveSanctionLetter(this.invoice.applicationId, formData).subscribe({
-        next: () => {
+        next: (message) => {
           pdfMake.createPdf(docDefinition).download(`Sanction-Letter-${this.invoice.applicationId}.pdf`);
-          alert('Sanction letter generated and saved successfully.');
+          alert(message);
         },
-        error: (error) => {
-          console.error('Unable to save sanction letter', error);
-          alert('Sanction letter could not be saved. Please try again.');
+        error: () => {
+          alert('Sanction letter could not be saved.');
         }
       });
     });
