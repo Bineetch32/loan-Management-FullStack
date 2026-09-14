@@ -4,34 +4,25 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ApplicantComponent } from './applicant/applicant.component';
 import { ApplicantDetailComponent } from './applicant-detail/applicant-detail.component';
 import { ApplicantDocComponent } from './applicant-doc/applicant-doc.component';
+import { ApprovalStatusComponent } from './approval-status/approval-status.component';
 
 const routes: Routes = [
-
+  { path: '', redirectTo: 'bd', pathMatch: 'full' },
   {
-    path:'', redirectTo:'bd',pathMatch:'full'
-     },
-     
-  {
-    path:'bd',component:DashboardComponent,
-    children:[
-     
+    path: 'bd',
+    component: DashboardComponent,
+    children: [
       {
-        path:'applicant',component:ApplicantComponent,
-        children:[
-      {
-            path:'ad/:id',component:ApplicantDetailComponent
-
-      }]},
-      
-      {
-        path:'adoc',component:ApplicantDocComponent
-  }
-        
-      
+        path: 'applicant',
+        component: ApplicantComponent,
+        children: [
+          { path: 'ad/:id', component: ApplicantDetailComponent }
+        ]
+      },
+      { path: 'adoc', component: ApplicantDocComponent },
+      { path: 'approval-status', component: ApprovalStatusComponent }
     ]
   }
- 
-
 ];
 
 @NgModule({
