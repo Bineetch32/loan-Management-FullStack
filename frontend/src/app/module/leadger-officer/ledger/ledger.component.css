@@ -1,25 +1,26 @@
 .ledger-page {
-  max-width: 1150px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 35px 25px;
+  padding: 30px 20px;
 }
 
 h1 {
-  margin-bottom: 5px;
+  margin: 0 0 6px;
+  font-size: 28px;
 }
 
 .subtitle {
   color: #666;
-  margin-bottom: 25px;
+  margin: 0 0 22px;
 }
 
 .loan-card {
-  background: white;
+  background: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 22px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
 .loan-header {
@@ -27,61 +28,79 @@ h1 {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #eee;
-  padding-bottom: 15px;
-  margin-bottom: 18px;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .loan-header h2 {
-  margin: 0 0 5px;
+  margin: 0 0 4px;
+  font-size: 21px;
 }
 
 .loan-header span {
   color: #666;
+  font-size: 13px;
 }
 
 .status {
   background: #e6f4ea;
   color: #18743a !important;
-  padding: 6px 12px;
-  border-radius: 15px;
+  padding: 5px 11px;
+  border-radius: 14px;
+  font-size: 12px !important;
   font-weight: 600;
 }
 
 .summary {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  gap: 10px;
 }
 
 .summary div {
-  background: #f8f9fa;
-  padding: 12px;
-  border-radius: 6px;
+  background: #f7f8fa;
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 7px;
 }
 
 label {
   display: block;
   color: #777;
-  font-size: 12px;
-  margin-bottom: 5px;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.summary strong {
+  font-size: 14px;
 }
 
 details {
-  margin-top: 20px;
+  margin-top: 14px;
   border-top: 1px solid #eee;
-  padding-top: 15px;
+  padding-top: 12px;
 }
 
 summary {
   cursor: pointer;
   font-weight: 600;
+  color: #1769aa;
+  font-size: 14px;
 }
 
 .details-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 5px 30px;
-  margin-top: 15px;
+  gap: 8px 25px;
+  margin-top: 12px;
+  padding: 12px;
+  background: #fafafa;
+  border-radius: 7px;
+}
+
+.details-grid p {
+  margin: 4px 0;
+  font-size: 13px;
 }
 
 .empty {
@@ -98,6 +117,14 @@ summary {
 }
 
 @media (max-width: 500px) {
+  .ledger-page {
+    padding: 20px 12px;
+  }
+
+  .loan-header {
+    align-items: flex-start;
+  }
+
   .summary,
   .details-grid {
     grid-template-columns: 1fr;
