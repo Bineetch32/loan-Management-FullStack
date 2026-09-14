@@ -6,7 +6,6 @@ import { Enquiry } from "./enquiry";
 import { GuarantorDetails } from "./guarantor-details";
 
 export class CustomerDetails {
-
     id: number;
     customerName: string;
     customerMobileno: number;
@@ -19,12 +18,15 @@ export class CustomerDetails {
     cibil: string;
     loanStatus: string;
     verificationn:string;
+    sanctionedLoanAmount: number;
+    interestRate: number;
+    tenureYears: number;
+    sanctionDate: string;
+    loanAccountNumber: string;
     enq: Enquiry;
-  
     customerlocalAddress: CustomerLocalAddress;
     customerPermanentAddress: CustomerPermanentAddress;
     guarantorDetails: GuarantorDetails;
     customerBankAccountDetails: CustomerBankAccountDetails;
     customerAllDocument: CustomerAllDocument;
 }
-
