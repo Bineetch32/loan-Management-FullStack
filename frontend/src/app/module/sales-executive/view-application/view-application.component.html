@@ -1,65 +1,64 @@
-<div class="application-page">
-  <h2>Loan Applications</h2>
+<div class="application-page" *ngIf="customer">
+  <h2>Application Details</h2>
 
-  <div class="table-container">
-    <table class="application-table">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Customer Name</th>
-          <th>Mobile No</th>
-          <th>Email</th>
-          <th>PAN No</th>
-          <th>Current Pincode</th>
-          <th>Current Area</th>
-          <th>Current City</th>
-          <th>Current District</th>
-          <th>Current State</th>
-          <th>Permanent Pincode</th>
-          <th>Permanent Area</th>
-          <th>Permanent City</th>
-          <th>Permanent District</th>
-          <th>Permanent State</th>
-          <th>Guarantor Mobile</th>
-          <th>Guarantor Name</th>
-          <th>Guarantor Email</th>
-          <th>Guarantor Address</th>
-          <th>Account Number</th>
-          <th>IFSC Code</th>
-          <th>Bank Name</th>
-          <th>Bank Address</th>
-          <th>Loan Status</th>
-        </tr>
-      </thead>
-
-      <tbody *ngIf="retrievedDoc">
-        <tr *ngFor="let c of retrievedDoc">
-          <td>{{c.id}}</td>
-          <td>{{c.customerName}}</td>
-          <td>{{c.customerMobileno}}</td>
-          <td>{{c.customerEmailId}}</td>
-          <td>{{c.customerPanNo}}</td>
-          <td>{{c.customerlocalAddress.pincode}}</td>
-          <td>{{c.customerlocalAddress.areaName}}</td>
-          <td>{{c.customerlocalAddress.cityName}}</td>
-          <td>{{c.customerlocalAddress.district}}</td>
-          <td>{{c.customerlocalAddress.state}}</td>
-          <td>{{c.customerPermanentAddress.pincode}}</td>
-          <td>{{c.customerPermanentAddress.areaName}}</td>
-          <td>{{c.customerPermanentAddress.cityName}}</td>
-          <td>{{c.customerPermanentAddress.district}}</td>
-          <td>{{c.customerPermanentAddress.state}}</td>
-          <td>{{c.guarantorDetails.guarantorMobileNo}}</td>
-          <td>{{c.guarantorDetails.guarantorName}}</td>
-          <td>{{c.guarantorDetails.guarantorEmailId}}</td>
-          <td>{{c.guarantorDetails.guarantorAddress}}</td>
-          <td>{{c.customerBankAccountDetails.accountNumber}}</td>
-          <td>{{c.customerBankAccountDetails.ifscCode}}</td>
-          <td>{{c.customerBankAccountDetails.bankName}}</td>
-          <td>{{c.customerBankAccountDetails.address}}</td>
-          <td><span class="status-badge">{{c.loanStatus || 'Pending'}}</span></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="details-section">
+    <h4>Basic Details</h4>
+    <div class="details-grid">
+      <div><b>Application ID:</b> {{customer.id}}</div>
+      <div><b>Customer Name:</b> {{customer.customerName}}</div>
+      <div><b>Mobile:</b> {{customer.customerMobileno}}</div>
+      <div><b>Email:</b> {{customer.customerEmailId}}</div>
+      <div><b>DOB:</b> {{customer.customerDOB}}</div>
+      <div><b>Gender:</b> {{customer.customerGender}}</div>
+      <div><b>PAN:</b> {{customer.customerPanNo}}</div>
+      <div><b>Aadhaar:</b> {{customer.customerAadharNo}}</div>
+      <div><b>Income:</b> ₹{{customer.customerIncome}}</div>
+      <div><b>Loan Status:</b> {{customer.loanStatus}}</div>
+      <div><b>Verification:</b> {{customer.verificationn}}</div>
+    </div>
   </div>
+
+  <div class="details-section">
+    <h4>Current Address</h4>
+    <div class="details-grid">
+      <div><b>Area:</b> {{customer.customerlocalAddress?.areaName}}</div>
+      <div><b>City:</b> {{customer.customerlocalAddress?.cityName}}</div>
+      <div><b>District:</b> {{customer.customerlocalAddress?.district}}</div>
+      <div><b>State:</b> {{customer.customerlocalAddress?.state}}</div>
+      <div><b>PIN:</b> {{customer.customerlocalAddress?.pincode}}</div>
+    </div>
+  </div>
+
+  <div class="details-section">
+    <h4>Permanent Address</h4>
+    <div class="details-grid">
+      <div><b>Area:</b> {{customer.customerPermanentAddress?.areaName}}</div>
+      <div><b>City:</b> {{customer.customerPermanentAddress?.cityName}}</div>
+      <div><b>District:</b> {{customer.customerPermanentAddress?.district}}</div>
+      <div><b>State:</b> {{customer.customerPermanentAddress?.state}}</div>
+      <div><b>PIN:</b> {{customer.customerPermanentAddress?.pincode}}</div>
+    </div>
+  </div>
+
+  <div class="details-section">
+    <h4>Guarantor / Co-applicant</h4>
+    <div class="details-grid">
+      <div><b>Name:</b> {{customer.guarantorDetails?.guarantorName}}</div>
+      <div><b>Mobile:</b> {{customer.guarantorDetails?.guarantorMobileNo}}</div>
+      <div><b>Email:</b> {{customer.guarantorDetails?.guarantorEmailId}}</div>
+      <div><b>Address:</b> {{customer.guarantorDetails?.guarantorAddress}}</div>
+    </div>
+  </div>
+
+  <div class="details-section">
+    <h4>Bank Details</h4>
+    <div class="details-grid">
+      <div><b>Bank Name:</b> {{customer.customerBankAccountDetails?.bankName}}</div>
+      <div><b>Account Number:</b> {{customer.customerBankAccountDetails?.accountNumber}}</div>
+      <div><b>IFSC:</b> {{customer.customerBankAccountDetails?.ifscCode}}</div>
+      <div><b>Branch Address:</b> {{customer.customerBankAccountDetails?.address}}</div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-primary back-btn" (click)="getBack()">Back</button>
 </div>
