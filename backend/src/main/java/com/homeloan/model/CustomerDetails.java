@@ -28,6 +28,13 @@ public class CustomerDetails {
     private double customerIncome;
     private String loanStatus;
     private String verificationn;
+
+    private double sanctionedLoanAmount;
+    private double interestRate;
+    private int tenureYears;
+    private String sanctionDate;
+    private String loanAccountNumber;
+
     @OneToOne public Enquiry enq;
     @OneToOne(cascade = javax.persistence.CascadeType.ALL) private CustomerAllDocument customerAllDocument;
     @OneToOne(cascade = javax.persistence.CascadeType.ALL) private CustomerLocalAddress customerlocalAddress;
