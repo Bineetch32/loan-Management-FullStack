@@ -31,7 +31,7 @@ public class HomeLoanController {
 	@Autowired HomeLoanService hls;
 
 	@PostMapping(value = "/setCustomerAllDetail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String saveCustomer(@RequestPart(value = "panCopy") MultipartFile doc1,
+	public ResponseEntity<String> saveCustomer(@RequestPart(value = "panCopy") MultipartFile doc1,
 			@RequestPart(value = "uidCopy") MultipartFile doc2,
 			@RequestPart(value = "bankPassBookCopy") MultipartFile doc3,
 			@RequestPart(value = "photo") MultipartFile doc4,
@@ -42,6 +42,12 @@ public class HomeLoanController {
 			@RequestPart(value = "document1") String document1) throws IOException {
 		ObjectMapper om = new ObjectMapper();
 		CustomerDetails c = om.readValue(document1, CustomerDetails.class);
+
+		Integer enquiryId = c.getEnq() != null ? c.getEnq().getId() : null;
+		if (hls.isDuplicateCustomer(c.getCustomerMobileno(), c.getCustomerPanNo(), enquiryId)) {
+			return ResponseEntity.status(HttpStatus.CONFLICT)
+					.body("This customer already has a loan application.");
+		}
 
 		CustomerAllDocument cad = new CustomerAllDocument();
 		cad.setPanCopy(doc1.getBytes());
@@ -90,6 +96,7 @@ public class HomeLoanController {
 		customer.setCustomerIncome(c.getCustomerIncome());
 		customer.setLoanStatus("Pending");
 		customer.setVerificationn("Pending");
+		customer.setEnq(c.getEnq());
 		customer.setCustomerAllDocument(cad);
 		customer.setCustomerBankAccountDetails(cbd);
 		customer.setCustomerlocalAddress(cla);
@@ -97,7 +104,7 @@ public class HomeLoanController {
 		customer.setGuarantorDetails(gd);
 
 		hls.saveCustomer(customer);
-		return "Form Submitted SuccessFully";
+		return ResponseEntity.ok("Form Submitted SuccessFully");
 	}
 
 	@GetMapping("/getallgetData")
