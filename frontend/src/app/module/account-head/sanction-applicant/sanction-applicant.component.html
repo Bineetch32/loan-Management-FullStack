@@ -2,7 +2,7 @@
   <div class="page-header">
     <div>
       <h2>Sanction Applicants</h2>
-      <p>Applicants whose sanction letter record is available.</p>
+      <p>Applicants whose sanction letter has been uploaded.</p>
     </div>
   </div>
 
@@ -22,7 +22,7 @@
       </thead>
       <tbody *ngIf="retrievedDoc">
         <tr *ngFor="let c of retrievedDoc">
-          <ng-container *ngIf="c.customerAllDocument?.sanctionLetter !== null">
+          <ng-container *ngIf="c.customerAllDocument?.sanctionLetter?.length > 0">
             <td>#{{c.id}}</td>
             <td>{{c.customerName}}</td>
             <td>{{c.customerMobileno}}</td>
@@ -30,7 +30,7 @@
             <td>{{c.customerPanNo | uppercase}}</td>
             <td>{{c.cibil}}</td>
             <td>{{c.loanStatus}}</td>
-            <td><span class="status available">Available</span></td>
+            <td><span class="status available">Uploaded</span></td>
           </ng-container>
         </tr>
       </tbody>
@@ -39,6 +39,6 @@
 
   <div class="empty-state" *ngIf="retrievedDoc && retrievedDoc.length === 0">
     <h3>No sanction applicants</h3>
-    <p>No sanction letter record is available yet.</p>
+    <p>No sanction letter has been uploaded yet.</p>
   </div>
 </div>
