@@ -21,7 +21,9 @@ import com.homeloan.model.CustomerBankAccountDetails;
 import com.homeloan.model.CustomerDetails;
 import com.homeloan.model.CustomerLocalAddress;
 import com.homeloan.model.CustomerPermanentAddress;
+import com.homeloan.model.EmailSender;
 import com.homeloan.model.GuarantorDetails;
+import com.homeloan.service.EmailSenderService;
 import com.homeloan.service.HomeLoanService;
 
 @CrossOrigin("*")
@@ -29,6 +31,7 @@ import com.homeloan.service.HomeLoanService;
 public class HomeLoanController {
 
 	@Autowired HomeLoanService hls;
+	@Autowired EmailSenderService ess;
 
 	@PostMapping(value = "/setCustomerAllDetail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<String> saveCustomer(@RequestPart(value = "panCopy") MultipartFile doc1,
@@ -111,6 +114,24 @@ public class HomeLoanController {
 		customer.setGuarantorDetails(gd);
 
 		hls.saveCustomer(customer);
+
+		// Send confirmation after the application is successfully saved.
+		try {
+			EmailSender es = new EmailSender();
+			es.setFromEmail(hls.getMailUsername());
+			es.setToEmail(customer.getCustomerEmailId());
+			es.setSubject("Loan Application Submitted Successfully");
+			es.setTestBody("Dear " + customer.getCustomerName()
+					+ ", your home loan application form has been submitted successfully."
+					+ " Your application status is Pending."
+					+ " Our team will verify your documents and contact you for the next steps."
+						+ "\n\nThank you,\nDeloite Finance");
+			ess.sendEmail(es);
+		} catch (Exception emailError) {
+			System.out.println("Application saved, but confirmation email could not be sent.");
+			emailError.printStackTrace();
+		}
+
 		return ResponseEntity.ok("Form Submitted SuccessFully");
 	}
 
