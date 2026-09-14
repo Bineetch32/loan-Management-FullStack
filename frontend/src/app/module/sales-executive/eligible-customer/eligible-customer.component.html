@@ -15,6 +15,7 @@
           <th>PAN No</th>
           <th>CIBIL Score</th>
           <th>Eligibility</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -26,6 +27,7 @@
           <td>{{ customer.customerPanNo }}</td>
           <td>{{ customer.cibil }}</td>
           <td><span class="eligible-badge">Eligible</span></td>
+          <td><button type="button" class="btn btn-primary proceed-btn" (click)="proceed(customer.id)">Proceed</button></td>
         </tr>
       </tbody>
     </table>
