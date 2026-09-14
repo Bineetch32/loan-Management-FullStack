@@ -1,39 +1,44 @@
-
-<div class="container">
-
-    <h2>Sanction Applicants List</h2>
-    
-    <table class="table table-sm table-bordered m-t-2 table-striped">
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>customerName</th>
-            <th>customerMobileno</th>
-            <th>customerEmailId</th> 
-            <th>customerPanNo</th>
-            <th>Cibil</th>
-            <th>Sanction Letter</th>
-        
-          
-        </tr>
-        </thead>
-        <tbody *ngIf="retrievedDoc">
-            <tr *ngFor="let c of retrievedDoc">
-                <ng-container *ngIf="c.customerAllDocument.sanctionLetter !== null" > 
-                 <td>{{c.id}}</td>
-                 <td>{{c.customerName}}</td>
-                 <td>{{c.customerMobileno}}</td>
-                 <td>{{c.customerEmailId}}</td>
-                 <td>{{c.customerPanNo}}</td>
-                 <td>{{c.cibil}}</td>
-                 <td>Sanction Letter Generated</td>
-                 </ng-container>
-                 
-               
-                
-            </tr> 
-        </tbody>
-        </table><br>
-        <br>
+<div class="sanction-list-page">
+  <div class="page-header">
+    <div>
+      <h2>Sanction Applicants</h2>
+      <p>Applicants whose sanction letter record is available.</p>
     </div>
-    
+  </div>
+
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Application ID</th>
+          <th>Customer Name</th>
+          <th>Mobile Number</th>
+          <th>Email</th>
+          <th>PAN Number</th>
+          <th>CIBIL</th>
+          <th>Loan Status</th>
+          <th>Sanction Letter</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="retrievedDoc">
+        <tr *ngFor="let c of retrievedDoc">
+          <ng-container *ngIf="c.customerAllDocument?.sanctionLetter !== null">
+            <td>#{{c.id}}</td>
+            <td>{{c.customerName}}</td>
+            <td>{{c.customerMobileno}}</td>
+            <td>{{c.customerEmailId}}</td>
+            <td>{{c.customerPanNo | uppercase}}</td>
+            <td>{{c.cibil}}</td>
+            <td>{{c.loanStatus}}</td>
+            <td><span class="status available">Available</span></td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" *ngIf="retrievedDoc && retrievedDoc.length === 0">
+    <h3>No sanction applicants</h3>
+    <p>No sanction letter record is available yet.</p>
+  </div>
+</div>
