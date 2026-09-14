@@ -11,10 +11,26 @@ import com.homeloan.service.HomeLoanService;
 @Service
 public class HomeLoanServiceImp implements HomeLoanService {
     @Autowired HomeLoanRepository hlr;
-    @Override public CustomerDetails saveCustomer(CustomerDetails cust) { return hlr.save(cust); }
-    @Override public List<CustomerDetails> viewCustomers() { return hlr.findAll(); }
-    @Override public Optional<CustomerDetails> searchEmployeee(Integer cid) { return hlr.findById(cid); }
-    @Override public CustomerDetails findCust(Integer id) { return hlr.findById(id).orElse(null); }
+
+    @Override
+    public CustomerDetails saveCustomer(CustomerDetails cust) {
+        return hlr.save(cust);
+    }
+
+    @Override
+    public List<CustomerDetails> viewCustomers() {
+        return hlr.findAll();
+    }
+
+    @Override
+    public Optional<CustomerDetails> searchEmployeee(Integer cid) {
+        return hlr.findById(cid);
+    }
+
+    @Override
+    public CustomerDetails findCust(Integer id) {
+        return hlr.findById(id).orElse(null);
+    }
 
     @Override
     public boolean isDuplicateCustomer(long mobile, String pan, Integer enquiryId) {
@@ -25,5 +41,17 @@ public class HomeLoanServiceImp implements HomeLoanService {
             return true;
         }
         return pan != null && !pan.trim().isEmpty() && hlr.findByCustomerPanNo(pan).isPresent();
+    }
+
+    @Override
+    public CustomerDetails saveSanctionLetter(Integer id, byte[] sanctionLetter) {
+        CustomerDetails customer = findCust(id);
+
+        if (customer == null || customer.getCustomerAllDocument() == null) {
+            return null;
+        }
+
+        customer.getCustomerAllDocument().setSanctionLetter(sanctionLetter);
+        return hlr.save(customer);
     }
 }
