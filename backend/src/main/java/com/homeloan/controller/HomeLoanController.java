@@ -129,7 +129,7 @@ public class HomeLoanController {
 					+ " Your application status is Pending."
 					+ " Our team will verify your documents and contact you for the next steps."
 					+ "\n\nThank you,\nDeloite Finance");
-			es.sendEmail(es);
+			ess.sendEmail(es);
 		} catch (Exception emailError) {
 			System.out.println("Application saved, but confirmation email could not be sent.");
 			emailError.printStackTrace();
