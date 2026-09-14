@@ -2,6 +2,7 @@ import { CustomerAllDocument } from "./customer-all-document";
 import { CustomerBankAccountDetails } from "./customer-bank-account-details";
 import { CustomerLocalAddress } from "./customer-local-address";
 import { CustomerPermanentAddress } from "./customer-permanent-address";
+import { Enquiry } from "./enquiry";
 import { GuarantorDetails } from "./guarantor-details";
 
 export class CustomerDetails {
@@ -18,6 +19,7 @@ export class CustomerDetails {
     cibil: string;
     loanStatus: string;
     verificationn:string;
+    enq: Enquiry;
   
     customerlocalAddress: CustomerLocalAddress;
     customerPermanentAddress: CustomerPermanentAddress;
