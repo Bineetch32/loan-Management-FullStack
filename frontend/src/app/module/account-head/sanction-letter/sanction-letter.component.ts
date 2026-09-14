@@ -43,7 +43,7 @@ export class SanctionLetterComponent implements OnInit {
   }
   
   submit() {
-    this.app = this.service.app;
+  
     if (this.app) {
       this.invoice.customerName = `${this.app.firstName} ${this.app.lastName}`;
       this.invoice.email = this.app.email;
