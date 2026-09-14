@@ -1,0 +1,37 @@
+<div class="page-container">
+  <div class="page-header">
+    <h2>Eligible Customers</h2>
+    <p>Customers approved for the next stage after CIBIL and eligibility check</p>
+  </div>
+
+  <div class="table-wrapper" *ngIf="eligibleCustomers.length > 0; else noCustomers">
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Customer Name</th>
+          <th>Mobile No</th>
+          <th>Email</th>
+          <th>PAN No</th>
+          <th>CIBIL Score</th>
+          <th>Eligibility</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of eligibleCustomers">
+          <td>{{ customer.id }}</td>
+          <td>{{ customer.customerName }}</td>
+          <td>{{ customer.customerMobileno }}</td>
+          <td>{{ customer.customerEmailId }}</td>
+          <td>{{ customer.customerPanNo }}</td>
+          <td>{{ customer.cibil }}</td>
+          <td><span class="eligible-badge">Eligible</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noCustomers>
+    <div class="empty-message">No eligible customers available.</div>
+  </ng-template>
+</div>
