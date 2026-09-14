@@ -15,4 +15,15 @@ public class HomeLoanServiceImp implements HomeLoanService {
     @Override public List<CustomerDetails> viewCustomers() { return hlr.findAll(); }
     @Override public Optional<CustomerDetails> searchEmployeee(Integer cid) { return hlr.findById(cid); }
     @Override public CustomerDetails findCust(Integer id) { return hlr.findById(id).orElse(null); }
+
+    @Override
+    public boolean isDuplicateCustomer(long mobile, String pan, Integer enquiryId) {
+        if (enquiryId != null && hlr.findByEnq_Id(enquiryId).isPresent()) {
+            return true;
+        }
+        if (hlr.findByCustomerMobileno(mobile).isPresent()) {
+            return true;
+        }
+        return pan != null && !pan.trim().isEmpty() && hlr.findByCustomerPanNo(pan).isPresent();
+    }
 }
