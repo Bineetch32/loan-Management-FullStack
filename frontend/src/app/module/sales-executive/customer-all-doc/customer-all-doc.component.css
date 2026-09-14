@@ -7,6 +7,11 @@
   font-size: 26px;
 }
 
+.documents-page h3 {
+  margin: 24px 0 14px;
+  font-size: 20px;
+}
+
 .document-subtitle {
   margin: 0 0 20px;
   color: #666;
@@ -32,6 +37,22 @@
 .documents-page td {
   padding: 11px;
   vertical-align: middle;
+}
+
+.applicant-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 20px;
+  padding: 16px 20px;
+  margin-top: 15px;
+  background: #fff;
+  border: 1px solid #e1e5ea;
+  border-radius: 10px;
+}
+
+.applicant-summary p {
+  margin: 0;
+  padding: 8px 0;
 }
 
 .document-grid {
@@ -75,6 +96,7 @@
     padding: 15px;
   }
 
+  .applicant-summary,
   .document-grid {
     grid-template-columns: 1fr;
   }
