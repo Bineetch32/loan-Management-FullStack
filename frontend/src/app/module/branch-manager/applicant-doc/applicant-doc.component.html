@@ -1,19 +1,133 @@
-<div class="container">
-  <h2>Customer Documents</h2>
-  <p>Documents uploaded with the loan application.</p>
+<div class="documents-page">
+  <div class="page-header">
+    <div>
+      <h2>Applicant Documents</h2>
+      <p>View customer details and documents when required.</p>
+    </div>
+  </div>
 
-  <div *ngFor="let c of retrievedDoc" class="document-card">
-    <h3>Application #{{c.id}} - {{c.customerName}}</h3>
-    <p><b>PAN:</b> {{c.customerPanNo | uppercase}} &nbsp; <b>CIBIL:</b> {{c.cibil}} &nbsp; <b>Status:</b> {{c.loanStatus}}</p>
+  <div class="customer-list" *ngIf="retrievedDoc">
+    <div class="customer-card" *ngFor="let c of retrievedDoc">
+      <div class="customer-summary">
+        <div>
+          <label>Application ID</label>
+          <strong>#{{c.id}}</strong>
+        </div>
+        <div>
+          <label>Customer Name</label>
+          <strong>{{c.customerName}}</strong>
+        </div>
+        <div>
+          <label>Mobile Number</label>
+          <span>{{c.customerMobileno}}</span>
+        </div>
+        <div>
+          <label>PAN Number</label>
+          <span>{{c.customerPanNo | uppercase}}</span>
+        </div>
+        <div>
+          <label>CIBIL Score</label>
+          <strong>{{c.cibil}}</strong>
+        </div>
+        <div>
+          <label>Loan Status</label>
+          <span class="status" [class.approved]="c.loanStatus == 'Approved'" [class.rejected]="c.loanStatus == 'Rejected'">
+            {{c.loanStatus || 'Pending'}}
+          </span>
+        </div>
+      </div>
 
-    <div class="document-grid" *ngIf="c.customerAllDocument">
-      <div class="document-item"><h4>Aadhaar</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.uidCopy" alt="Aadhaar"></div>
-      <div class="document-item"><h4>PAN Card</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.panCopy" alt="PAN"></div>
-      <div class="document-item"><h4>Bank Passbook</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.bankPassBookCopy" alt="Bank Passbook"></div>
-      <div class="document-item"><h4>Photo</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.photo" alt="Photo"></div>
-      <div class="document-item"><h4>Signature</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.signature" alt="Signature"></div>
-      <div class="document-item"><h4>Cancelled Cheque</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.cancelledCheck" alt="Cancelled Cheque"></div>
-      <div class="document-item"><h4>Salary Slip</h4><img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.salarySlip" alt="Salary Slip"></div>
+      <details>
+        <summary>View Documents & Full Details</summary>
+
+        <div class="details-section">
+          <h3>Applicant Details</h3>
+          <div class="info-grid">
+            <div><label>Application ID</label><span>#{{c.id}}</span></div>
+            <div><label>Customer Name</label><span>{{c.customerName}}</span></div>
+            <div><label>Mobile Number</label><span>{{c.customerMobileno}}</span></div>
+            <div><label>Email</label><span>{{c.customerEmailId}}</span></div>
+            <div><label>PAN Number</label><span>{{c.customerPanNo | uppercase}}</span></div>
+            <div><label>Aadhaar Number</label><span>{{c.customerAadharNo}}</span></div>
+            <div><label>Date of Birth</label><span>{{c.customerDOB}}</span></div>
+            <div><label>Gender</label><span>{{c.customerGender}}</span></div>
+            <div><label>Monthly Income</label><span>₹ {{c.customerIncome}}</span></div>
+            <div><label>CIBIL Score</label><span>{{c.cibil}}</span></div>
+            <div><label>Loan Status</label><span>{{c.loanStatus || 'Pending'}}</span></div>
+            <div><label>Verification Status</label><span>{{c.verificationn}}</span></div>
+          </div>
+        </div>
+
+        <div class="details-section">
+          <h3>Address Details</h3>
+          <div class="two-column">
+            <div class="small-card">
+              <h4>Current Address</h4>
+              <p>{{c.customerlocalAddress?.areaName}}, {{c.customerlocalAddress?.cityName}}</p>
+              <p>{{c.customerlocalAddress?.district}}, {{c.customerlocalAddress?.state}}</p>
+              <p>{{c.customerlocalAddress?.pincode}}</p>
+            </div>
+            <div class="small-card">
+              <h4>Permanent Address</h4>
+              <p>{{c.customerPermanentAddress?.areaName}}, {{c.customerPermanentAddress?.cityName}}</p>
+              <p>{{c.customerPermanentAddress?.district}}, {{c.customerPermanentAddress?.state}}</p>
+              <p>{{c.customerPermanentAddress?.pincode}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="details-section">
+          <h3>Bank & Guarantor Details</h3>
+          <div class="two-column">
+            <div class="small-card">
+              <h4>Bank Account</h4>
+              <p><b>Bank:</b> {{c.customerBankAccountDetails?.bankName}}</p>
+              <p><b>Account:</b> {{c.customerBankAccountDetails?.accountNumber}}</p>
+              <p><b>IFSC:</b> {{c.customerBankAccountDetails?.ifscCode}}</p>
+            </div>
+            <div class="small-card">
+              <h4>Guarantor</h4>
+              <p><b>Name:</b> {{c.guarantorDetails?.guarantorName}}</p>
+              <p><b>Mobile:</b> {{c.guarantorDetails?.guarantorMobileNo}}</p>
+              <p><b>Email:</b> {{c.guarantorDetails?.guarantorEmailId}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="details-section">
+          <h3>Uploaded Documents</h3>
+          <div class="document-grid" *ngIf="c.customerAllDocument">
+            <div class="document-item">
+              <h4>Aadhaar Card</h4>
+              <img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.uidCopy" alt="Aadhaar Card">
+            </div>
+            <div class="document-item">
+              <h4>PAN Card</h4>
+              <img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.panCopy" alt="PAN Card">
+            </div>
+            <div class="document-item">
+              <h4>Bank Passbook</h4>
+              <img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.bankPassBookCopy" alt="Bank Passbook">
+            </div>
+            <div class="document-item">
+              <h4>Photo</h4>
+              <img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.photo" alt="Photo">
+            </div>
+            <div class="document-item">
+              <h4>Signature</h4>
+              <img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.signature" alt="Signature">
+            </div>
+            <div class="document-item">
+              <h4>Cancelled Cheque</h4>
+              <img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.cancelledCheck" alt="Cancelled Cheque">
+            </div>
+            <div class="document-item">
+              <h4>Salary Slip</h4>
+              <img [src]="'data:image/jpeg;base64,'+c.customerAllDocument.salarySlip" alt="Salary Slip">
+            </div>
+          </div>
+        </div>
+      </details>
     </div>
   </div>
 </div>
