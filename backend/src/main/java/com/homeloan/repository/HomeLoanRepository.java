@@ -9,4 +9,7 @@ import com.homeloan.model.CustomerDetails;
 public interface HomeLoanRepository extends JpaRepository<CustomerDetails, Integer> {
     Optional<CustomerDetails> findById(CustomerDetails cust);
     Optional<CustomerDetails> findById(Integer id);
+    Optional<CustomerDetails> findByCustomerMobileno(long customerMobileno);
+    Optional<CustomerDetails> findByCustomerPanNo(String customerPanNo);
+    Optional<CustomerDetails> findByEnq_Id(Integer enquiryId);
 }
