@@ -1,5 +1,6 @@
 package com.homeloan.serviceimp;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class HomeLoanServiceImp implements HomeLoanService {
     }
 
     @Override
-    public CustomerDetails saveSanctionLetter(Integer id, byte[] sanctionLetter) {
+    public CustomerDetails saveSanctionLetter(Integer id, byte[] sanctionLetter, double loanAmount, double interestRate, int tenureYears) {
         CustomerDetails customer = findCust(id);
 
         if (customer == null || customer.getCustomerAllDocument() == null) {
@@ -52,6 +53,13 @@ public class HomeLoanServiceImp implements HomeLoanService {
         }
 
         customer.getCustomerAllDocument().setSanctionLetter(sanctionLetter);
+        customer.setSanctionedLoanAmount(loanAmount);
+        customer.setInterestRate(interestRate);
+        customer.setTenureYears(tenureYears);
+        customer.setSanctionDate(LocalDate.now().toString());
+        customer.setLoanAccountNumber("HL-" + customer.getId());
+        customer.setLoanStatus("Sanctioned");
+
         return hlr.save(customer);
     }
 }
