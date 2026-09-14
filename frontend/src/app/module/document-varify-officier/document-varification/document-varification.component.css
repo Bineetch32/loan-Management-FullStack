@@ -1,0 +1,150 @@
+.verification-page {
+  padding: 25px;
+}
+
+.verification-page h2 {
+  margin: 0 0 6px;
+}
+
+.page-note {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.verification-page table {
+  width: 100%;
+  min-width: 1050px;
+  background: #fff;
+  border-collapse: collapse;
+}
+
+.verification-page th {
+  background: #0d6efd;
+  color: #fff;
+  padding: 12px;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.verification-page td {
+  padding: 11px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.actions {
+  white-space: nowrap;
+}
+
+.actions button {
+  margin-right: 5px;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.no-data {
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.applicant-info {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.applicant-info div {
+  background: #fff;
+  border: 1px solid #e1e5ea;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.applicant-info b,
+.applicant-info span {
+  display: block;
+}
+
+.applicant-info b {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.verification-page h3 {
+  margin: 20px 0 15px;
+}
+
+.document-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.document-card {
+  background: #fff;
+  border: 1px solid #e1e5ea;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.document-card h4 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.document-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  background: #f8f9fa;
+  border: 1px solid #eee;
+  border-radius: 6px;
+}
+
+.bottom-actions {
+  margin-top: 20px;
+}
+
+.bottom-actions button {
+  margin-right: 8px;
+}
+
+@media (max-width: 800px) {
+  .verification-page {
+    padding: 15px;
+  }
+
+  .applicant-info {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .document-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .applicant-info {
+    grid-template-columns: 1fr;
+  }
+}
