@@ -2,7 +2,7 @@
   <div class="page-header">
     <div>
       <h2>Generate Sanction Letter</h2>
-      <p>Review the verified applicant details and prepare the sanction letter.</p>
+      <p>Customer details are loaded from the application.</p>
     </div>
     <button type="button" class="back-button" (click)="getback()">Back</button>
   </div>
@@ -10,28 +10,12 @@
   <form #invoiceForm="ngForm">
     <section class="card">
       <h3>Customer Details</h3>
-
       <div class="info-grid">
-        <div class="info-item">
-          <label>Application ID</label>
-          <span>#{{invoice.applicationId}}</span>
-        </div>
-        <div class="info-item">
-          <label>Customer Name</label>
-          <span>{{invoice.customerName}}</span>
-        </div>
-        <div class="info-item">
-          <label>Mobile Number</label>
-          <span>{{invoice.contactNo}}</span>
-        </div>
-        <div class="info-item">
-          <label>Email</label>
-          <span>{{invoice.email}}</span>
-        </div>
-        <div class="info-item full-width">
-          <label>Current Address</label>
-          <span>{{invoice.address}}</span>
-        </div>
+        <div class="info-item"><label>Application ID</label><span>#{{invoice.applicationId}}</span></div>
+        <div class="info-item"><label>Customer Name</label><span>{{invoice.customerName}}</span></div>
+        <div class="info-item"><label>Mobile Number</label><span>{{invoice.contactNo}}</span></div>
+        <div class="info-item"><label>Email</label><span>{{invoice.email}}</span></div>
+        <div class="info-item full-width"><label>Current Address</label><span>{{invoice.address}}</span></div>
       </div>
     </section>
 
@@ -41,55 +25,44 @@
       <div class="form-grid">
         <div class="form-group">
           <label for="loanAmount">Loan Amount</label>
-          <input
-            id="loanAmount"
-            type="number"
-            name="loanAmount"
-            class="form-control"
-            [(ngModel)]="invoice.loanAmount"
-            #loanAmount="ngModel"
-            required
-            min="1">
+          <input id="loanAmount" type="number" name="loanAmount" class="form-control"
+            [(ngModel)]="invoice.loanAmount" #loanAmount="ngModel" required min="1">
         </div>
 
         <div class="form-group">
           <label for="interest">Interest Rate (%)</label>
-          <input
-            id="interest"
-            type="number"
-            name="interest"
-            class="form-control"
-            [(ngModel)]="invoice.interest"
-            #interest="ngModel"
-            required
-            min="0">
+          <input id="interest" type="number" name="interest" class="form-control"
+            [(ngModel)]="invoice.interest" #interest="ngModel" required min="0" step="0.01">
+        </div>
+
+        <div class="form-group">
+          <label for="tenureYears">Loan Tenure (Years)</label>
+          <input id="tenureYears" type="number" name="tenureYears" class="form-control"
+            [(ngModel)]="invoice.tenureYears" #tenureYears="ngModel" required min="1" max="30">
+        </div>
+
+        <div class="form-group">
+          <label>Estimated Monthly EMI</label>
+          <input type="text" class="form-control" [value]="getEmi() | number:'1.2-2'" readonly>
         </div>
       </div>
 
       <div class="form-group">
         <label for="additionalDetails">Additional Details</label>
-        <textarea
-          id="additionalDetails"
-          name="additionalDetails"
-          class="form-control"
-          rows="4"
+        <textarea id="additionalDetails" name="additionalDetails" class="form-control" rows="4"
           [(ngModel)]="invoice.additionalDetails"
-          placeholder="Enter any important sanction terms or notes"></textarea>
+          placeholder="Enter important sanction terms or notes"></textarea>
       </div>
     </section>
 
     <section class="action-card">
-      <button
-        type="button"
-        class="generate-button"
+      <button type="button" class="generate-button"
         [disabled]="!invoiceForm.valid || !invoice.customerName"
-        (click)="generatePDF('download')">
-        Generate & Download Sanction Letter
+        (click)="generatePDF()">
+        Generate, Save & Email Sanction Letter
       </button>
 
-      <button type="button" class="back-button" (click)="getback()">
-        Cancel
-      </button>
+      <button type="button" class="back-button" (click)="getback()">Cancel</button>
     </section>
   </form>
 </div>
