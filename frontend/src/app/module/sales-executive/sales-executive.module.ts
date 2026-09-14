@@ -7,8 +7,8 @@ import { LoanRequestApplicationComponent } from './loan-request-application/loan
 import { PendingApplicationComponent } from './pending-application/pending-application.component';
 import { ViewApplicationComponent } from './view-application/view-application.component';
 import { SalesDashboardComponent } from './sales-dashboard/sales-dashboard.component';
+import { EligibleCustomerComponent } from './eligible-customer/eligible-customer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoanRequestApplicationComponent,
     CustomerAllDocComponent,
     PendingApplicationComponent,
-    ViewApplicationComponent
+    ViewApplicationComponent,
+    EligibleCustomerComponent
   ],
   imports: [
     CommonModule,
