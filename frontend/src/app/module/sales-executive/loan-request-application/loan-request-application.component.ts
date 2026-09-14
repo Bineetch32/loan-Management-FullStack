@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { CustomerDetails } from '../../../model/customer-details';
 import { Enquiry } from '../../../model/enquiry';
 import { CommonService } from '../../../service/common.service';
@@ -28,7 +28,6 @@ export class LoanRequestApplicationComponent implements OnInit {
   selectedSignature: any;
   selectedCancelledCheque: any;
   selectedSalarySlip: any;
-  selectedsanctionLetter: any;
   imageSrc1: any;
   imageSrc2: any;
   imageSrc3: any;
@@ -36,7 +35,6 @@ export class LoanRequestApplicationComponent implements OnInit {
   imageSrc5: any;
   imageSrc6: any;
   imageSrc7: any;
-  imageSrc8: any;
 
   constructor(public fb: FormBuilder, public common: CommonService, private router: Router, private route: ActivatedRoute) {}
 
@@ -80,7 +78,6 @@ export class LoanRequestApplicationComponent implements OnInit {
   onSelectedFile5(event: any) { this.selectedSignature = event.target.files[0]; }
   onSelectedFile6(event: any) { this.selectedCancelledCheque = event.target.files[0]; }
   onSelectedFile7(event: any) { this.selectedSalarySlip = event.target.files[0]; }
-  onSelectedFile8(event: any) { this.selectedsanctionLetter = event.target.files[0]; }
 
   basics() {
     this.upload = true;
@@ -97,11 +94,11 @@ export class LoanRequestApplicationComponent implements OnInit {
     const requiredFiles = [
       this.selectedPanCopy, this.selectedUidCopy, this.selectedBankPassbookCopy,
       this.selectedPhoto, this.selectedSignature, this.selectedCancelledCheque,
-      this.selectedSalarySlip, this.selectedsanctionLetter
+      this.selectedSalarySlip
     ];
 
     if (requiredFiles.some(file => !file)) {
-      alert('Please select all 8 documents.');
+      alert('Please select all 7 documents.');
       return;
     }
 
@@ -113,7 +110,6 @@ export class LoanRequestApplicationComponent implements OnInit {
     uploadDocument.append('signature', this.selectedSignature);
     uploadDocument.append('cancelledCheck', this.selectedCancelledCheque);
     uploadDocument.append('salarySlips', this.selectedSalarySlip);
-    uploadDocument.append('sanctionLetter', this.selectedsanctionLetter);
 
     const applicationData: any = this.basicdetails.value;
     if (this.selectedEnquiry) {
