@@ -33,7 +33,9 @@
           </button>
         </td>
         <td>
-          <button class="btn btn-success" (click)="mailsend(enq1.id)">Mail</button>
+          <button class="btn btn-success" (click)="mailsend(enq1.id)" [disabled]="sendingMailId === enq1.id">
+            {{ sendingMailId === enq1.id ? 'Sending...' : 'Mail' }}
+          </button>
         </td>
       </tr>
     </tbody>
