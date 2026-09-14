@@ -11,6 +11,8 @@ export class DocumentVarificationComponent implements OnInit {
 
   retrievedDoc: CustomerDetails[] = [];
   selectedCustomer: CustomerDetails = null;
+  activeTab = 'details';
+  selectedDocument = null;
 
   constructor(private commonservice: CommonService) { }
 
@@ -26,10 +28,34 @@ export class DocumentVarificationComponent implements OnInit {
 
   viewDocuments(c: CustomerDetails) {
     this.selectedCustomer = c;
+    this.activeTab = 'details';
+    this.selectedDocument = null;
+  }
+
+  showDocuments() {
+    this.activeTab = 'documents';
+    this.selectedDocument = null;
+  }
+
+  showDetails() {
+    this.activeTab = 'details';
+    this.selectedDocument = null;
+  }
+
+  viewDocument(documentName: string, documentData: string) {
+    this.selectedDocument = {
+      name: documentName,
+      data: documentData
+    };
+  }
+
+  closeDocument() {
+    this.selectedDocument = null;
   }
 
   back() {
     this.selectedCustomer = null;
+    this.selectedDocument = null;
   }
 
   verificationCall(c: CustomerDetails) {
