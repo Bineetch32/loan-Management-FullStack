@@ -28,7 +28,6 @@ class Invoice {
 export class SanctionLetterComponent implements OnInit {
 
   invoice = new Invoice();
-  customer: any;
 
   constructor(
     public service: CommonService,
@@ -42,7 +41,6 @@ export class SanctionLetterComponent implements OnInit {
     if (id) {
       this.service.getCustomerDetailsById(Number(id)).subscribe({
         next: (data) => {
-          this.customer = data;
           this.invoice.applicationId = data.id;
           this.invoice.customerName = data.customerName;
           this.invoice.email = data.customerEmailId;
@@ -140,8 +138,20 @@ export class SanctionLetterComponent implements OnInit {
       }
     };
 
-    if (action === 'download') {
-      pdfMake.createPdf(docDefinition).download(`Sanction-Letter-${this.invoice.applicationId}.pdf`);
-    }
+    pdfMake.createPdf(docDefinition).getBlob((blob: Blob) => {
+      const formData = new FormData();
+      formData.append('sanctionLetter', blob, `Sanction-Letter-${this.invoice.applicationId}.pdf`);
+
+      this.service.saveSanctionLetter(this.invoice.applicationId, formData).subscribe({
+        next: () => {
+          pdfMake.createPdf(docDefinition).download(`Sanction-Letter-${this.invoice.applicationId}.pdf`);
+          alert('Sanction letter generated and saved successfully.');
+        },
+        error: (error) => {
+          console.error('Unable to save sanction letter', error);
+          alert('Sanction letter could not be saved. Please try again.');
+        }
+      });
+    });
   }
 }
