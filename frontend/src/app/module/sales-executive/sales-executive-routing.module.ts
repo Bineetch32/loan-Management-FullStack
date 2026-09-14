@@ -5,38 +5,33 @@ import { LoanRequestApplicationComponent } from './loan-request-application/loan
 import { PendingApplicationComponent } from './pending-application/pending-application.component';
 import { ViewApplicationComponent } from './view-application/view-application.component';
 import { CustomerAllDocComponent } from './customer-all-doc/customer-all-doc.component';
+import { EligibleCustomerComponent } from './eligible-customer/eligible-customer.component';
 
 const routes: Routes = [
-
   {
-    path:'', redirectTo:'sd',pathMatch:'full'
-     },
+    path: '', redirectTo: 'sd', pathMatch: 'full'
+  },
   {
-    path:'sd',component:SalesDashboardComponent,
-    children:[
+    path: 'sd', component: SalesDashboardComponent,
+    children: [
       {
-        path:'lra',component:LoanRequestApplicationComponent
+        path: 'lra', component: LoanRequestApplicationComponent
       },
       {
-        path:'pa',component:PendingApplicationComponent
+        path: 'ec', component: EligibleCustomerComponent
       },
       {
-        path:'va',component:ViewApplicationComponent
+        path: 'pa', component: PendingApplicationComponent
       },
       {
-        path:'cad',component:CustomerAllDocComponent
+        path: 'va', component: ViewApplicationComponent
+      },
+      {
+        path: 'cad', component: CustomerAllDocComponent
       }
     ]
   }
-
-
-
 ];
-
-
-
-
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
