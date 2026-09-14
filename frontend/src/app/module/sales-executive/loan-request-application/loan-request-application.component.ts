@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerDetails } from '../../../model/customer-details';
 import { CommonService } from '../../../service/common.service';
 
@@ -36,7 +36,7 @@ export class LoanRequestApplicationComponent implements OnInit {
   imageSrc7: any;
   imageSrc8: any;
 
-  constructor(public fb: FormBuilder, public common: CommonService, private router: Router) {}
+  constructor(public fb: FormBuilder, public common: CommonService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.basicdetails = this.fb.group({
@@ -56,6 +56,18 @@ export class LoanRequestApplicationComponent implements OnInit {
       customerBankAccountDetails: this.fb.group({ accountNumber: [''], ifscCode: [''], bankName: [''], address: [''] })
     });
     this.documentUpload = this.fb.group({ documentId: [''] });
+
+    const enquiryId = this.route.snapshot.queryParamMap.get('enquiryId');
+    if (enquiryId) {
+      this.common.getEnquiryDetailsById(Number(enquiryId)).subscribe(enquiry => {
+        this.basicdetails.patchValue({
+          customerName: enquiry.customerName,
+          customerMobileno: enquiry.customerMobileno,
+          customerEmailId: enquiry.customerEmailId,
+          customerPanNo: enquiry.customerPanNo
+        });
+      });
+    }
   }
 
   onSelectedFile1(event: any) { this.selectedPanCopy = event.target.files[0]; }
