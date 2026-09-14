@@ -1,5 +1,7 @@
 <div class="documents-page" *ngIf="!selectedCustomer">
   <h2>Applicant Documents</h2>
+  <p>Select an application to view the customer's documents.</p>
+
   <div class="table-wrapper">
     <table class="table table-bordered table-striped" *ngIf="retrievedDoc.length > 0">
       <thead><tr><th>Application ID</th><th>Customer Name</th><th>Mobile No</th><th>PAN No</th><th>Loan Status</th><th>Action</th></tr></thead>
@@ -15,18 +17,24 @@
 </div>
 
 <div class="documents-page" *ngIf="selectedCustomer">
-  <h2>Documents - {{selectedCustomer.customerName}}</h2>
-  <p><b>Application ID:</b> {{selectedCustomer.id}} &nbsp; <b>PAN:</b> {{selectedCustomer.customerPanNo}}</p>
+  <h2>Applicant Documents</h2>
+  <div class="applicant-summary">
+    <p><b>Customer Name:</b> {{selectedCustomer.customerName}}</p>
+    <p><b>Application ID:</b> {{selectedCustomer.id}}</p>
+    <p><b>PAN Number:</b> {{selectedCustomer.customerPanNo}}</p>
+    <p><b>Mobile Number:</b> {{selectedCustomer.customerMobileno}}</p>
+  </div>
 
+  <h3>Uploaded Documents</h3>
   <div class="document-grid">
     <div class="document-card"><h4>PAN Card</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.panCopy"></div>
     <div class="document-card"><h4>Aadhaar Card</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.uidCopy"></div>
     <div class="document-card"><h4>Bank Passbook</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.bankPassBookCopy"></div>
     <div class="document-card"><h4>Photo</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.photo"></div>
     <div class="document-card"><h4>Signature</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.signature"></div>
-    <div class="document-card"><h4>Cancelled Check</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.cancelledCheck"></div>
+    <div class="document-card"><h4>Cancelled Cheque</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.cancelledCheck"></div>
     <div class="document-card"><h4>Salary Slip</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.salarySlip"></div>
   </div>
 
-  <button type="button" class="btn btn-primary" (click)="back()">Back</button>
+  <button type="button" class="btn btn-primary" (click)="back()">Back to Applicant Documents</button>
 </div>
