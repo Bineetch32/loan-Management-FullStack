@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerDetails } from '../../../model/customer-details';
+import { Enquiry } from '../../../model/enquiry';
 import { CommonService } from '../../../service/common.service';
 
 @Component({
@@ -15,6 +16,7 @@ export class LoanRequestApplicationComponent implements OnInit {
   upload: boolean = false;
   agreeTerms: boolean = false;
   submitting: boolean = false;
+  selectedEnquiry: Enquiry;
 
   basicdetailsave: any;
   basicdetails: FormGroup;
@@ -60,6 +62,7 @@ export class LoanRequestApplicationComponent implements OnInit {
     const enquiryId = this.route.snapshot.queryParamMap.get('enquiryId');
     if (enquiryId) {
       this.common.getEnquiryDetailsById(Number(enquiryId)).subscribe(enquiry => {
+        this.selectedEnquiry = enquiry;
         this.basicdetails.patchValue({
           customerName: enquiry.customerName,
           customerMobileno: enquiry.customerMobileno,
@@ -111,7 +114,12 @@ export class LoanRequestApplicationComponent implements OnInit {
     uploadDocument.append('cancelledCheck', this.selectedCancelledCheque);
     uploadDocument.append('salarySlips', this.selectedSalarySlip);
     uploadDocument.append('sanctionLetter', this.selectedsanctionLetter);
-    uploadDocument.append('document1', JSON.stringify(this.basicdetails.value));
+
+    const applicationData: any = this.basicdetails.value;
+    if (this.selectedEnquiry) {
+      applicationData.enq = this.selectedEnquiry;
+    }
+    uploadDocument.append('document1', JSON.stringify(applicationData));
 
     this.submitting = true;
     this.common.postDocument(uploadDocument).subscribe({
@@ -122,7 +130,11 @@ export class LoanRequestApplicationComponent implements OnInit {
       error: (error) => {
         this.submitting = false;
         console.error(error);
-        alert('Unable to save the application. Please try again.');
+        if (error.status === 409) {
+          alert('This customer already has a loan application. Duplicate application was not created.');
+        } else {
+          alert('Unable to save the application. Please try again.');
+        }
       }
     });
   }
