@@ -140,7 +140,8 @@ export class LoanRequestApplicationComponent implements OnInit {
     this.common.postDocument(uploadDocument).subscribe({
       next: () => {
         this.submitting = false;
-        this.router.navigateByUrl('/salesexecutive/sd');
+        alert('Application submitted successfully.');
+        this.router.navigateByUrl('/salesexecutive/sd/pa');
       },
       error: (error) => {
         this.submitting = false;
