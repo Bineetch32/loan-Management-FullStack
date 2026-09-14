@@ -6,22 +6,20 @@ import { SanctionApplicantComponent } from './sanction-applicant/sanction-applic
 import { UploadSanctionLetterComponent } from './upload-sanction-letter/upload-sanction-letter.component';
 import { SanctionLetterComponent } from './sanction-letter/sanction-letter.component';
 
-
 const routes: Routes = [
-
-{ path:'',redirectTo:"ah", pathMatch:"full"},
-{path:'ah',component:DashboardComponent,
-children:[
-{path:'va',component:VarifiedApplicantComponent},
-{path:'sa',component:SanctionApplicantComponent},
-{path:'usl',component:UploadSanctionLetterComponent},
-{path:'sl',component:SanctionLetterComponent}
-]}
-
+  { path: '', redirectTo: 'ah', pathMatch: 'full' },
+  {
+    path: 'ah',
+    component: DashboardComponent,
+    children: [
+      { path: 'va', component: VarifiedApplicantComponent },
+      { path: 'sa', component: SanctionApplicantComponent },
+      { path: 'sl', component: SanctionLetterComponent },
+      { path: 'sl/:id', component: SanctionLetterComponent },
+      { path: 'usl', component: UploadSanctionLetterComponent }
+    ]
+  }
 ];
-
-
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
