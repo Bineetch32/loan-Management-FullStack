@@ -31,198 +31,213 @@ import com.homeloan.service.HomeLoanService;
 @RestController
 public class HomeLoanController {
 
-	@Autowired HomeLoanService hls;
-	@Autowired EmailSenderService ess;
+    @Autowired HomeLoanService hls;
+    @Autowired EmailSenderService ess;
 
-	@Value("${spring.mail.username}")
-	String fromEmail;
+    @Value("${spring.mail.username}")
+    String fromEmail;
 
-	@PostMapping(value = "/setCustomerAllDetail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<String> saveCustomer(@RequestPart(value = "panCopy") MultipartFile doc1,
-			@RequestPart(value = "uidCopy") MultipartFile doc2,
-			@RequestPart(value = "bankPassBookCopy") MultipartFile doc3,
-			@RequestPart(value = "photo") MultipartFile doc4,
-			@RequestPart(value = "signature") MultipartFile doc5,
-			@RequestPart(value = "cancelledCheck") MultipartFile doc6,
-			@RequestPart(value = "salarySlips") MultipartFile doc7,
-			@RequestPart(value = "sanctionLetter", required = false) MultipartFile doc8,
-			@RequestPart(value = "document1") String document1) throws IOException {
-		ObjectMapper om = new ObjectMapper();
-		CustomerDetails c = om.readValue(document1, CustomerDetails.class);
+    @PostMapping(value = "/setCustomerAllDetail", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> saveCustomer(@RequestPart(value = "panCopy") MultipartFile doc1,
+            @RequestPart(value = "uidCopy") MultipartFile doc2,
+            @RequestPart(value = "bankPassBookCopy") MultipartFile doc3,
+            @RequestPart(value = "photo") MultipartFile doc4,
+            @RequestPart(value = "signature") MultipartFile doc5,
+            @RequestPart(value = "cancelledCheck") MultipartFile doc6,
+            @RequestPart(value = "salarySlips") MultipartFile doc7,
+            @RequestPart(value = "sanctionLetter", required = false) MultipartFile doc8,
+            @RequestPart(value = "document1") String document1) throws IOException {
+        ObjectMapper om = new ObjectMapper();
+        CustomerDetails c = om.readValue(document1, CustomerDetails.class);
 
-		if (c.getCustomerIncome() < 30000) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body("Customer income should be at least ₹30,000.");
-		}
+        if (c.getCustomerIncome() < 30000) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Customer income should be at least ₹30,000.");
+        }
 
-		Integer enquiryId = c.getEnq() != null ? c.getEnq().getId() : null;
-		if (hls.isDuplicateCustomer(c.getCustomerMobileno(), c.getCustomerPanNo(), enquiryId)) {
-			return ResponseEntity.status(HttpStatus.CONFLICT)
-					.body("This customer already has a loan application.");
-		}
+        Integer enquiryId = c.getEnq() != null ? c.getEnq().getId() : null;
+        if (hls.isDuplicateCustomer(c.getCustomerMobileno(), c.getCustomerPanNo(), enquiryId)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("This customer already has a loan application.");
+        }
 
-		CustomerAllDocument cad = new CustomerAllDocument();
-		cad.setPanCopy(doc1.getBytes());
-		cad.setUidCopy(doc2.getBytes());
-		cad.setBankPassBookCopy(doc3.getBytes());
-		cad.setPhoto(doc4.getBytes());
-		cad.setSignature(doc5.getBytes());
-		cad.setCancelledCheck(doc6.getBytes());
-		cad.setSalarySlip(doc7.getBytes());
-		if (doc8 != null) cad.setSanctionLetter(doc8.getBytes());
+        CustomerAllDocument cad = new CustomerAllDocument();
+        cad.setPanCopy(doc1.getBytes());
+        cad.setUidCopy(doc2.getBytes());
+        cad.setBankPassBookCopy(doc3.getBytes());
+        cad.setPhoto(doc4.getBytes());
+        cad.setSignature(doc5.getBytes());
+        cad.setCancelledCheck(doc6.getBytes());
+        cad.setSalarySlip(doc7.getBytes());
+        if (doc8 != null) cad.setSanctionLetter(doc8.getBytes());
 
-		CustomerBankAccountDetails cbd = new CustomerBankAccountDetails();
-		cbd.setAccountNumber(c.getCustomerBankAccountDetails().getAccountNumber());
-		cbd.setIfscCode(c.getCustomerBankAccountDetails().getIfscCode());
-		cbd.setBankName(c.getCustomerBankAccountDetails().getBankName());
-		cbd.setAddress(c.getCustomerBankAccountDetails().getAddress());
+        CustomerBankAccountDetails cbd = new CustomerBankAccountDetails();
+        cbd.setAccountNumber(c.getCustomerBankAccountDetails().getAccountNumber());
+        cbd.setIfscCode(c.getCustomerBankAccountDetails().getIfscCode());
+        cbd.setBankName(c.getCustomerBankAccountDetails().getBankName());
+        cbd.setAddress(c.getCustomerBankAccountDetails().getAddress());
 
-		CustomerLocalAddress cla = new CustomerLocalAddress();
-		cla.setPincode(c.getCustomerlocalAddress().getPincode());
-		cla.setAreaName(c.getCustomerlocalAddress().getAreaName());
-		cla.setCityName(c.getCustomerlocalAddress().getCityName());
-		cla.setDistrict(c.getCustomerlocalAddress().getDistrict());
-		cla.setState(c.getCustomerlocalAddress().getState());
+        CustomerLocalAddress cla = new CustomerLocalAddress();
+        cla.setPincode(c.getCustomerlocalAddress().getPincode());
+        cla.setAreaName(c.getCustomerlocalAddress().getAreaName());
+        cla.setCityName(c.getCustomerlocalAddress().getCityName());
+        cla.setDistrict(c.getCustomerlocalAddress().getDistrict());
+        cla.setState(c.getCustomerlocalAddress().getState());
 
-		CustomerPermanentAddress cpa = new CustomerPermanentAddress();
-		cpa.setPincode(c.getCustomerPermanentAddress().getPincode());
-		cpa.setAreaName(c.getCustomerPermanentAddress().getAreaName());
-		cpa.setCityName(c.getCustomerPermanentAddress().getCityName());
-		cpa.setDistrict(c.getCustomerPermanentAddress().getDistrict());
-		cpa.setState(c.getCustomerPermanentAddress().getState());
+        CustomerPermanentAddress cpa = new CustomerPermanentAddress();
+        cpa.setPincode(c.getCustomerPermanentAddress().getPincode());
+        cpa.setAreaName(c.getCustomerPermanentAddress().getAreaName());
+        cpa.setCityName(c.getCustomerPermanentAddress().getCityName());
+        cpa.setDistrict(c.getCustomerPermanentAddress().getDistrict());
+        cpa.setState(c.getCustomerPermanentAddress().getState());
 
-		GuarantorDetails gd = new GuarantorDetails();
-		gd.setGuarantorName(c.getGuarantorDetails().getGuarantorName());
-		gd.setGuarantorEmailId(c.getGuarantorDetails().getGuarantorEmailId());
-		gd.setGuarantorMobileNo(c.getGuarantorDetails().getGuarantorMobileNo());
-		gd.setGuarantorAddress(c.getGuarantorDetails().getGuarantorAddress());
+        GuarantorDetails gd = new GuarantorDetails();
+        gd.setGuarantorName(c.getGuarantorDetails().getGuarantorName());
+        gd.setGuarantorEmailId(c.getGuarantorDetails().getGuarantorEmailId());
+        gd.setGuarantorMobileNo(c.getGuarantorDetails().getGuarantorMobileNo());
+        gd.setGuarantorAddress(c.getGuarantorDetails().getGuarantorAddress());
 
-		CustomerDetails customer = new CustomerDetails();
-		customer.setCustomerName(c.getCustomerName());
-		customer.setCustomerMobileno(c.getCustomerMobileno());
-		customer.setCustomerDOB(c.getCustomerDOB());
-		customer.setCustomerEmailId(c.getCustomerEmailId());
-		customer.setCustomerPanNo(c.getCustomerPanNo());
-		customer.setCustomerAadharNo(c.getCustomerAadharNo());
-		customer.setCustomerGender(c.getCustomerGender());
-		customer.setCustomerIncome(c.getCustomerIncome());
-		customer.setLoanStatus("Pending");
-		customer.setVerificationn("Pending");
-		customer.setEnq(c.getEnq());
-		customer.setCustomerAllDocument(cad);
-		customer.setCustomerBankAccountDetails(cbd);
-		customer.setCustomerlocalAddress(cla);
-		customer.setCustomerPermanentAddress(cpa);
-		customer.setGuarantorDetails(gd);
+        CustomerDetails customer = new CustomerDetails();
+        customer.setCustomerName(c.getCustomerName());
+        customer.setCustomerMobileno(c.getCustomerMobileno());
+        customer.setCustomerDOB(c.getCustomerDOB());
+        customer.setCustomerEmailId(c.getCustomerEmailId());
+        customer.setCustomerPanNo(c.getCustomerPanNo());
+        customer.setCustomerAadharNo(c.getCustomerAadharNo());
+        customer.setCustomerGender(c.getCustomerGender());
+        customer.setCustomerIncome(c.getCustomerIncome());
+        customer.setLoanStatus("Pending");
+        customer.setVerificationn("Pending");
+        customer.setEnq(c.getEnq());
+        customer.setCustomerAllDocument(cad);
+        customer.setCustomerBankAccountDetails(cbd);
+        customer.setCustomerlocalAddress(cla);
+        customer.setCustomerPermanentAddress(cpa);
+        customer.setGuarantorDetails(gd);
 
-		hls.saveCustomer(customer);
+        hls.saveCustomer(customer);
 
-		try {
-			EmailSender es = new EmailSender();
-			es.setFromEmail(fromEmail);
-			es.setToEmail(customer.getCustomerEmailId());
-			es.setSubject("Home Loan Application Submitted Successfully");
-			es.setTestBody("Dear " + customer.getCustomerName()
-					+ ", your home loan application form has been submitted successfully."
-					+ " Your application status is Pending."
-					+ " Our team will verify your documents and contact you for the next steps."
-					+ "\n\nThank you,\nDeloite Finance");
-			ess.sendEmail(es);
-		} catch (Exception emailError) {
-			System.out.println("Application saved, but confirmation email could not be sent.");
-			emailError.printStackTrace();
-		}
+        try {
+            EmailSender es = new EmailSender();
+            es.setFromEmail(fromEmail);
+            es.setToEmail(customer.getCustomerEmailId());
+            es.setSubject("Home Loan Application Submitted Successfully");
+            es.setTestBody("Dear " + customer.getCustomerName()
+                    + ", your home loan application form has been submitted successfully."
+                    + " Your application status is Pending."
+                    + " Our team will verify your documents and contact you for the next steps."
+                    + "\n\nThank you,\nDeloite Finance");
+            ess.sendEmail(es);
+        } catch (Exception emailError) {
+            System.out.println("Application saved, but confirmation email could not be sent.");
+            emailError.printStackTrace();
+        }
 
-		return ResponseEntity.ok("Form Submitted SuccessFully");
-	}
+        return ResponseEntity.ok("Form Submitted SuccessFully");
+    }
 
-	@GetMapping("/getallgetData")
-	public ResponseEntity<List<CustomerDetails>> getEmployee() {
-		List<CustomerDetails> list = hls.viewCustomers();
-		if (list.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		return new ResponseEntity<>(list, HttpStatus.OK);
-	}
+    @GetMapping("/getallgetData")
+    public ResponseEntity<List<CustomerDetails>> getEmployee() {
+        List<CustomerDetails> list = hls.viewCustomers();
+        if (list.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 
-	@GetMapping("/getdataByid/{id}")
-	public Optional<CustomerDetails> searchCustomer(@PathVariable Integer id) {
-		return hls.searchEmployeee(id);
-	}
+    @GetMapping("/getdataByid/{id}")
+    public Optional<CustomerDetails> searchCustomer(@PathVariable Integer id) {
+        return hls.searchEmployeee(id);
+    }
 
-	@PutMapping(value = "/saveSanctionLetter/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<String> saveSanctionLetter(
-			@PathVariable Integer id,
-			@RequestPart("sanctionLetter") MultipartFile sanctionLetter) throws IOException {
+    @PutMapping(value = "/saveSanctionLetter/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> saveSanctionLetter(
+            @PathVariable Integer id,
+            @RequestPart("sanctionLetter") MultipartFile sanctionLetter,
+            @RequestPart("loanAmount") String loanAmount,
+            @RequestPart("interestRate") String interestRate,
+            @RequestPart("tenureYears") String tenureYears) throws IOException {
 
-		if (sanctionLetter == null || sanctionLetter.isEmpty()) {
-			return ResponseEntity.badRequest().body("Sanction letter file is required.");
-		}
+        if (sanctionLetter == null || sanctionLetter.isEmpty()) {
+            return ResponseEntity.badRequest().body("Sanction letter file is required.");
+        }
 
-		CustomerDetails customer = hls.findCust(id);
+        CustomerDetails customer = hls.findCust(id);
 
-		if (customer == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found.");
-		}
+        if (customer == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found.");
+        }
 
-		if (!"Varified".equals(customer.getVerificationn())) {
-			return ResponseEntity.badRequest().body("Only verified applicants can get a sanction letter.");
-		}
+        if (!"Varified".equals(customer.getVerificationn())) {
+            return ResponseEntity.badRequest().body("Only verified applicants can get a sanction letter.");
+        }
 
-		CustomerDetails savedCustomer = hls.saveSanctionLetter(id, sanctionLetter.getBytes());
+        double amount;
+        double rate;
+        int tenure;
+        try {
+            amount = Double.parseDouble(loanAmount);
+            rate = Double.parseDouble(interestRate);
+            tenure = Integer.parseInt(tenureYears);
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("Invalid sanction details.");
+        }
 
-		if (savedCustomer == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found.");
-		}
+        if (amount <= 0 || rate <= 0 || tenure <= 0) {
+            return ResponseEntity.badRequest().body("Loan amount, interest rate and tenure must be valid.");
+        }
 
-		customer.setLoanStatus("Sanctioned");
-		hls.saveCustomer(customer);
+        CustomerDetails savedCustomer = hls.saveSanctionLetter(id, sanctionLetter.getBytes(), amount, rate, tenure);
 
-		try {
-			EmailSender es = new EmailSender();
-			es.setFromEmail(fromEmail);
-			es.setToEmail(customer.getCustomerEmailId());
-			es.setSubject("Home Loan Sanction Letter");
-			es.setTestBody("Dear " + customer.getCustomerName()
-					+ ", your home loan sanction letter has been generated successfully."
-					+ " Please find the sanction letter attached with this email."
-					+ "\n\nThank you,\nDeloite Finance");
-			ess.sendattachement(es, sanctionLetter);
-			return ResponseEntity.ok("Sanction letter saved and email sent successfully.");
-		} catch (Exception emailError) {
-			System.out.println("Sanction letter saved, but email could not be sent.");
-			emailError.printStackTrace();
-			return ResponseEntity.ok("Sanction letter saved, but email could not be sent.");
-		}
-	}
+        if (savedCustomer == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found.");
+        }
 
-	@PutMapping("/AcceptCustomer/{id}")
-	public String approveStatus(@PathVariable("id") Integer id, CustomerDetails loanStatus) {
-		CustomerDetails st = hls.findCust(id);
-		st.setLoanStatus("Approved");
-		hls.saveCustomer(st);
-		return "redirect:/getallgetData/" + loanStatus;
-	}
+        try {
+            EmailSender es = new EmailSender();
+            es.setFromEmail(fromEmail);
+            es.setToEmail(customer.getCustomerEmailId());
+            es.setSubject("Home Loan Sanction Letter");
+            es.setTestBody("Dear " + customer.getCustomerName()
+                    + ", your home loan sanction letter has been generated successfully."
+                    + " Please find the sanction letter attached with this email."
+                    + "\n\nThank you,\nDeloite Finance");
+            ess.sendattachement(es, sanctionLetter);
+            return ResponseEntity.ok("Sanction letter saved and email sent successfully.");
+        } catch (Exception emailError) {
+            System.out.println("Sanction letter saved, but email could not be sent.");
+            emailError.printStackTrace();
+            return ResponseEntity.ok("Sanction letter saved, but email could not be sent.");
+        }
+    }
 
-	@PutMapping("/RejectCustomer/{id}")
-	public String rejectStatus(@PathVariable("id") Integer id, String loanStatus) {
-		CustomerDetails st = hls.findCust(id);
-		st.setLoanStatus("Rejected");
-		hls.saveCustomer(st);
-		return "redirect:/getallgetData/" + loanStatus;
-	}
+    @PutMapping("/AcceptCustomer/{id}")
+    public String approveStatus(@PathVariable("id") Integer id, CustomerDetails loanStatus) {
+        CustomerDetails st = hls.findCust(id);
+        st.setLoanStatus("Approved");
+        hls.saveCustomer(st);
+        return "redirect:/getallgetData/" + loanStatus;
+    }
 
-	@PutMapping("/VarifyCust/{id}")
-	public String varifiedStatus(@PathVariable("id") Integer id, String verificationn) {
-		CustomerDetails st = hls.findCust(id);
-		st.setVerificationn("Varified");
-		hls.saveCustomer(st);
-		return "redirect:/getallgetData/" + verificationn;
-	}
+    @PutMapping("/RejectCustomer/{id}")
+    public String rejectStatus(@PathVariable("id") Integer id, String loanStatus) {
+        CustomerDetails st = hls.findCust(id);
+        st.setLoanStatus("Rejected");
+        hls.saveCustomer(st);
+        return "redirect:/getallgetData/" + loanStatus;
+    }
 
-	@PutMapping("/Unvarifiedcust/{id}")
-	public String Unvarified(@PathVariable("id") Integer id, String verificationn) {
-		CustomerDetails st = hls.findCust(id);
-		st.setVerificationn("UnVarified");
-		hls.saveCustomer(st);
-		return "redirect:/getallgetData/" + verificationn;
-	}
+    @PutMapping("/VarifyCust/{id}")
+    public String varifiedStatus(@PathVariable("id") Integer id, String verificationn) {
+        CustomerDetails st = hls.findCust(id);
+        st.setVerificationn("Varified");
+        hls.saveCustomer(st);
+        return "redirect:/getallgetData/" + verificationn;
+    }
+
+    @PutMapping("/Unvarifiedcust/{id}")
+    public String Unvarified(@PathVariable("id") Integer id, String verificationn) {
+        CustomerDetails st = hls.findCust(id);
+        st.setVerificationn("UnVarified");
+        hls.saveCustomer(st);
+        return "redirect:/getallgetData/" + verificationn;
+    }
 }
