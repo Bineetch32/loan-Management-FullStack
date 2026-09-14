@@ -1,6 +1,6 @@
 <div class="documents-page" *ngIf="!selectedCustomer">
   <h2>Applicant Documents</h2>
-  <p>Select an application to view the customer's documents.</p>
+  <p class="document-subtitle">Select an application to view the customer's uploaded documents.</p>
 
   <div class="table-wrapper">
     <table class="table table-bordered table-striped" *ngIf="retrievedDoc.length > 0">
@@ -36,5 +36,5 @@
     <div class="document-card"><h4>Salary Slip</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.salarySlip"></div>
   </div>
 
-  <button type="button" class="btn btn-primary" (click)="back()">Back to Applicant Documents</button>
+  <button type="button" class="btn btn-primary back-button" (click)="back()">Back to Applicant Documents</button>
 </div>
