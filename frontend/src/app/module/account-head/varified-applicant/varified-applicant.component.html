@@ -4,10 +4,14 @@
       <h2>Verified Applicants</h2>
       <p>Customers verified by the Document Verification Officer.</p>
     </div>
+    <div class="page-links">
+      <a routerLink="/accounthead/ah/va" class="active-link">Verified Applicants</a>
+      <a routerLink="/accounthead/ah/sa">Sanction Applicants</a>
+    </div>
   </div>
 
   <div class="applicant-card" *ngFor="let c of retrievedDoc">
-    <div class="applicant-summary" *ngIf="c.verificationn == 'Varified' && c.loanStatus != 'Rejected'">
+    <div class="applicant-summary" *ngIf="c.verificationn == 'Varified' && c.loanStatus == 'Pending'">
       <div>
         <label>Application ID</label>
         <strong>#{{c.id}}</strong>
@@ -29,7 +33,7 @@
       </div>
     </div>
 
-    <details *ngIf="c.verificationn == 'Varified' && c.loanStatus != 'Rejected'">
+    <details *ngIf="c.verificationn == 'Varified' && c.loanStatus == 'Pending'">
       <summary>View Full Details & Documents</summary>
 
       <section class="info-section">
