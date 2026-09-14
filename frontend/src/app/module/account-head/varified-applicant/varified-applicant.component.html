@@ -1,48 +1,118 @@
-<div class="container">
-    <table border="2">
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>customerName</th>
-            <th>customerMobileno</th>
-             
-            <th>customerEmailId</th> 
-            <th>customerPanNo</th>
-           <th>cibil</th>
-           <th> Loan Status</th>
-           <th>Verification Status</th>
-           <th>Sanction Letter</th>
-           <th>Sanction Letter</th>
-           
-            
-            
-        </tr>
-        </thead>
-        <tbody *ngIf="retrievedDoc">
-            <tr *ngFor="let c of retrievedDoc">
-                <ng-container *ngIf="c.verificationn == 'Varified'" > 
-                <ng-container *ngIf="c.customerAllDocument.sanctionLetter !== null" > 
-                 <td>{{c.id}}</td>
-                 <td>{{c.customerName}}</td>
-                 <td>{{c.customerMobileno}}</td>
-                
-                 <td>{{c.customerEmailId}}</td>
-                 <td>{{c.customerPanNo}}</td>
-                 <td>{{c.cibil}}</td>
-                 <td>{{c.loanStatus}}</td>
-                 <td>{{c.verificationn}}</td>
-                 <td><a class="btn btn-primary active" [routerLink]="['sanlet',c.id]">Generate Sanction</a></td>
-                 <td><a class="btn btn-primary active" [routerLink]="['upsanlet']" [state]="c">Upload Sanction</a></td>
-                 
-
-                </ng-container>
-                </ng-container>
-            </tr> 
-        </tbody>
-        
-        </table>
-    
+<div class="applicant-page">
+  <div class="page-header">
+    <div>
+      <h2>Verified Applicants</h2>
+      <p>Customers verified by the Document Verification Officer.</p>
     </div>
-    <router-outlet></router-outlet>
-       
-    
+  </div>
+
+  <div class="applicant-card" *ngFor="let c of retrievedDoc">
+    <div class="applicant-summary" *ngIf="c.verificationn == 'Varified' && c.loanStatus != 'Rejected'">
+      <div>
+        <label>Application ID</label>
+        <strong>#{{c.id}}</strong>
+      </div>
+      <div>
+        <label>Customer Name</label>
+        <strong>{{c.customerName}}</strong>
+      </div>
+      <div>
+        <label>Mobile Number</label>
+        <span>{{c.customerMobileno}}</span>
+      </div>
+      <div>
+        <label>PAN Number</label>
+        <span>{{c.customerPanNo | uppercase}}</span>
+      </div>
+      <div>
+        <span class="status verified">Verified</span>
+      </div>
+    </div>
+
+    <details *ngIf="c.verificationn == 'Varified' && c.loanStatus != 'Rejected'">
+      <summary>View Full Details & Documents</summary>
+
+      <section class="info-section">
+        <h3>Personal & Loan Details</h3>
+        <div class="info-grid">
+          <div><label>Application ID</label><span>#{{c.id}}</span></div>
+          <div><label>Customer Name</label><span>{{c.customerName}}</span></div>
+          <div><label>Mobile Number</label><span>{{c.customerMobileno}}</span></div>
+          <div><label>Email</label><span>{{c.customerEmailId}}</span></div>
+          <div><label>PAN Number</label><span>{{c.customerPanNo | uppercase}}</span></div>
+          <div><label>Aadhaar Number</label><span>{{c.customerAadharNo}}</span></div>
+          <div><label>Date of Birth</label><span>{{c.customerDOB}}</span></div>
+          <div><label>Gender</label><span>{{c.customerGender}}</span></div>
+          <div><label>Monthly Income</label><span>₹ {{c.customerIncome}}</span></div>
+          <div><label>CIBIL Score</label><span>{{c.cibil}}</span></div>
+          <div><label>Loan Status</label><span>{{c.loanStatus}}</span></div>
+          <div><label>Verification Status</label><span class="status verified">Verified</span></div>
+        </div>
+      </section>
+
+      <section class="info-section">
+        <h3>Address Details</h3>
+        <div class="two-column">
+          <div class="detail-card">
+            <h4>Current Address</h4>
+            <p><b>Area:</b> {{c.customerlocalAddress?.areaName}}</p>
+            <p><b>City:</b> {{c.customerlocalAddress?.cityName}}</p>
+            <p><b>District:</b> {{c.customerlocalAddress?.district}}</p>
+            <p><b>State:</b> {{c.customerlocalAddress?.state}}</p>
+            <p><b>Pincode:</b> {{c.customerlocalAddress?.pincode}}</p>
+          </div>
+          <div class="detail-card">
+            <h4>Permanent Address</h4>
+            <p><b>Area:</b> {{c.customerPermanentAddress?.areaName}}</p>
+            <p><b>City:</b> {{c.customerPermanentAddress?.cityName}}</p>
+            <p><b>District:</b> {{c.customerPermanentAddress?.district}}</p>
+            <p><b>State:</b> {{c.customerPermanentAddress?.state}}</p>
+            <p><b>Pincode:</b> {{c.customerPermanentAddress?.pincode}}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-section">
+        <h3>Bank & Guarantor Details</h3>
+        <div class="two-column">
+          <div class="detail-card">
+            <h4>Bank Account</h4>
+            <p><b>Bank Name:</b> {{c.customerBankAccountDetails?.bankName}}</p>
+            <p><b>Account Number:</b> {{c.customerBankAccountDetails?.accountNumber}}</p>
+            <p><b>IFSC Code:</b> {{c.customerBankAccountDetails?.ifscCode}}</p>
+            <p><b>Address:</b> {{c.customerBankAccountDetails?.address}}</p>
+          </div>
+          <div class="detail-card">
+            <h4>Guarantor</h4>
+            <p><b>Name:</b> {{c.guarantorDetails?.guarantorName}}</p>
+            <p><b>Mobile:</b> {{c.guarantorDetails?.guarantorMobileNo}}</p>
+            <p><b>Email:</b> {{c.guarantorDetails?.guarantorEmailId}}</p>
+            <p><b>Address:</b> {{c.guarantorDetails?.guarantorAddress}}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="documents-section">
+        <h3>Uploaded Documents</h3>
+        <div class="document-grid">
+          <div class="document-card"><h4>PAN Card</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.panCopy" alt="PAN Card"></div>
+          <div class="document-card"><h4>Aadhaar Card</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.uidCopy" alt="Aadhaar Card"></div>
+          <div class="document-card"><h4>Bank Passbook</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.bankPassBookCopy" alt="Bank Passbook"></div>
+          <div class="document-card"><h4>Photo</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.photo" alt="Photo"></div>
+          <div class="document-card"><h4>Signature</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.signature" alt="Signature"></div>
+          <div class="document-card"><h4>Cancelled Cheque</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.cancelledCheck" alt="Cancelled Cheque"></div>
+          <div class="document-card"><h4>Salary Slip</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.salarySlip" alt="Salary Slip"></div>
+        </div>
+      </section>
+
+      <div class="action-area">
+        <a class="generate-button" [routerLink]="['../sl', c.id]">Generate Sanction Letter</a>
+      </div>
+    </details>
+  </div>
+
+  <div class="empty-state" *ngIf="retrievedDoc && retrievedDoc.length === 0">
+    <h3>No verified applicants</h3>
+    <p>No document-verified customer is available for Account Head review.</p>
+  </div>
+</div>
