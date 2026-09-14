@@ -1,0 +1,105 @@
+.ledger-page {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 35px 25px;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.loan-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.loan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 18px;
+}
+
+.loan-header h2 {
+  margin: 0 0 5px;
+}
+
+.loan-header span {
+  color: #666;
+}
+
+.status {
+  background: #e6f4ea;
+  color: #18743a !important;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-weight: 600;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.summary div {
+  background: #f8f9fa;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+label {
+  display: block;
+  color: #777;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+details {
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px 30px;
+  margin-top: 15px;
+}
+
+.empty {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 25px;
+  border-radius: 8px;
+}
+
+@media (max-width: 800px) {
+  .summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .summary,
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+}
