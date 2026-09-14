@@ -7,34 +7,44 @@ import { CommonService } from '../../../service/common.service';
   templateUrl: './document-varification.component.html',
   styleUrl: './document-varification.component.css'
 })
-export class DocumentVarificationComponent implements OnInit{
+export class DocumentVarificationComponent implements OnInit {
 
-  constructor(private commonservice:CommonService) { }
-  retrievedDoc:CustomerDetails[];
-  // uploadverification:FormGroup;
-  // selectedFile:File;
-  a:true;
+  retrievedDoc: CustomerDetails[] = [];
+  selectedCustomer: CustomerDetails = null;
+
+  constructor(private commonservice: CommonService) { }
 
   ngOnInit(): void {
-
-    this.commonservice.getApplicationData().subscribe(data=>{
-      this.retrievedDoc=data;
-    })
+    this.loadApplications();
   }
 
-  verificationCall(c:CustomerDetails)
-  {
-    alert(c.verificationn);
-    c.verificationn="Verified";
-    this.commonservice.verifyDocument(c).subscribe();
+  loadApplications() {
+    this.commonservice.getApplicationData().subscribe(data => {
+      this.retrievedDoc = data;
+    });
   }
 
-  rejectCall(c: CustomerDetails)
-  {
-    alert(c.verificationn);
-    c.verificationn="Unvarified";
-    this.commonservice.UnverifyDocument(c).subscribe();
+  viewDocuments(c: CustomerDetails) {
+    this.selectedCustomer = c;
   }
 
+  back() {
+    this.selectedCustomer = null;
+  }
 
+  verificationCall(c: CustomerDetails) {
+    c.verificationn = "Varified";
+    this.commonservice.verifyDocument(c).subscribe(() => {
+      alert("Documents verified successfully.");
+      this.loadApplications();
+    });
+  }
+
+  rejectCall(c: CustomerDetails) {
+    c.verificationn = "UnVarified";
+    this.commonservice.UnverifyDocument(c).subscribe(() => {
+      alert("Documents rejected.");
+      this.loadApplications();
+    });
+  }
 }
