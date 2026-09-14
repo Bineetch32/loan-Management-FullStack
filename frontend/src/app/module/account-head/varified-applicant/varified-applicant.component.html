@@ -21,6 +21,10 @@
         <div><span class="status verified">BM Approved</span></div>
       </div>
 
+      <div class="action-area">
+        <a class="generate-button" [routerLink]="['../sl', c.id]">Generate Sanction Letter</a>
+      </div>
+
       <details>
         <summary>View Full Details & Documents</summary>
 
@@ -96,10 +100,6 @@
             <div class="document-card"><h4>Salary Slip</h4><img [src]="'data:image/jpeg;base64,' + c.customerAllDocument?.salarySlip" alt="Salary Slip"></div>
           </div>
         </section>
-
-        <div class="action-area">
-          <a class="generate-button" [routerLink]="['../sl', c.id]">Generate Sanction Letter</a>
-        </div>
       </details>
     </ng-container>
   </div>
