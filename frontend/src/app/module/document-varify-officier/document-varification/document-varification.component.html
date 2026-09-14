@@ -1,88 +1,176 @@
 <div class="verification-page" *ngIf="!selectedCustomer">
-  <h2>Document Verification</h2>
-  <p class="page-note">Applications submitted by Sales Executive are shown here for document verification.</p>
-
-  <div class="table-wrapper" *ngIf="retrievedDoc.length > 0">
-    <table>
-      <thead>
-        <tr>
-          <th>Application ID</th>
-          <th>Customer Name</th>
-          <th>Mobile No</th>
-          <th>Email</th>
-          <th>PAN No</th>
-          <th>Loan Status</th>
-          <th>Verification Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let c of retrievedDoc">
-          <tr *ngIf="c.loanStatus !== 'Rejected' && c.verificationn !== 'Varified'">
-            <td>{{c.id}}</td>
-            <td>{{c.customerName}}</td>
-            <td>{{c.customerMobileno}}</td>
-            <td>{{c.customerEmailId}}</td>
-            <td>{{c.customerPanNo}}</td>
-            <td><span class="status pending">{{c.loanStatus}}</span></td>
-            <td><span class="status pending">{{c.verificationn}}</span></td>
-            <td class="actions">
-              <button class="btn btn-primary btn-sm" (click)="viewDocuments(c)">View Full Details</button>
-              <button class="btn btn-success btn-sm" (click)="verificationCall(c)">Verify</button>
-              <button class="btn btn-danger btn-sm" (click)="rejectCall(c)">Reject</button>
-            </td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
+  <div class="page-header">
+    <div>
+      <h2>Document Verification</h2>
+      <p>Applications submitted by Sales Executive are shown here for verification.</p>
+    </div>
   </div>
 
-  <p class="no-data" *ngIf="retrievedDoc.length === 0">No applications found.</p>
+  <div class="table-card" *ngIf="retrievedDoc.length > 0">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Application ID</th>
+            <th>Customer Name</th>
+            <th>Mobile No</th>
+            <th>Email</th>
+            <th>PAN No</th>
+            <th>Loan Status</th>
+            <th>Verification</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let c of retrievedDoc">
+            <tr *ngIf="c.loanStatus !== 'Rejected' && c.verificationn !== 'Varified'">
+              <td><strong>#{{c.id}}</strong></td>
+              <td>{{c.customerName}}</td>
+              <td>{{c.customerMobileno}}</td>
+              <td>{{c.customerEmailId}}</td>
+              <td>{{c.customerPanNo | uppercase}}</td>
+              <td><span class="status pending">{{c.loanStatus}}</span></td>
+              <td><span class="status pending">{{c.verificationn || 'Pending'}}</span></td>
+              <td class="actions">
+                <button class="btn btn-primary btn-sm" (click)="viewDocuments(c)">View Details</button>
+                <button class="btn btn-success btn-sm" (click)="verificationCall(c)">Verify</button>
+                <button class="btn btn-danger btn-sm" (click)="rejectCall(c)">Reject</button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="retrievedDoc.length === 0">
+    <h3>No applications found</h3>
+    <p>There are no applications waiting for document verification.</p>
+  </div>
 </div>
 
-<div class="verification-page" *ngIf="selectedCustomer">
-  <h2>Applicant Full Details</h2>
-
-  <div class="applicant-info">
-    <div><b>Application ID</b><span>{{selectedCustomer.id}}</span></div>
-    <div><b>Customer Name</b><span>{{selectedCustomer.customerName}}</span></div>
-    <div><b>Mobile No</b><span>{{selectedCustomer.customerMobileno}}</span></div>
-    <div><b>Email</b><span>{{selectedCustomer.customerEmailId}}</span></div>
-    <div><b>PAN No</b><span>{{selectedCustomer.customerPanNo}}</span></div>
-    <div><b>Aadhaar No</b><span>{{selectedCustomer.customerAadharNo}}</span></div>
-    <div><b>Date of Birth</b><span>{{selectedCustomer.customerDOB}}</span></div>
-    <div><b>Gender</b><span>{{selectedCustomer.customerGender}}</span></div>
-    <div><b>Monthly Income</b><span>{{selectedCustomer.customerIncome}}</span></div>
-    <div><b>Loan Status</b><span>{{selectedCustomer.loanStatus}}</span></div>
-    <div><b>Verification Status</b><span>{{selectedCustomer.verificationn}}</span></div>
+<div class="verification-page detail-page" *ngIf="selectedCustomer">
+  <div class="detail-header">
+    <div>
+      <div class="small-title">APPLICATION #{{selectedCustomer.id}}</div>
+      <h2>{{selectedCustomer.customerName}}</h2>
+      <p>Review applicant information and uploaded documents.</p>
+    </div>
+    <button class="btn btn-secondary" (click)="back()">Back to Applicants</button>
   </div>
 
-  <h3>Address Details</h3>
-  <div class="details-box">
-    <div><b>Current Address</b><span>{{selectedCustomer.customerlocalAddress | json}}</span></div>
-    <div><b>Permanent Address</b><span>{{selectedCustomer.customerPermanentAddress | json}}</span></div>
+  <div class="tab-bar">
+    <button [class.active]="activeTab === 'details'" (click)="showDetails()">Applicant Details</button>
+    <button [class.active]="activeTab === 'documents'" (click)="showDocuments()">Uploaded Documents</button>
   </div>
 
-  <h3>Bank Details</h3>
-  <div class="details-box">
-    <div><b>Bank Account Details</b><span>{{selectedCustomer.customerBankAccountDetails | json}}</span></div>
-    <div><b>Guarantor Details</b><span>{{selectedCustomer.guarantorDetails | json}}</span></div>
+  <div *ngIf="activeTab === 'details'">
+    <section class="info-section">
+      <h3>Personal & Loan Details</h3>
+      <div class="info-grid">
+        <div class="info-item"><label>Application ID</label><span>#{{selectedCustomer.id}}</span></div>
+        <div class="info-item"><label>Customer Name</label><span>{{selectedCustomer.customerName}}</span></div>
+        <div class="info-item"><label>Mobile Number</label><span>{{selectedCustomer.customerMobileno}}</span></div>
+        <div class="info-item"><label>Email</label><span>{{selectedCustomer.customerEmailId}}</span></div>
+        <div class="info-item"><label>PAN Number</label><span>{{selectedCustomer.customerPanNo | uppercase}}</span></div>
+        <div class="info-item"><label>Aadhaar Number</label><span>{{selectedCustomer.customerAadharNo}}</span></div>
+        <div class="info-item"><label>Date of Birth</label><span>{{selectedCustomer.customerDOB}}</span></div>
+        <div class="info-item"><label>Gender</label><span>{{selectedCustomer.customerGender}}</span></div>
+        <div class="info-item"><label>Monthly Income</label><span>₹ {{selectedCustomer.customerIncome}}</span></div>
+        <div class="info-item"><label>Loan Status</label><span class="status pending">{{selectedCustomer.loanStatus}}</span></div>
+        <div class="info-item"><label>Verification Status</label><span class="status pending">{{selectedCustomer.verificationn || 'Pending'}}</span></div>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <h3>Address Details</h3>
+      <div class="two-column">
+        <div class="detail-card">
+          <h4>Current Address</h4>
+          <p><b>Area:</b> {{selectedCustomer.customerlocalAddress?.areaName}}</p>
+          <p><b>City:</b> {{selectedCustomer.customerlocalAddress?.cityName}}</p>
+          <p><b>District:</b> {{selectedCustomer.customerlocalAddress?.district}}</p>
+          <p><b>State:</b> {{selectedCustomer.customerlocalAddress?.state}}</p>
+          <p><b>Pincode:</b> {{selectedCustomer.customerlocalAddress?.pincode}}</p>
+        </div>
+        <div class="detail-card">
+          <h4>Permanent Address</h4>
+          <p><b>Area:</b> {{selectedCustomer.customerPermanentAddress?.areaName}}</p>
+          <p><b>City:</b> {{selectedCustomer.customerPermanentAddress?.cityName}}</p>
+          <p><b>District:</b> {{selectedCustomer.customerPermanentAddress?.district}}</p>
+          <p><b>State:</b> {{selectedCustomer.customerPermanentAddress?.state}}</p>
+          <p><b>Pincode:</b> {{selectedCustomer.customerPermanentAddress?.pincode}}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <h3>Bank & Guarantor Details</h3>
+      <div class="two-column">
+        <div class="detail-card">
+          <h4>Bank Account</h4>
+          <p><b>Bank Name:</b> {{selectedCustomer.customerBankAccountDetails?.bankName}}</p>
+          <p><b>Account Number:</b> {{selectedCustomer.customerBankAccountDetails?.accountNumber}}</p>
+          <p><b>IFSC Code:</b> {{selectedCustomer.customerBankAccountDetails?.ifscCode}}</p>
+          <p><b>Address:</b> {{selectedCustomer.customerBankAccountDetails?.address}}</p>
+        </div>
+        <div class="detail-card">
+          <h4>Guarantor</h4>
+          <p><b>Name:</b> {{selectedCustomer.guarantorDetails?.guarantorName}}</p>
+          <p><b>Mobile:</b> {{selectedCustomer.guarantorDetails?.guarantorMobileNo}}</p>
+          <p><b>Email:</b> {{selectedCustomer.guarantorDetails?.guarantorEmailId}}</p>
+          <p><b>Address:</b> {{selectedCustomer.guarantorDetails?.guarantorAddress}}</p>
+        </div>
+      </div>
+    </section>
   </div>
 
-  <h3>Uploaded Documents</h3>
-  <div class="document-grid">
-    <div class="document-card"><h4>PAN Card</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.panCopy"></div>
-    <div class="document-card"><h4>Aadhaar Card</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.uidCopy"></div>
-    <div class="document-card"><h4>Bank Passbook</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.bankPassBookCopy"></div>
-    <div class="document-card"><h4>Photo</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.photo"></div>
-    <div class="document-card"><h4>Signature</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.signature"></div>
-    <div class="document-card"><h4>Cancelled Cheque</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.cancelledCheck"></div>
-    <div class="document-card"><h4>Salary Slip</h4><img [src]="'data:image/jpeg;base64,' + selectedCustomer.customerAllDocument?.salarySlip"></div>
+  <div *ngIf="activeTab === 'documents'" class="documents-section">
+    <div class="document-list" *ngIf="!selectedDocument">
+      <div class="document-row">
+        <div><span class="doc-icon">01</span><div><h4>PAN Card</h4><p>Identity document</p></div></div>
+        <button class="btn btn-primary" (click)="viewDocument('PAN Card', selectedCustomer.customerAllDocument?.panCopy)">View Document</button>
+      </div>
+      <div class="document-row">
+        <div><span class="doc-icon">02</span><div><h4>Aadhaar Card</h4><p>Identity document</p></div></div>
+        <button class="btn btn-primary" (click)="viewDocument('Aadhaar Card', selectedCustomer.customerAllDocument?.uidCopy)">View Document</button>
+      </div>
+      <div class="document-row">
+        <div><span class="doc-icon">03</span><div><h4>Bank Passbook</h4><p>Banking document</p></div></div>
+        <button class="btn btn-primary" (click)="viewDocument('Bank Passbook', selectedCustomer.customerAllDocument?.bankPassBookCopy)">View Document</button>
+      </div>
+      <div class="document-row">
+        <div><span class="doc-icon">04</span><div><h4>Photo</h4><p>Applicant photograph</p></div></div>
+        <button class="btn btn-primary" (click)="viewDocument('Photo', selectedCustomer.customerAllDocument?.photo)">View Document</button>
+      </div>
+      <div class="document-row">
+        <div><span class="doc-icon">05</span><div><h4>Signature</h4><p>Applicant signature</p></div></div>
+        <button class="btn btn-primary" (click)="viewDocument('Signature', selectedCustomer.customerAllDocument?.signature)">View Document</button>
+      </div>
+      <div class="document-row">
+        <div><span class="doc-icon">06</span><div><h4>Cancelled Cheque</h4><p>Banking document</p></div></div>
+        <button class="btn btn-primary" (click)="viewDocument('Cancelled Cheque', selectedCustomer.customerAllDocument?.cancelledCheck)">View Document</button>
+      </div>
+      <div class="document-row">
+        <div><span class="doc-icon">07</span><div><h4>Salary Slip</h4><p>Income proof</p></div></div>
+        <button class="btn btn-primary" (click)="viewDocument('Salary Slip', selectedCustomer.customerAllDocument?.salarySlip)">View Document</button>
+      </div>
+    </div>
+
+    <div class="document-viewer" *ngIf="selectedDocument">
+      <div class="viewer-header">
+        <h3>{{selectedDocument.name}}</h3>
+        <button class="btn btn-secondary" (click)="closeDocument()">Back to Documents</button>
+      </div>
+      <div class="viewer-image">
+        <img [src]="'data:image/jpeg;base64,' + selectedDocument.data" [alt]="selectedDocument.name">
+      </div>
+    </div>
   </div>
 
   <div class="bottom-actions">
     <button class="btn btn-success" (click)="verificationCall(selectedCustomer)">Verify Documents</button>
     <button class="btn btn-danger" (click)="rejectCall(selectedCustomer)">Reject Documents</button>
-    <button class="btn btn-secondary" (click)="back()">Back</button>
+    <button class="btn btn-secondary" (click)="back()">Back to Applicants</button>
   </div>
 </div>
