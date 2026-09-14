@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Enquiry } from '../../../model/enquiry';
 import { CommonService } from '../../../service/common.service';
 
@@ -11,7 +12,7 @@ export class EligibleCustomerComponent implements OnInit {
 
   eligibleCustomers: Enquiry[] = [];
 
-  constructor(private commonservice: CommonService) { }
+  constructor(private commonservice: CommonService, private router: Router) { }
 
   ngOnInit(): void {
     this.commonservice.getEnquiryall().subscribe(data => {
@@ -26,6 +27,12 @@ export class EligibleCustomerComponent implements OnInit {
         });
 
       this.eligibleCustomers = Array.from(uniqueCustomers.values());
+    });
+  }
+
+  proceed(id: number): void {
+    this.router.navigate(['/salesexecutive/sd/lra'], {
+      queryParams: { enquiryId: id }
     });
   }
 }
