@@ -11,20 +11,25 @@ import { Location } from '@angular/common';
 })
 export class ApplicantDetailComponent implements OnInit {
 
-  customerObject:CustomerDetails
-  constructor(private routes:ActivatedRoute, private common:CommonService, private location:Location) { }
+  customerObject: CustomerDetails;
 
-  ngOnInit(): void 
- {
-     alert("Customer Details Retriving.....")
-    this.routes.paramMap.subscribe(param1=>{
-      this.common.getCustomerDetailsById(parseInt(param1.get('id'))).subscribe(data=>{
-        this.customerObject=data;
-      })
-    })
+  constructor(
+    private routes: ActivatedRoute,
+    private common: CommonService,
+    private location: Location
+  ) { }
+
+  ngOnInit(): void {
+    this.routes.paramMap.subscribe(param1 => {
+      const id = Number(param1.get('id'));
+
+      this.common.getCustomerDetailsById(id).subscribe(data => {
+        this.customerObject = data;
+      });
+    });
   }
 
-  getback()    {  this.location.back();  }
-
-
+  getback() {
+    this.location.back();
+  }
 }
